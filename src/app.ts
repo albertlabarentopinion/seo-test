@@ -153,7 +153,7 @@ module App.Main {
             // debug: false
         // });
 
-        $httpProvider.interceptors.push('preventTemplateCache');
+        // $httpProvider.interceptors.push('preventTemplateCache');
 
         // RestangularProvider.addResponseInterceptor(function(data, operation, what, url, response, deferred) {
         //      if (data.hasOwnProperty("data"))
