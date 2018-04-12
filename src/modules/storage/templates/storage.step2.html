@@ -1,0 +1,88 @@
+<form class="" id="step-2" name="add_listing_form">
+    <form-error error-bags="step2Ctrl.errorBags"></form-error>
+    <div class="row">
+         <div class="col-md-5">
+            <div class="form-group required">
+                <label for="" class="">{{"ADDRESS" | translate}}</label>
+                <input name="1" focus-name="1" next-focus="2" class="form-control" type="text" force-selection="true" g-places-autocomplete ng-model="selected_address" options="gPlacesOptions" id="searchPlaces"/>
+            </div>
+            <div class="form-group required">
+                <label for="" class="control-label" >{{"01_ZIP" | translate}}</label>
+                <input name="2" focus-name="2" next-focus="3" class="form-control" type="text" ng-model="step2Ctrl.listing.zip"/>
+            </div>
+            <div class="form-group required">
+                <label for="" class="control-label" >{{"01_CITY" | translate}}</label>
+                <input name="3" focus-name="3" next-focus="4" class="form-control" type="text" ng-model="step2Ctrl.listing.city"/>
+            </div>
+         </div>
+         <div class="col-md-7">
+            <gm-map 
+                center="step2Ctrl.map.center"
+                zoom="step2Ctrl.map.zoom"
+                options="{center: [59.9127831,10.761101], zoom:13, mapTypeId: google.maps.MapTypeId.ROADMAP}">
+                
+                <gm-marker 
+                    position="step2Ctrl.map.marker.position"
+                    ng-if="step2Ctrl.map.marker.position" options="{position:  [40.750, -73], draggable: false}"></gm-marker>
+            </gm-map>
+         </div>
+    </div>
+
+    <div class="row">
+        <div class="hr-line-dashed m-t-lg m-b-lg"></div>
+
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="" class="col-sm-2 control-label">{{ "LOCATION_INSTRUCTION" | translate }}</label>
+                <div class="col-sm-10">
+                    <input name="4" focus-name="4" next-focus="1" class="form-control" type="text" ng-model="step2Ctrl.listing.location_description" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="hr-line-dashed m-t-lg m-b-xl"></div>
+    
+    <div ng-if="step2Ctrl.isDirty && !step2Ctrl.isNewListing">
+        <button 
+            class="btn btn-primary pull-right" 
+            promise-btn 
+            ng-click="step2Ctrl.save( step2Ctrl.listing )">
+            {{"01_SAVE_BTN" | translate}}
+        </button>
+        <button 
+            class="btn btn-default pull-right m-r-sm" 
+            promise-btn 
+            ng-click="step2Ctrl.disgard()">
+            {{"01_DISCARD_BTN" | translate}}
+        </button>
+    </div>
+    <div ng-if="!step2Ctrl.isDirty && !step2Ctrl.isNewListing">
+        <button 
+            class="btn btn-primary pull-right" 
+            promise-btn 
+            ng-click="step2Ctrl.navigateTo( step2Ctrl.listing, 'main.account.storage.add_listing.step3')">
+            {{"NEXT" | translate}}
+        </button>
+        <button 
+            class="btn btn-default pull-right m-r-sm" 
+            promise-btn 
+            ng-click="step2Ctrl.navigateTo( step2Ctrl.listing, 'main.account.storage.add_listing.step1_edit')">
+            {{"PREVIOUS" | translate}}
+        </button>
+    </div>
+    <div ng-if="step2Ctrl.isNewListing">
+        <button 
+            class="btn btn-primary pull-right" 
+            promise-btn 
+            ng-click="step2Ctrl.save( step2Ctrl.listing, 'main.account.storage.add_listing.step3')">
+            {{"NEXT" | translate}}
+        </button>
+        <button 
+            class="btn btn-default pull-right m-r-sm" 
+            promise-btn 
+            ng-click="step2Ctrl.save( step2Ctrl.listing, 'main.account.storage.add_listing.step1_edit')">
+            {{"PREVIOUS" | translate}}
+        </button>
+    </div>
+</form>

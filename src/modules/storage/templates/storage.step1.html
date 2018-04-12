@@ -1,0 +1,128 @@
+<form class="form-horizontal" name="add_listing_form">
+    <div class="form-group">
+        <label class="col-sm-2 control-label">{{ "TYPE_OF_STORAGE" | translate }}<br>
+        <small class="text-navy">{{"SELECT_SEVERAL" | translate}}</small>
+        </label>
+        <div class="col-sm-7">
+            <div ng-repeat="listing_types in step1Ctrl.listing_types" class="col-sm-4">
+                <div ng-repeat="listing_type in listing_types">
+                        <label>
+                             <input focus-name="1"  icheck  type="checkbox" ng-model="step1Ctrl.listing.types[listing_type.type]" name="types[]" ng-value="listing_type.type">  {{listing_type.type | translate}}
+                        </label>
+                </div>
+               
+            </div>
+        </div>
+
+        <div class="col-sm-3 form-group">
+            <!-- <label class="col-sm-4 control-label">{{ "OTHERS" | translate }}</label>
+            <div class="col-sm-8"><input type="text" class="form-control" placeholder="" ng-model="step1Ctrl.listing.other_listing"></div> -->
+            <label class="col-sm-4 control-label">{{ "OPTIONAL" | translate }}</label>
+            <div class="col-sm-8"><input type="text" class="form-control" placeholder="" ng-model="step1Ctrl.listing.optional_types"></div>
+        </div>
+    </div>
+
+    <div class="hr-line-dashed m-t-lg m-b-lg"></div>
+
+    <div class="form-group" ng-if="(step1Ctrl.isSpecial  == 1 || step1Ctrl.listing.isSpecial == 1) && user.role == 'admin' ">
+        <label for="" class="col-sm-2 control-label">{{"OWNER" | translate}}</label>
+        <div class="col-sm-4" >
+            <select class="form-control" ng-model="step1Ctrl.listing.user" ng-options="company as company.company_name for company in step1Ctrl.users"></select>
+        </div>
+    </div>
+
+    <div class="hr-line-dashed m-t-lg m-b-lg" ng-if="(step1Ctrl.isSpecial  == 1 || step1Ctrl.listing.isSpecial == 1) && user.role == 'admin'"></div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">{{"ACCESS" | translate}}</label>
+
+        <div class="col-sm-10">
+            <div><label> <input icheck type="radio" name="full" ng-model="step1Ctrl.listing.access"   ng-value="'After appointment'">  {{'AFTER_APPOINTMENT' | translate}}</label></div>
+            <div><label> <input icheck type="radio"  name="full" ng-model="step1Ctrl.listing.access" ng-value="'Full access (own key/lock)'">  {{'FULL_ACCESS' | translate}}</label></div>
+            <div class="col-sm-3"><input type="text" ng-model="step1Ctrl.listing.access_text" class="form-control" placeholder="{{'OPTIONAL_TEXT_ABOUT' | translate}} {{'ACCESS' | translate}}"></div>
+        </div>
+    </div>
+
+    <div class="hr-line-dashed m-t-lg m-b-lg"></div>
+
+    <div class="form-group">
+        <label for="" class="col-sm-2 control-label">{{"SIZE" | translate}}</label>
+        <div class="col-sm-2">
+            <input type="text" awnum num-thousand="true" num-int="100" class="form-control" placeholder="{{'LENGHT' | translate}}" ng-model="step1Ctrl.listing.size_length" >
+        </div>
+        <div class="col-sm-2">
+            <input type="text" awnum num-thousand="true" num-int="100" class="form-control" placeholder="{{'WIDTH' | translate}}" ng-model="step1Ctrl.listing.size_width" >
+        </div>
+        <div class="col-sm-2">
+            <input type="text" awnum num-thousand="true" num-int="100" class="form-control" placeholder="{{'HEIGHT' | translate}}" ng-model="step1Ctrl.listing.size_height" >
+        </div>
+        <div class="col-sm-2 m-t-sm">
+            <b>{{step1Ctrl.listing.size_length * step1Ctrl.listing.size_width | number:0}} m<sup>2</sup></b>    
+        </div>
+    </div>
+    
+    <div class="hr-line-dashed m-t-lg m-b-lg"></div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">{{"ACCEESSIBILITY" | translate}}</label>
+
+        <div class="col-sm-10">
+            <div><label> <input icheck type="checkbox" name="accessibility[]" ng-model="step1Ctrl.listing.accessibility['ELEVATOR']">  {{"ELEVATOR" | translate}}</label></div>
+            <div><label> <input icheck type="checkbox"  name="accessibility[]" ng-model="step1Ctrl.listing.accessibility['STAIRS']">  {{"STAIRS" | translate}}</label></div>
+            <div><label> <input icheck type="checkbox"  name="accessibility[]" ng-model="step1Ctrl.listing.accessibility['ALARM_FOR_WEIGHTS']">  {{"ALARM_FOR_WEIGHTS" | translate}}</label></div>
+            <div><label> <input icheck type="checkbox"  name="accessibility[]" ng-model="step1Ctrl.listing.accessibility['HEATED']">  {{"HEATED" | translate}}</label></div>
+            <div class="col-sm-3"><input ng-model="step1Ctrl.listing.accessibility_text" type="text" class="form-control" placeholder="{{'OPTIONAL_TEXT_ABOUT' | translate}} {{'ACCEESSIBILITY' | translate}}"></div>
+        </div>
+    </div>
+
+    <!-- <div class="hr-line-dashed m-t-lg m-b-lg"></div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">{{"OWN_SHARED" | translate}}</label>
+
+        <div class="col-sm-10">
+            <div><label> <input ng-model="step1Ctrl.listing.own_shared" icheck type="radio" name="own_shared" ng-value="'Shared with others'">  {{"SHARED_WITH_OTHERS" | translate}}</label></div>
+            <div><label> <input ng-model="step1Ctrl.listing.own_shared" icheck type="radio"  name="own_shared" ng-value="'Own/private'">  {{"OWN_PRIVATE" | translate}}</label></div>
+            <div class="col-sm-3"><input focus-name="2" next-focus="1" ng-model="step1Ctrl.listing.own_shared_text" type="text" class="form-control" placeholder="{{'OPTIONAL_TEXT_ABOUT' | translate}} {{'OWN_SHARED' | translate}}"></div>
+        </div>
+    </div> -->
+
+    <div class="hr-line-dashed m-t-lg m-b-xl"></div>
+
+    <div ng-if="step1Ctrl.isDirty && step1Ctrl.isEdit && !step1Ctrl.isNewListing">
+        <button 
+            class="btn btn-primary pull-right" 
+            promise-btn 
+            ng-click="step1Ctrl.save( step1Ctrl.listing )">
+            {{"01_SAVE_BTN" | translate}}
+        </button>
+        <button 
+            class="btn btn-default pull-right m-r-sm" 
+            promise-btn 
+            ng-click="step1Ctrl.disgard()">
+            {{"01_DISCARD_BTN" | translate}}
+        </button>
+    </div>
+    <div ng-if="(!step1Ctrl.isDirty || !step1Ctrl.isEdit) && !step1Ctrl.isNewListing">
+        <a 
+            class="btn btn-primary pull-right" 
+            ng-click="step1Ctrl.next(step1Ctrl.listing)" ng-if="step1Ctrl.listing.id">
+            {{"NEXT" | translate}}
+        </a>
+         <button 
+            class="btn btn-primary pull-right" 
+            promise-btn 
+            ng-click="step1Ctrl.save( step1Ctrl.listing, true )" ng-if="!step1Ctrl.listing.id">
+            {{"01_ADD_LISTING" | translate}}
+        </button>
+    </div>
+    <div ng-if="step1Ctrl.isNewListing">
+         <button 
+            class="btn btn-primary pull-right" 
+            promise-btn 
+            ng-click="step1Ctrl.save( step1Ctrl.listing, true )" ng-if="!step1Ctrl.listing.id">
+            {{"01_ADD_LISTING" | translate}}
+        </button>
+    </div>
+
+</form>

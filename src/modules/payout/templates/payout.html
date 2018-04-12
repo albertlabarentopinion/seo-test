@@ -1,0 +1,63 @@
+<div class="ibox">
+    <div class="ibox-title"> <h5>{{'ACCOUNT_NUMBER_FOR_PAYOUT' | translate}}</h5> </div>
+    <div class="ibox-content" ng-class="{'sk-loading' : payoutCtrl.isLoading}">
+        <div class="sk-spinner sk-spinner-double-bounce">
+            <div class="sk-double-bounce1"></div>
+            <div class="sk-double-bounce2"></div>
+        </div>
+       <p>{{"PAYOUT_NOTE" | translate}}</p>
+       <div class="m-t-md m-b-md">
+        <h4 ><b>{{user.bank_account}}</b></h4>
+       </div>
+       <button class="btn btn-default" ng-click="payoutCtrl.addAddUpdateAccount()" ng-if="!user.bank_account">{{"ADD" | translate}}</button>
+       <button class="btn btn-default" ng-click="payoutCtrl.addAddUpdateAccount()" ng-if="user.bank_account">{{"UPDATE" | translate}}</button>
+        <div class="row">
+            <div class="m-t-md col-md-6" ng-if="payoutCtrl.warning_payout_messages.length > 0">
+                
+                    
+                <div class="alert alert-warning text-center">
+                    <h4>{{"ACCOUNT_UPDATE_PROFILE" | translate}}   </h4>
+                    <span class="fa fa-warning"></span>  
+                    <div ng-repeat="field in payoutCtrl.warning_payout_messages" class="m-b-sm">
+                        {{field | translate}}
+                    </div>
+                    <a class="btn btn-primary btn-sm" ui-sref="main.account.edit_profile">{{"ACCOUNT_UPDATE_PROFILE_BTN" | translate}} <li class="fa fa-arrow-right"></li></a>
+                </div>
+            </div>
+        </div>
+       <!-- <button class="btn btn-danger" promise-btn ng-click="payoutCtrl.updateAccountNumber('removed')" ng-if="user.bank_account">{{"DELETE" | translate}}</button> -->
+    </div>
+</div>
+
+<div class="ibox">
+    <div class="ibox-title"> <h5>{{'TRANSCACTIONS_PAYOUT' | translate}}</h5> </div>
+    <div class="ibox-content" ng-class="{'sk-loading' : payoutCtrl.isLoading}">
+        <div class="sk-spinner sk-spinner-double-bounce">
+            <div class="sk-double-bounce1"></div>
+            <div class="sk-double-bounce2"></div>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <th>{{"CONTRACT_NO" | translate}}</th>
+                    <th>{{"RENTER" | translate}}</th>
+                    <th>{{"ITEM" | translate}}</th>
+                    <th>{{"PERIOD" | translate}}</th>
+                    <th>{{"AMOUNT" | translate}}</th>
+                    <th></th>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="payout in payoutCtrl.payouts">
+                        <td>{{payout.id}}</td>
+                        <td>{{payout.firstname}} {{payout.lastname}}</td>
+                        <td>{{payout.heading}}</td>
+                        <td ng-if="payout.payment_type == 'initial_payment'">{{payout.from_date}} - {{ payout.trial_end_after_days }}</td>
+                        <td ng-if="payout.payment_type == 'subscription_payment'">{{payout.period_start}} - {{payout.period_end}}</td>
+                        <td>{{payout.transfer_amount | number:2}}</td>
+                        <td><a ng-href="{{payoutCtrl.getReceiptUrl(payout.id)}}" target="_blank">{{"SHOW_RECEIPT" | translate}}</a></td>
+                    </tr>
+                </tbody>   
+            </table>
+        </div>
+    </div>
+</div>

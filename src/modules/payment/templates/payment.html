@@ -1,0 +1,76 @@
+<div class="ibox">
+        <div class="ibox-title"> <h5>{{'REGISTERED_CARD' | translate}}</h5> </div>
+        <div class="ibox-content" ng-class="{'sk-loading' : paymentCtrl.isLoading}">
+            <div class="sk-spinner sk-spinner-double-bounce">
+                <div class="sk-double-bounce1"></div>
+                <div class="sk-double-bounce2"></div>
+            </div>
+
+            <div class="row">
+                    <div class="m-l-md  payment-card-card">
+                            <div class="payment-card" ng-if="paymentCtrl.card.brand">
+                                <i class="fa payment-icon-big text-success" ng-class="{ 'fa-cc-visa' : paymentCtrl.card.brand == 'Visa',  'fa-cc-mastercard' : paymentCtrl.card.brand == 'MasterCard' }"></i>
+                                <h2>
+                                    **** **** **** {{paymentCtrl.card.last4}}
+                                </h2>
+                                <div class="row info">
+                                    <div class="col-xs-6">
+                                        <small>
+                                            <strong>{{"EXPIRY_DATE" | translate}}:</strong> {{paymentCtrl.card.exp_month}}/{{paymentCtrl.card.exp_year}}
+                                        </small>
+                                    </div>
+                                    <div class="col-xs-6 text-right">
+                                        <small>
+                                            <strong>{{"NAME" | translate}}:</strong> {{paymentCtrl.card.name}}
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="payment-card text-center" ng-if="!paymentCtrl.card.brand">
+                                <span class="text-muted">No card yet</span>
+                            </div>
+                            <div class="pull-right">
+                                <button class="btn btn-default" ng-if="paymentCtrl.card.brand" promise-btn ng-click="paymentCtrl.removeCard()">{{"REMOVE_CARD" | translate}}</button>
+                                <button class="btn btn-primary" ng-if="!paymentCtrl.card.brand" ng-click="paymentCtrl.addCard()">{{"ADD_CARD" | translate}}</button>
+                                <button class="btn btn-primary" ng-if="paymentCtrl.card.brand" ng-click="paymentCtrl.addCard()">{{"UPDATE_CARD" | translate}}</button>
+                            </div>
+                    </div>
+            </div>
+        </div>
+</div>
+
+<div class="ibox">
+    <div class="ibox-title"> <h5>{{'TRANSCACTIONS_PAYMENT' | translate}}</h5> </div>
+    <div class="ibox-content" ng-class="{'sk-loading' : paymentCtrl.isLoading}">
+        <div class="sk-spinner sk-spinner-double-bounce">
+            <div class="sk-double-bounce1"></div>
+            <div class="sk-double-bounce2"></div>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <th>{{"CONTRACT_NO" | translate}}</th>
+                    <th>{{"RENTER" | translate}}</th>
+                    <th>{{"ITEM" | translate}}</th>
+                    <th>{{"PERIOD" | translate}}</th>
+                    <th>{{"AMOUNT" | translate}}</th>
+                    <th>{{"PAYMENT_STATUS" | translate}}</th>
+                    <th></th>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="payment in paymentCtrl.payments">
+                        <td>{{payment.id}}</td>
+                        <td>{{payment.firstname}} {{payment.lastname}}</td>
+                        <td>{{payment.heading}}</td>
+                        <td ng-if="payment.payment_type == 'initial_payment'">{{payment.from_date}} - {{ payment.trial_end_after_days }}</td>
+                        <td ng-if="payment.payment_type == 'subscription_payment'">{{payment.period_start}} - {{payment.period_end}}</td>
+                        <td>{{payment.price_per_month | number:2}}</td>
+                        <td ng-class="{ 'text-success' : payment.isFailed == 0, 'text-danger' : payment.isFailed == 1 }">{{payment.isFailed ? 'FAILED' : 'PAY_SUCCESS' | translate}}</td>
+                        <!-- <td><a ui-sref="main.account.payment.receipt({payment_id : payment.id})">{{"SHOW_RECEIPT" | translate}}</a></td> -->
+                        <td><a ng-href="{{paymentCtrl.getPaymentPDFUrl(payment.id)}}" target="_blank">{{"SHOW_RECEIPT" | translate}}</a></td>
+                    </tr>
+                </tbody>   
+            </table>
+        </div>
+    </div>
+</div>

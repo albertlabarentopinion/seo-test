@@ -1,0 +1,38 @@
+<div class="inmodal">
+    <ng-include src="requestCtrl.headerTplUrl"></ng-include>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-6">
+                    <p class="text-center">
+                        <a class="btn btn-block btn-social btn-facebook" ng-href="{{loginUrlSocial}}facebook">
+                            <span class="fa fa-facebook"></span> {{ '01_SIGN_IN_FACEBOOK' | translate }}
+                        </a>
+                        <a class="btn btn-block btn-social btn-google"  ng-href="{{loginUrlSocial}}google">
+                            <span class="fa fa-google"></span> {{ '01_SIGN_IN_GOOGLE' | translate }}
+                        </a>
+                    </p>
+                </div>
+                <div class="col-md-5 col-md-offset-1">
+                    <form-error error-bags="requestCtrl.errorBags"></form-error>
+                    <div class="form-group"><label>{{ '01_EMAIL' | translate }}</label> 
+                        <input type="email" placeholder="{{ '01_EMAIL' | translate }}" class="form-control" ng-model="email">
+                    </div>
+                    <div class="form-group"><label>{{ '01_PASSWORD' | translate }}</label> 
+                        <input type="password" placeholder="{{ '01_PASSWORD' | translate }}" class="form-control" ng-model="password">
+                    </div>
+                        <div>
+                            <button class="btn btn-sm btn-primary pull-right m-t-n-xs login-btn" type="submit" promise-btn ng-click="requestCtrl.doLogin( email, password )">
+                                <strong>{{ '01_LOGIN_BTN' | translate }}</strong>
+                            </button>
+                            <a ui-sref="main.forgot_password">{{"01_FORGOT_PASSWORD" | translate}}?</a>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-white" ng-click="requestCtrl.cancel()">{{"01_CLOSE_BTN" | translate}}</button>
+    </div>
+</div>
+

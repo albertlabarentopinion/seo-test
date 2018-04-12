@@ -1,0 +1,41 @@
+<div class="ibox">
+    <div class="ibox-title"> <h5>{{'MESSAGES' | translate}}</h5> </div>
+    <div class="ibox-content" ng-class="{'sk-loading' : userRequestCtrl.isLoading}">
+        <div class="sk-spinner sk-spinner-double-bounce">
+            <div class="sk-double-bounce1"></div>
+            <div class="sk-double-bounce2"></div>
+        </div>
+
+        <div class="feed-activity-list messages">
+            <div ng-repeat="request in userRequestCtrl.requests" ng-class="{'with-notification' : request.unseen_logs.length > 0, 'bg-muted' : $index % 2 == 0}" ng-click="userRequestCtrl.gotoRequest(request.id)" class="cursor-pointer message-request feed-element p-xs" >
+                <a href="profile.html" class="pull-left">
+                    <img alt="image" class="img-circle" ng-src="{{request.user.profile_picture}}">
+                </a>
+                <div class="media-body ">
+                    <span class="pull-right" ng-if="request.log"><li class="fa fa-clock-o"></li> {{request.event_date | date : 'dd MMM yyyy h:mm a' | timeAgo}}</span>
+                    <strong>{{request.user.firstname}} {{request.user.lastname}}</strong> 
+                    {{request.listing.heading}}&nbsp;&nbsp;
+                    <span class="label" ng-class="{
+                        'label-primary' : request.request_status == 'REQUEST',
+                        'label-info' : request.request_status == 'BILLING',
+                        'label-danger' : request.request_status == 'REJECT' || request.request_status == 'CANCELED' || request.request_status == 'TERMINATE_NOTICE' || log.status_to == 'PAYMENT_FAILED',
+                        'label-warning' : request.request_status == 'OVER',
+                        'label-success' : request.request_status == 'SPECIAL_OFFER' || request.request_status == 'ACTIVE'
+                    }">{{request.request_status | translate}}</span> <br>
+                    <small ng-if="request.log.event_type == 'CHAT'">{{request.log.display_text | limitTo:90}}{{ (request.log.display_text.length > 90) ? '...' : '' }}</small>
+                    <div class="m-t-sm">
+                        <a ui-sref="main.account.user_request.request({id : request.id})" class="text-muted"><i class="fa fa-folder-open-o"></i> {{"OPEN" | translate}}</a>
+                        |
+                        <a ui-sref="main.account.user_request.request({id : request.id})" class="text-muted"><i class="fa fa-edit"></i> {{"EDIT" | translate}}</a>
+                        |
+                        <a ui-sref="main.account.user_request.request({id : request.id})" class="text-muted"><i class="fa fa-reply"></i> {{"REPLY" | translate}}</a>
+                        <div class=" pull-right" ng-if="request.isDeactivated">
+                            <span class="label label-danger">{{"DEACTIVATED_BY_ADMIN" | translate}}</span>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

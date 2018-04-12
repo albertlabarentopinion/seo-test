@@ -1,0 +1,62 @@
+<div class="row">
+    <legend class="col-md-12">{{"PERSONAL_INFO" | translate}}</legend>
+</div>
+<div class="form-group col-md-6 required">
+        <label>{{"01_FIRSTNAME" | translate}}:</label> 
+        <div class="col-xs-12">
+            <input ng-disabled="ctrl.isPayoutEnabled" class="form-control" placeholder="{{'01_FIRSTNAME' | translate}}" type="text" ng-model="ctrl.account.legal_entity.first_name">
+        </div>
+</div>
+<div class="form-group col-md-6 required">
+        <label>{{"01_LASTNAME" | translate}}:</label> 
+        <div class="col-xs-12">
+            <input ng-disabled="ctrl.isPayoutEnabled" class="form-control" placeholder="{{'01_LASTNAME' | translate}}" type="text" ng-model="ctrl.account.legal_entity.last_name">
+        </div>
+</div>
+
+<div class="form-group col-md-8 required">
+        <label class="col-xs-12 no-padding ">{{"DATE_OF_BIRTH" | translate}}:</label> 
+        <div class="col-xs-3 no-padding-right">
+            <input ng-disabled="ctrl.isPayoutEnabled" class="form-control" placeholder="DD" type="text" ng-model="ctrl.account.legal_entity.dob.day">
+        </div>
+        <div class="col-xs-3 no-padding">
+            <input ng-disabled="ctrl.isPayoutEnabled" class="form-control" placeholder="MM" type="text" ng-model="ctrl.account.legal_entity.dob.month">
+        </div>
+        <div class="col-xs-4 no-padding">
+            <input ng-disabled="ctrl.isPayoutEnabled" class="form-control" placeholder="YYYY" type="text" ng-model="ctrl.account.legal_entity.dob.year">
+        </div>
+</div>
+<!-- <div class="form-group col-md-12">
+    <label>{{"LEGAL_DOCUMENT" | translate}}:</label> 
+    <div class="col-xs-12" ng-if="!ctrl.account.legal_entity.verification.document">
+        <input type="file" ng-model="document" fileread="document" onchange="angular.element(this).scope().uploadDocument(this)">
+    </div>
+    <div class="col-xs-12" ng-if="ctrl.account.legal_entity.verification.document">
+        <i>{{ctrl.account.legal_entity.verification.document}}</i>
+    </div>
+</div> -->
+
+<div class="row">
+    <legend class="col-md-12">{{"ADDRESS" | translate}}</legend>
+</div>
+
+<div class="form-group col-md-6">
+        <label>{{"01_CITY" | translate}}:</label> 
+        <div class="col-xs-12">
+            <input class="form-control" ng-disabled="ctrl.isPayoutEnabled" placeholder="{{'01_CITY' | translate}}" type="text" ng-model="ctrl.account.legal_entity.address.city">
+        </div>
+</div>
+<div class="form-group col-md-6">
+    <label>{{"01_STREET" | translate}}/{{"ADDRESS" | translate}}:</label> 
+    <div class="col-xs-12">
+        <input class="form-control" ng-disabled="ctrl.isPayoutEnabled" placeholder="{{'01_STREET' | translate}}" type="text" ng-model="ctrl.account.legal_entity.address.line1">
+    </div>
+</div>
+<div class="form-group col-md-6">
+    <label>{{"POSTAL_CODE" | translate}}:</label> 
+    <div class="col-xs-12">
+        <input class="form-control" ng-disabled="ctrl.isPayoutEnabled" placeholder="{{'POSTAL_CODE' | translate}}" type="text" ng-model="ctrl.account.legal_entity.address.postal_code">
+    </div>
+</div>
+
+

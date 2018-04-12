@@ -1,0 +1,37 @@
+<div class="inmodal">
+        <div class="modal-header">
+            <button type="button" class="close" promise-btn ng-click="addRatingCtrl.cancel()"><span aria-hidden="true">×</span><span class="sr-only">{{"01_CLOSE_BTN" | translate}}</span></button>
+            <i class="fa fa-star-o modal-icon"></i>
+            <h4 class="modal-title" >{{"ADD_RATING_HEADER" | translate }} {{ addRatingCtrl.request.user.firstname }} {{ addRatingCtrl.request.user.lastname }}</h4>
+            <small class="font-bold">{{"ADD_RATING_SUB" | translate}} </small>
+        </div>
+        <div class="modal-body">
+                <div class="row">
+                    <div class="col-xs-10 col-xs-offset-1 small-stars-with-padding text-center">
+                        <span class="fa fa-minus-circle fa-1x cursor-pointer m-r-sm" ng-click="addRatingCtrl.request.rating.rating = 0"></span>
+                        <input-stars 
+                            max="5" 
+                            ng-model="addRatingCtrl.request.rating.rating"
+                            icon-base="fa fa-fw  fa-1x"
+                            icon-empty="fa-star-o  fa-1x"
+                            icon-full="fa-star  fa-1x" 
+                            icon-hover-full="fa-star  fa-1x" ></input-stars>
+                        <span class="rating-text" ng-if="addRatingCtrl.request.rating.rating == 0 || !addRatingCtrl.request.rating.rating">{{"NOT_RATED" | translate}}</span>
+                        <span class="rating-text" ng-if="addRatingCtrl.request.rating.rating > 0">{{"RATED" | translate}}</span>
+                    </div>
+                    <div class="col-md-12 m-t-md">
+                        <textarea placeholder="{{'WRITE_A_COMMENT' | translate}}"  rows="10" class="form-control" ng-model="addRatingCtrl.request.rating.comment"></textarea>
+                        
+                    </div>
+                    <div class="col-xs-5 col-xs-offset-5 m-t-md">
+                        <a promise-btn type="button" class="btn btn-primary" ng-click="addRatingCtrl.addRating( addRatingCtrl.request.rating.rating, addRatingCtrl.request.rating.comment )" ng-model="addRatingCtrl.request.rating.comment">{{"SEND" | translate}}</a>
+                    </div>
+                </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-white" ng-click="addRatingCtrl.cancel()" promise-btn>{{"01_CLOSE_BTN" | translate}}</button>
+            <!-- <a type="button" class="btn btn-primary" ng-click="addRatingCtrl.addRating()">{{"SEND" | translate}}</a> -->
+        </div>
+    </div>
+        
+        

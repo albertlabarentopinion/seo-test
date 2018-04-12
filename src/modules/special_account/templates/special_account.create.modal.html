@@ -1,0 +1,51 @@
+<div class="inmodal">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="ctrl.cancel()"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+        <i class="fa fa-user modal-icon"></i>
+        <h4 class="modal-title">{{"ADD_SPECIAL_ACCOUNT" | translate }}</h4>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <form-error error-bags="ctrl.errorBags"></form-error>
+            <form action="" class="form-horizontal">
+                <div class="form-group"><label class="col-sm-4 control-label">{{"COMPANY_LOGO" | translate}}</label>
+                    <div class="col-sm-2"> 
+                        <button 
+                            ngf-select
+                            ngf-pattern="'image/*'"
+                            ngf-accept="'image/*'"
+                            ngf-resize="{width: 140, height: 140}"
+                            ng-model="ctrl.user.profile_picture"
+                            name="file"
+                            class="btn btn-primary">
+                                {{ '01_UPLOAD_BTN' | translate }}
+                        </button>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="profile-picture-container col-sm-8 col-xs-6">
+                            <img ng-show="ctrl.user.profile_picture" ngf-thumbnail="ctrl.user.profile_picture"  width="140" height="140" alt="Profile Picture">
+                        </div>
+                    </div>
+                   
+                </div>
+                <div class="form-group"><label class="col-sm-4 control-label">{{"COMPANY_NAME" | translate}}</label>
+                    <div class="col-sm-8"><input ng-model="ctrl.user.company_name" type="text" class="form-control" placeholder='{{"COMPANY_NAME" | translate}}'></div>
+                </div>
+                <div class="form-group"><label class="col-sm-4 control-label">{{"01_EMAIL" | translate}}</label>
+                    <div class="col-sm-8"><input ng-model="ctrl.user.email" type="text" class="form-control" placeholder='{{"01_EMAIL" | translate}}'></div>
+                </div>
+                <div class="form-group"><label class="col-sm-4 control-label">{{"TELEPHONE_NUMBER" | translate}}</label>
+                    <div class="col-sm-8"><input ng-model="ctrl.user.mobile" type="text" class="form-control" placeholder='{{"TELEPHONE_NUMBER" | translate}}'></div>
+                </div>
+                <div class="form-group"><label class="col-sm-4 control-label">{{"WEBSITE_URL" | translate}}</label>
+                    <div class="col-sm-8"><input ng-model="ctrl.user.company_website_url" type="text" class="form-control" placeholder='{{"WEBSITE_URL" | translate}}'></div>
+                </div>
+            </form>    
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-white" ng-click="ctrl.cancel()">{{"01_CLOSE_BTN" | translate}}</button>
+        <button type="button" class="btn btn-primary" promise-btn ng-click="ctrl.save(ctrl.user)" >{{"01_SAVE_BTN" | translate}}</button>
+    </div>
+</div>
+

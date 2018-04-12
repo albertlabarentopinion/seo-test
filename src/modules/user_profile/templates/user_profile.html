@@ -1,0 +1,110 @@
+<div class="col-md-8 col-xs-12 col-md-offset-2 m-t-lg">
+        <div class="col-xs-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Profile Detail</h5>
+                    </div>
+                    <div class="no-padding ibox-content col-xs-12 " id="profile" ng-class="{'sk-loading' : userProfileCtrl.isLoading}">
+                        <div class="sk-spinner sk-spinner-double-bounce">
+                            <div class="sk-double-bounce1"></div>
+                            <div class="sk-double-bounce2"></div>
+                        </div>
+                        <div class="col-lg-4 col-lg-offset-4  no-padding mini-profile m-t-md">
+                            <a class="pull-left col-md-5 col-xs-6 no-padding">
+                                <div class="profile-image">
+                                    <img src="{{userProfileCtrl.profile.profile_picture}}" class="img-circle circle-border m-b-md" alt="profile">
+                                </div>
+                                <div class="col-xs-12  no-margin no-padding">
+                                        <input-stars 
+                                        class="no-margin no-padding"
+                                        max="5" 
+                                        ng-model="userProfileCtrl.profile.user_rating"
+                                        icon-base="fa fa-fw "
+                                        icon-empty="fa-star-o "
+                                        icon-full="fa-star " 
+                                        icon-hover-full="fa-star " readonly></input-stars>
+                                </div>
+                            </a>
+                            <div class="col-md-7 col-xs-6 no-padding">
+                                <h2 class="m-t ng-binding">{{userProfileCtrl.profile.firstname}} {{userProfileCtrl.profile.lastname}}</h2>
+                                <div class="m-t">
+                                    <b class="ng-binding">Profile</b>
+                                    <div class="text-gray">
+                                        <span class="ng-binding">Member Since</span>
+                                        <span class="pull-right ng-binding">{{userProfileCtrl.profile.created_at}}</span>
+                                    </div>
+                                    <div class="text-gray">
+                                        <span class="ng-binding">Response time</span>
+                                        <span class="pull-right ng-binding">45 mins</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 ibox-title m-t-md">
+                            <h5>Listings</h5>
+                        </div>
+
+                        <div class="no-padding col-xs-12">
+                                <div 
+                                ng-repeat="listing in userProfileCtrl.profile.listings"
+                                class="no-padding info-result-list cursor-pointer" ng-click="userProfileCtrl.navigateListingView(listing.id, listing.heading, listing.location)">
+                
+                            <div class="img-listing col-xs-4 no-padding image-box-container">
+                                <img ng-src="{{listing['cover_image']}}" alt="">
+                            </div>
+                            <div class="info-container col-xs-8 no-padding">
+                                <div class="info-1 col-xs-12">
+                                    <h3 class="m-t-md info-title text-black">{{listing.heading | limitTo : 27}} <span ng-if="listing.heading.length > 27">...</span>
+                                        <span class="m-l-sm">{{(listing.area == 0) ? '' : listing.area+' m2' }} </span>
+                                    </h3>
+                                    <span class="inline-block label label-default m-r-xs" ng-repeat="type in listing.types">{{type | translate}}</span>
+                                    <p class="info-desc m-t-xs">{{listing.description | limitTo : 56}} <span ng-if="listing.description.length > 56">...</span></p>
+                                    <div>
+                                        <span class="label label-default" ng-if="listing.zip && listing.city"><li class="fa fa-map-marker"></li>&nbsp;{{ listing.zip }} {{ listing.city }}</span>
+                                    </div>
+                                    <p class="info-name m-t-sm small-stars">{{ listing.user.firstname }} {{ listing.user.lastname }}
+                                            <input-stars class="m-l-xs" 
+                                            max="5" 
+                                            ng-model="listing.owner_average_ratings"
+                                            icon-base="fa fa-fw  "
+                                            icon-empty="fa-star-o  "
+                                            icon-full="fa-star  " 
+                                            icon-hover-full="fa-star  " readonly="true"></input-stars></p> 
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+
+                        <div class="col-xs-12 ibox-title m-t-md">
+                            <h5>Comments</h5>
+                        </div>
+
+                        <div class="col-xs-12 no-padding">
+                            <div class="feed-activity-list col-xs-12 m-t-sm">
+                                <div class="feed-element"  ng-repeat="rating in userProfileCtrl.profile.ratings">
+                                    <a ui-sref="profile" class="pull-left">
+                                        <img alt="image" class="img-circle" ng-src="{{rating.reviewer.profile_picture}}">
+                                    </a>
+        
+                                    <div class="media-body review-star">
+                                        <span class="pull-right">
+                                            <input-stars 
+                                            max="5" 
+                                            ng-model="rating.rating"
+                                            icon-base="fa fa-fw "
+                                            icon-empty="fa-star-o "
+                                            icon-full="fa-star " 
+                                            icon-hover-full="fa-star " readonly></input-stars>
+                                        </span>
+                                        <strong>{{rating.reviewer.firstname}} {{rating.reviewer.lastname}}</strong>  &nbsp; {{rating.updated_at | date:'dd MMM yyyy h:mm a' | timeAgo}} <br>
+                                        <span class="text-muted">{{rating.comment}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+</div>

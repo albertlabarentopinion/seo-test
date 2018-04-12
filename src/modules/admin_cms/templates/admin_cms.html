@@ -1,0 +1,76 @@
+<div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ 'CMS' | translate }}</h5>
+                </div>
+                <div class="ibox-content admin-container" ng-class="{'sk-loading' : adminCmsCtrl.isLoading}">
+                    <div class="sk-spinner sk-spinner-double-bounce">
+                        <div class="sk-double-bounce1"></div>
+                        <div class="sk-double-bounce2"></div>
+                    </div>
+                    <div class="col-md-12">
+                        <legend>Add Content</legend>
+                        <div class="form-group col-md-5">
+                            <label>{{"CONTENT_TYPE" | translate}}:</label> 
+                            <div class="col-xs-12 input-group date">
+                                <select 
+                                    class="form-control" 
+                                    ng-model="adminCmsCtrl.newCms.type"
+                                    ng-options="type for type in adminCmsCtrl.cmsTypes"></select>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-5">
+                            <label>{{"NAME" | translate}}:</label> 
+                            <div class="col-xs-12 input-group date">
+                                <input placeholder='{{"NAME" | translate}}' type="text" class="form-control" ng-model="adminCmsCtrl.newCms.name">
+                            </div>
+                        </div>
+                        <div class="form-group col-md-2">
+                                <label>&nbsp;</label> 
+                                <div class="col-xs-12 input-group date">
+                                   <button class="btn btn-primary" promise-btn ng-click="adminCmsCtrl.addContent( adminCmsCtrl.newCms.type, adminCmsCtrl.newCms.name )">Add</button>
+                                </div>
+                            </div>
+                    </div>
+
+                    <div class="col-md-12 hr-line-dashed m-t-lg m-b-xl"></div>
+
+                    <div class="col-xs-12">
+                        <div class="form-group col-md-5">
+                            <label>{{"NAME" | translate}}:</label> 
+                            <div class="col-xs-12 input-group date">
+                               <select class="form-control" ng-model="adminCmsCtrl.selectedContent" ng-options="content.name for content in adminCmsCtrl.contents"></select>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-2">
+                                <label>&nbsp;</label> 
+                                <div class="col-xs-12 input-group date">
+                                        <!-- <button class="btn btn-primary">Edit</button> -->
+                                </div>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label>{{"CONTENT" | translate}}:</label> 
+                            <div class="no-padding col-xs-12 input-group date">
+                                <div class=" no-paddingcol-xs-12">
+                                    <a href="" ng-show="!adminCmsCtrl.onPreview" class="btn btn-primary pull-left" ng-click="adminCmsCtrl.preview(adminCmsCtrl.selectedContent.content);">Preview</a>
+                                    <a href="" ng-show="adminCmsCtrl.onPreview" class="btn btn-warning pull-left" ng-click="adminCmsCtrl.onPreview = false;">Hide Preview</a>
+                                    <button class="btn btn-success pull-right" promise-btn ng-click="adminCmsCtrl.save(adminCmsCtrl.selectedContent.content)">Save</button>
+                                    <button class="btn btn-danger pull-right m-r-sm" ng-click="adminCmsCtrl.remove(adminCmsCtrl.selectedContent)">Delete</button>
+                                </div>
+                                    <!-- <div class="sk-spinner sk-spinner-double-bounce">
+                                    <div class="sk-double-bounce1"></div>
+                                    <div class="sk-double-bounce2"></div>
+                                </div> -->
+                                <div class="no-padding col-xs-12" ng-show="adminCmsCtrl.onPreview" ng-bind-html="adminCmsCtrl.previewHtml"></div>   
+                                <div class="no-padding col-xs-12" ng-show="!adminCmsCtrl.onPreview">
+                                    <summernote ng-model="adminCmsCtrl.selectedContent.content" config="adminCmsCtrl.cmsOptions"></summernote>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>

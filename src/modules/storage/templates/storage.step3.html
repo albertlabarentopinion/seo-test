@@ -1,0 +1,118 @@
+<form class="form-horizontal" name="add_listing_form">
+
+    <div class="form-group required">
+        <label for="" class="col-sm-2 control-label">{{"HEADING" | translate}}</label>
+        <div class="col-sm-7">
+            <input focus-name="1" next-focus="2" type="text" class="form-control" placeholder="{{'HEADING_STORAGE_PLACEHOLDER' | translate}}" ng-model="step3Ctrl.listing.heading" >
+            <p class="m-t-sm">{{"HEADING_DESCRIPTION" | translate}}  </p>
+        </div>
+    </div>
+
+    <div class="hr-line-dashed m-t-lg m-b-lg"></div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">{{"DESCRIPTION" | translate}}</label>
+        <div class="col-sm-7">
+           <textarea focus-name="2" next-focus="3" name="" id="" class="form-control" cols="30" rows="10" ng-model="step3Ctrl.listing.description" 
+            placeholder="{{'DESCRIPTION_STORAGE_PLACEHOLDER' | translate}}" maxlength="2000"></textarea>
+            <span class="pull-right">{{ 2000 - step3Ctrl.listing.description.length }}</span>
+        </div>
+    </div>
+
+    <div class="hr-line-dashed m-t-lg m-b-lg"></div>
+
+    <div class="form-group">
+        <label class="col-sm-2 col-xs-12 control-label">{{"UPLOAD_IMAGES" | translate}}</label>
+
+        <!--<div class="col-sm-2 col-xs-4 col-md-1">
+            <button 
+                ngf-select
+                ngf-pattern="'image/*'"
+                ngf-accept="'image/*'"
+                ngf-resize="{width: 140, height: 140}"
+                ng-model="editProfileCtrl.profile_picture"
+                name="file"
+                class="btn btn-primary">{{ '01_UPLOAD_BTN' | translate }}</button>
+        </div>-->
+        <div class="col-md-8 col-xs-12">
+            <p class="m-t-sm">{{"USE_GOOD_QUALITY" | translate}}</p>
+            <p class="m-t-sm text-warning">{{"IMAGES_ARE_UPLOADED_AUTOMATICALLY" | translate}}</p>
+            <ng-dropzone ng-if="step3Ctrl.uploadOptions.options" class="dropzone" options="step3Ctrl.uploadOptions.options"  callbacks="step3Ctrl.uploadOptions.callbacks"></ng-dropzone>
+            <div class="hr-line-dashed m-t-lg m-b-lg"></div>
+            <!-- <ui-gallery list="step3Ctrl.listing.photos" options="{activeIndicatorClass: 'active'}"></ui-gallery> -->
+            <div class="col-md-12">
+                <div class="col-xs-6 col-sm-3 image-box-container" ng-repeat="photo in step3Ctrl.listing.photos">
+                    <img ng-src="{{ photo.href }}" alt="$index" class="image-thumbnail">
+                    <button ng-click="step3Ctrl.deleteImage( photo, $index )" class="btn btn-sm btn-danger image-thumbnail-controls">{{"DELETE" | translate}}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="hr-line-dashed m-t-lg m-b-lg"></div>
+
+    <!-- <div class="form-group">
+        <label class="col-sm-2 control-label">{{"ACCESSORIES" | translate}}</label>
+
+        <div class="col-sm-10">
+            <div><label> <input focus-name="3" next-focus="4" icheck type="checkbox" name="accessories[]" ng-model="step3Ctrl.listing.accessories['Own code/lock']">  {{"OWN_CODE_LOCK" | translate}}</label></div>
+            <div><label> <input focus-name="4" next-focus="5" icheck type="checkbox"  name="accessories[]" ng-model="step3Ctrl.listing.accessories['Alarm']">  {{"ALARM" | translate}}</label></div>
+            <div><label> <input focus-name="5" next-focus="1" icheck type="checkbox"  name="accessories[]" ng-model="step3Ctrl.listing.accessories['Trolly can be borrowed']">  {{"TROLLY_CAN_BE_BORROWED" | translate}}</label></div>
+        </div>
+    </div> -->
+
+    <!--<div class="hr-line-dashed m-t-lg m-b-lg"></div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">&nbsp;</label>
+
+        <div class="col-sm-10">
+            <button class="btn btn-success" ng-click="step3Ctrl.navigateToView()"><span class="fa fa-sign-in"></span> See your ad</button>
+        </div>
+    </div>-->
+
+    <div class="m-b-xl"></div>
+
+    <div ng-if="step3Ctrl.isDirty && !step3Ctrl.isNewListing">
+        <button 
+            class="btn btn-primary pull-right" 
+            promise-btn 
+            ng-click="step3Ctrl.save( step3Ctrl.listing )">
+            {{"01_SAVE_BTN" | translate}}
+        </button>
+        <button 
+            class="btn btn-default pull-right m-r-sm" 
+            promise-btn 
+            ng-click="step3Ctrl.disgard()">
+            {{"01_DISCARD_BTN" | translate}}
+        </button>
+    </div>
+    <div ng-if="!step3Ctrl.isDirty && !step3Ctrl.isNewListing">
+        <button 
+            class="btn btn-primary pull-right" 
+            promise-btn 
+            ng-click="step3Ctrl.navigateTo( step3Ctrl.listing, 'main.account.storage.add_listing.step4')">
+            {{"NEXT" | translate}}
+        </button>
+        <button 
+            class="btn btn-default pull-right m-r-sm" 
+            promise-btn 
+            ng-click="step3Ctrl.navigateTo( step3Ctrl.listing, 'main.account.storage.add_listing.step2')">
+            {{"PREVIOUS" | translate}}
+        </button>
+    </div>
+    <div ng-if="step3Ctrl.isNewListing">
+        <button 
+            class="btn btn-primary pull-right" 
+            promise-btn 
+            ng-click="step3Ctrl.save( step3Ctrl.listing, 'main.account.storage.add_listing.step4')">
+            {{"NEXT" | translate}}
+        </button>
+        <button 
+            class="btn btn-default pull-right m-r-sm" 
+            promise-btn 
+            ng-click="step3Ctrl.save( step3Ctrl.listing, 'main.account.storage.add_listing.step2')">
+             {{"PREVIOUS" | translate}}
+        </button>
+    </div>
+</form>

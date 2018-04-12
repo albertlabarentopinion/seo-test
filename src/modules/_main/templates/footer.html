@@ -1,0 +1,39 @@
+<div class="container gray-section col-md-12 no-padding no-margin content-footer" ng-if="$state.current.name !== 'main.result_page'" >
+    <div class="col-md-12" id="footer">
+        <div class="row">
+            <div class="col-md-3 col-md-offset-1">
+                <h2>Latell AS</h2>
+                <p class="text-info"> <a ui-sref="main.contact_us">Kontakt oss</a> </p>
+                <!-- <p>+ 47 917 59 701</p> -->
+                <p>Org nr 920 397 697</p>
+                <p>
+                    <span class="fa fa-facebook"></span>
+                    <span class="fa fa-twitter"></span>
+                    <span class="fa fa-instagram"></span>
+                </p>
+            </div>
+            <div class="col-md-4">
+                <h2>Dette er Latell.no</h2>
+                <p><a ui-sref="main.cms_page({name : 'Dette er Latell.no - Om Latell'})">Om Latell</a></p>
+                <p><a ui-sref="main.cms_page({name : 'Dette er Latell.no - Personvern'})">Personvern</a></p>
+                <p><a ui-sref="main.cms_page({name : 'Dette er Latell.no - Vilkår for bruk av tjenesten'})">Vilkår for bruk av tjenesten</a></p>
+                <p><a ui-sref="main.cms_page({name : 'Dette er Latell.no - Hjelp'})">Hjelp</a></p>
+            </div>
+            <div class="col-md-4">
+                <h2>For leietaker</h2>
+                <p><a ui-sref="main.cms_page({name : 'For leietaker - Slik fungerer detr'})">Slik fungerer detr</a></p>
+                <p><a ui-sref="main.cms_page({name : 'For leietaker - Fordel ved å leie lager på Latell'})">Fordel ved å leie lager på Latell</a></p>
+                <p><a ui-sref="main.cms_page({name : 'For leietaker - Lag en ny brukerkonto'})">Lag en ny brukerkonto</a></p>
+                <p><a ui-sref="main.cms_page({name : 'For leietaker - Vilkår'})">Vilkår</a></p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 col-md-offset-1">
+                <h2>Lager til leie</h2>
+                <div class="col-md-2 row" ng-repeat="row in mainCtrl.mainSeoPlaces">
+                    <p ng-repeat="place in row"><a  class="navy-link" ui-sref="main.seo_search({ place : 'lager-'+place })" role="button">Lager {{place}}</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

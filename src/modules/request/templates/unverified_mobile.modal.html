@@ -1,0 +1,18 @@
+<div class="inmodal">
+        <ng-include src="requestCtrl.headerTplUrl"></ng-include>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2 text-center ">
+                   <p class="text-center">
+                      {{"REQUEST_VERIFY_MOBILE_NOTICE" | translate}}
+                   </p>
+                   <a class="btn btn-primary" ng-click="requestCtrl.openVerifyMobile()">{{"VERIFY_PHONE_NUMBER" | translate}}</a>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-white" ng-click="requestCtrl.cancel()">{{"01_CLOSE_BTN" | translate}}</button>
+        </div>
+    </div>
+    
+    

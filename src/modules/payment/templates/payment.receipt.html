@@ -1,0 +1,116 @@
+<table class="body-wrap">
+        <tr>
+            <td></td>
+            <td class="container" width="600">
+                <div class="content">
+                    <table class="receipt-content main" width="100%" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td class="content-wrap aligncenter">
+                                <table  width="100%" cellpadding="0" cellspacing="0">
+                                        <tr>
+                                            <td class="alert alert-good">
+                                                <div><span id="receipt-title" style="font-size:25px">{{ "RECEIPT" | translate }}</span></div>
+                                                <div><small>{{"RECEIPT_MESSAGE" | translate}} {{paymentReceiptCtrl.payment.request.listing.heading}}</small></div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td class="content-block">
+                                                    <table class="invoice" cellpadding="0" cellspacing="0">
+                                                        <tr class="aligncenter" >
+                                                            <td colspan="3"><b>{{ "RECEIPT_FOR" | translate  }} #{{paymentReceiptCtrl.payment.id}}</b></td>
+                                                        </tr>
+                                                        <tr >
+                                                            <td colspan="2"><b>{{ "RENTER" | translate }}</b></td>
+                                                            <td class="alignright"><b>Nobobil.no AS</b></td>
+                                                        </tr>
+                                                        <tr >
+                                                            <td colspan="2">{{paymentReceiptCtrl.payment.request.owner.firstname}} {{paymentReceiptCtrl.payment.request.owner.lastname}}</td>
+                                                            <td class="alignright">Org.nr: 915 377 297 MVA</td>
+                                                        </tr>
+                                                        <tr >
+                                                            <td colspan="2"><b>{{"OWNER" | translate}}</b></td>
+                                                            <td class="alignright">Heironymus Heyerdahls gate 1</td>
+                                                        </tr>
+                                                        <tr >
+                                                            <td colspan="2">{{paymentReceiptCtrl.payment.request.client.firstname}} {{paymentReceiptCtrl.payment.request.client.lastname}}</td>
+                                                            <td class="alignright">0160 Oslo</td>
+                                                        </tr>
+                                                        <tr >
+                                                            <td colspan="2"><b>{{"PERIOD_FROM" | translate }}</b></td>
+                                                            <td class="alignright"></td>
+                                                        </tr>
+                                                        <tr >
+                                                            <td colspan="2">{{paymentReceiptCtrl.payment.period_start}}</td>
+                                                            <td class="alignright"></td>
+                                                        </tr>
+                                                        <tr >
+                                                            <td colspan="2"><b>{{ "PERIOD_TO" | translate }}</b></td>
+                                                            <td class="alignright"><b>Fakturadato</b></td>
+                                                        </tr>
+                                                        <tr >
+                                                            <td colspan="2">{{paymentReceiptCtrl.payment.period_end}}</td>
+                                                            <td class="alignright">{{paymentReceiptCtrl.payment.payment_date}}</td>
+                                                        </tr>
+                                                        <tr class="invoice-items">
+                                                            <td><b>{{ "RECEIPT_DESCRIPTION" | translate }}</b></td>
+                                                            <td class="alignright"><b>Mva</b></td>
+                                                            <td class="alignright"><b>{{"AMOUNT" | translate}}</b></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td colspan="2">{{"RENTAL_OF_STORAGE" | translate}}</td>
+                                                            <td class="alignright">kr {{paymentReceiptCtrl.payment.price_per_month | number:2}}</td>
+                                                        </tr>
+                                                        <tr >
+                                                            <td colspan="2"><b>{{"TOTAL_AMOUNT" | translate}}</b></td>
+                                                            <td class="alignright"><b>kr {{paymentReceiptCtrl.payment.price_per_month | number:2 }}</b></td>
+                                                        </tr>
+                                                        <!-- <tr class="invoice-items">
+                                                            <td colspan="">Transaksjonsgebyr til Nabobil</td>
+                                                            <td class="alignright"><b>25% </b></td>
+                                                            <td class="alignright">kr 12,000</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Forsikringsprodukt(er)</td>
+                                                            <td class="alignright"><b>0% </b></td>
+                                                            <td class="alignright">kr 10,000</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td colspan="2">Merverdiavgift</td>
+                                                            <td class="alignright">kr 10,000</td>
+                                                        </tr> -->
+                                                        <tr >
+                                                            <td style="padding-top:30px" colspan="2">{{"REGARDS" | translate}}</td>
+                                                        </tr>
+                                                        <tr >
+                                                            <td colspan="2"><b>{{AppName}}</b></td>
+                                                        </tr>
+                                                        <!-- <tr >
+                                                            <td colspan="2"><img src="https://maps.googleapis.com/maps/api/staticmap?center=59.9167392,10.706842&zoom=14&scale=1&size=600x300&maptype=roadmap&format=png&visual_refresh=true&markers=size:mid%7Ccolor:0xff0000%7Clabel:1%7C59.9167392,10.706842" alt=""></td>
+                                                        </tr> -->
+                                                    </tbody></table>
+                                                </td>
+                                            </tr>
+                                    <!-- <tr>
+                                        <td class="content-block">
+                                            Hi {{ $user->firstname }} {{ $user->lastname }},
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="content-block">
+                                           Payment Successful for <b>{{$request->listing['heading']}}</b>, please log in to view it.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="content-block aligncenter">
+                                            <a href="{{ $link }}" class="btn-primary">Login {{ $appname }}</a>
+                                        </td>
+                                    </tr> -->
+                                  </table>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </td>
+           
+        </tr>
+    </table>

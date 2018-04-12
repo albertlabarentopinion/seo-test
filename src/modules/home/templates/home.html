@@ -1,0 +1,21 @@
+<div class="col-lg-12 home-container">
+    <div class="col-lg-6 col-md-8 col-lg-offset-3 col-md-offset-2 search-box-container">
+        <h1 class="text-white">{{ 'FIND_STORAGE_HOME_HEADER' | translate }}</h1>
+        <p class="text-white">{{ 'FIND_STORAGE_SUB_HEADER' | translate }}</p>
+        <div class="form-group col-md-12">
+            <div class="col-md-6">
+                <input autofocus ng-enter="homeCtrl.onEnter( selected_address, dateFrom )" placeholder="{{'WHERE_DO_YOU_WANT_STORAGE' | translate}} e.g. Skøyen" class="form-control" type="text" force-selection="true" g-places-autocomplete options="gPlacesOptions" ng-model="selected_address" id="searchPlaces"/>
+            </div>
+            <div class="col-md-3">
+                <input min-date="homeCtrl.minDate" first-day="1" placeholder="Start date" type="datetime" class="form-control" date-change="homeCtrl.setDateFrom" date-time="" ng-model="dateFrom" view="date" auto-close="true" min-view="date" format="{{homeCtrl.AppConstants.dateFormat}}" >
+            </div>
+            <div class="col-md-3">
+                <a ng-click="homeCtrl.searchStorage( selected_address, dateFrom )" class="btn btn-primary">{{ 'SEARCH_FOR_STORAGE' | translate }}</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+        

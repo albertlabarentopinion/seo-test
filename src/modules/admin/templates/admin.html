@@ -1,0 +1,25 @@
+<div class="row col-lg-10 col-lg-offset-1 col-md-12  m-t-xl m-b-lg">
+    <div class="col-md-2 ">
+        <div class="ibox float-e-margins">
+            <div class="ibox-content mailbox-content">
+                <div class="file-manager">
+                    <div class="space-25"></div>
+                    <h5>{{ 'ADMIN_PANEL' | translate }}</h5>
+                    <ul class="folder-list m-b-md">
+                        <li ui-sref-active="active"><a ui-sref="main.admin.admin_user"><i class="fa fa-users"></i>{{ 'USERS' | translate }}</a></li>
+                        <li ui-sref-active="active"><a ui-sref="main.admin.admin_listing"> <i class="fa fa-list-alt"></i>{{ 'LISTINGS' | translate }}</a></li>
+                        <li ui-sref-active="active"><a ui-sref="main.admin.admin_request" > <i class="fa fa-tty"></i>{{ 'REQUESTS' | translate }}</a></li>
+                        <li ui-sref-active="active"><a ui-sref="main.admin.admin_rating" > <i class="fa fa-star"></i>{{ 'RATINGS' | translate }}</a></li>
+                        <li ui-sref-active="active"><a ui-sref="main.admin.admin_cms" > <i class="fa fa-address-book-o"></i>{{ 'CMS' | translate }}</a></li>
+                        <li ui-sref-active="active"><a ui-sref="main.admin.special_account" > <i class="fa fa-users"></i>{{ 'SPECIAL_ACCOUNT' | translate }}</a></li>
+                        <li ui-sref-active="active"><a ui-sref="main.admin.special_listing" > <i class="fa fa-list-alt"></i>{{ 'SPECIAL_LISTING' | translate }}</a></li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-10 ">
+       <div ui-view="admin"></div>
+    </div>
+</div>

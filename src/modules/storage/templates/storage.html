@@ -1,0 +1,56 @@
+<div class="mail-box-header account-header">
+    <h2>
+        {{ '01_STORAGE' | translate }}
+        <a href="" class="btn btn-primary pull-right" ng-click="storageCtrl.addListing()">{{"01_ADD_LISTING" | translate}}</a>
+    </h2>
+</div>
+
+
+<div class="row m-t-sm">
+        <div class="sk-spinner sk-spinner-wave" ng-if="storageCtrl.isLoading">
+            <div class="sk-rect1 m-t-xl"></div>
+                <div class="sk-rect2"></div>
+                <div class="sk-rect3"></div>
+                <div class="sk-rect4"></div>
+                <div class="sk-rect5"></div>
+        </div>
+        <div class="col-md-6" ng-repeat="listing in storageCtrl.listings">
+        <div class="ibox">
+            <div class="ibox-content product-box">
+
+                <div class="product-image">
+                    <img ng-if="listing.photos.length > 0" ng-src="{{baseUrl}}/{{listing.photos[0].path}}" alt="Product">
+                    <!--<collage images="storageCtrl.images" class="col-md-12"></collage>-->
+                </div>
+                <div class="product-desc">
+                    <span class="product-active bg-danger" ng-if="listing.active_listing > 0">
+                        <span >{{"ACTIVE" |  translate }}</span>
+                    </span>
+                    <span class="product-price">
+                        <span ng-if="!listing.price_per_month">{{ "NO_PRICE" | translate}}</span>
+                        <span ng-if="listing.price_per_month">Kr {{ listing.price_per_month || 0 | percentage:0  }}</span>
+                    </span>
+                    <span class="product-active-status" ng-if="listing.isActive == 0">
+                        <span>{{ "INACTIVE" | translate }}</span>
+                    </span>
+                    <small class="text-muted"><span ng-repeat="(key, value) in listing.types"><span ng-if="$index > 0">,&nbsp;</span>{{value | translate}}</span></small>
+                    <a ng-click="storageCtrl.navigateListingView( listing.id, listing.heading, listing.location )" class="product-name"><span ng-if="!listing.heading">{{ 'NO_HEADING' | translate }}</span>{{ listing.heading | limitTo:35}} <span ng-if="listing.heading.length > 35">...</span> </a>
+
+                    <div class="small m-t-xs">
+                        <i class="fa fa-map-marker"></i> {{ "LOCATION" | translate }}: {{ listing.location }}
+                    </div>
+                    
+                    <div class="m-t-xs storage-controls">
+                        <div class="m-b-xs">
+                            <a ng-if="!listing.isDone" class="btn btn-xs btn-outline btn-warning" ng-click="storageCtrl.updateListing( listing )"><i class="fa fa-warning"></i> {{ "INACTIVE_LISTING" | translate }} <i class="fa fa-long-arrow-right"></i> </a>
+                        </div>
+                        <a class="btn btn-xs btn-outline btn-primary" ng-click="storageCtrl.updateListing( listing )">{{"EDIT" | translate}} <i class="fa fa-long-arrow-right"></i> </a>
+                        <a class="btn btn-xs btn-outline btn-primary" ng-click="storageCtrl.navigateListingView( listing.id, listing.heading, listing.location )">{{ 'VIEW_LISTING' | translate }}</a>
+                        <a class="btn btn-xs btn-outline btn-default pull-right" ng-click="storageCtrl.deactivateActivateListing( listing )" promise-btn>{{ (listing.isActive == 0) ? 'ACTIVATE' : 'DEACTIVATE' | translate}}</a>
+                        <a class="btn btn-xs btn-outline btn-default pull-right" ng-click="storageCtrl.deleteListing( listing )"><i class="fa fa-trash"></i> </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+    </div>

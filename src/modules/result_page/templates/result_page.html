@@ -1,0 +1,203 @@
+<div class="row m-t-xl" id="result-page">
+    <div class="col-md-6 col-xs-12 no-padding-left height-100">
+        <div class="col-xs-12 " id="result-left-panel">
+            <div class="input-group col-md-12" >
+                <span class="input-group-addon text-orange">
+                    <i class="fa fa-map-marker"></i>
+                </span>
+                <input placeholder="{{'WHERE_DO_YOU_WANT_STORAGE' | translate}} e.g. Skøyen" class="form-control" type="text" force-selection="true" g-places-autocomplete ng-show="true" options="gPlacesOptions" id="searchPlaces" ng-model="selected_address" />
+                <span class="input-group-btn">
+                    <button ng-click="resultCtrl.useMyLocation()" class="btn btn-secondary btn-default" promise-btn type="button"><span class="fa fa-location-arrow"></span>&nbsp;&nbsp;{{ "USE_MY_LOCATION" | translate }}</button>
+                </span>
+            </div>
+            <div class="col-md-12 no-padding">
+                <div class="input-group col-xs-6 m-t-sm no-padding pull-left">
+                    <span class="input-group-addon">
+                        <i class="fa fa-calendar"></i>
+                    </span>
+                    <input  min-date="resultCtrl.minDate" placeholder="{{'FROM_DATE' | translate}}" type="datetime" class="form-control" date-change="resultCtrl.setDateFrom" first-day="1" date-time="" ng-model="dateFrom" view="date" auto-close="true" min-view="date" format="{{resultCtrl.AppConstants.dateFormat}}" >
+                </div>
+                <div class="col-xs-6 m-t-sm no-padding">
+                    <button class="btn btn-danger pull-right  m-l-sm" ng-click="resultCtrl.resetFilter();" ng-show="resultCtrl.filterCount > 0 && !resultCtrl.isFilterVisible">{{ 'REMOVE_FILTER' | translate }}</button>
+                    <button class="btn btn-default pull-right" ng-show="!resultCtrl.isFilterVisible" ng-click="resultCtrl.isFilterVisible = true"><span class="fa fa-filter"></span>&nbsp;{{"FILTER" | translate}} <span>{{resultCtrl.filterCount > 0 ? '('+resultCtrl.filterCount+')' : ''}}</span></button>
+                </div>
+            </div>
+            <!-- <div class="col-md-4 pull-right">
+                <button class="btn btn-default ">Filter</button>
+            </div> -->
+        </div>
+
+        <!-- Result Filter  -->
+        <div ng-show="resultCtrl.isFilterVisible" class="col-md-12" id="result-filter">
+            <div class="col-md-12 m-t-sm">
+                <button class="btn btn-default" 
+                ng-click="resultCtrl.resetFilter();">{{ 'REMOVE_FILTER' | translate }}</button>
+                <button class="btn btn-success pull-right" ng-click="resultCtrl.doFilter(resultCtrl.criteria, 
+                { min : resultCtrl.filterOptions.price_per_month.min, max : resultCtrl.filterOptions.price_per_month.max },
+                { min : resultCtrl.filterOptions.size.min, max : resultCtrl.filterOptions.size.max });
+                resultCtrl.isFilterVisible = false;">{{ "UPDATE" | translate }}</button>
+                <button class="btn btn-default pull-right m-r-sm" ng-click="resultCtrl.cancelFilter()">{{ 'CANCEL' | translate }}</button>
+            </div>
+
+            <div class="col-xs-12 hr-line-dashed m-t-sm m-b-sm"></div>
+
+            <div class="form-group">
+                <label for="" class="col-sm-4 m-t-md">{{ "PRICE_PER_MONTH" | translate }}</label>
+                <div class="col-sm-8">
+                    <div range-slider
+                        min="resultCtrl.filterOptions.price_per_month_initial.min"
+                        max="resultCtrl.filterOptions.price_per_month_initial.max"
+                        model-min="resultCtrl.filterOptions.price_per_month.min"
+                        model-max="resultCtrl.filterOptions.price_per_month.max"
+                        show-values="true"></div>
+                </div>
+            </div>
+
+            <div class="col-xs-12 hr-line-dashed m-t-sm m-b-sm"></div>
+
+            <div class="form-group">
+                <label for="" class="col-sm-4 m-t-md">{{ 'SIZE' | translate }}</label>
+                <div class="col-sm-8">
+                    <div range-slider
+                        min="resultCtrl.filterOptions.size_initial.min"
+                        max="resultCtrl.filterOptions.size_initial.max"
+                        model-min="resultCtrl.filterOptions.size.min"
+                        model-max="resultCtrl.filterOptions.size.max"
+                        show-values="true"></div>
+                </div>
+            </div>
+
+            <div class="col-xs-12 hr-line-dashed m-t-sm m-b-sm"></div>
+
+            <div class="form-group">
+                <label class="col-sm-4 control-label">{{ 'TYPE' | translate }}</label>
+
+                <div class="col-sm-8 no-padding">
+                    <div class="col-md-6">
+                        <div><label> <input icheck type="checkbox" name="type[]" ng-model="resultCtrl.criteria.types['Garage']"> {{ 'GARAGE' | translate }}</label></div>
+                        <div><label> <input icheck type="checkbox"  name="type[]" ng-model="resultCtrl.criteria.types['Attic']"> {{ 'ATTIC' | translate }}</label></div>
+                        <div><label> <input icheck type="checkbox"  name="type[]" ng-model="resultCtrl.criteria.types['Outdoor storage']"> {{ 'OUTDOOR_STORAGE' | translate }}</label></div>
+                        <div><label> <input icheck type="checkbox"  name="type[]" ng-model="resultCtrl.criteria.types['Indoor storage']"> {{ 'INDOOR_STORAGE' | translate }}</label></div>
+                    </div>
+                    <div class="col-md-6">
+                        <div><label> <input icheck type="checkbox"  name="type[]" ng-model="resultCtrl.criteria.types['Other']"> {{ 'OTHER' | translate }}</label></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xs-12 hr-line-dashed m-t-sm m-b-sm"></div>
+
+            <div class="form-group">
+                <label class="col-sm-4 control-label">{{ 'ACCESS' | translate }}</label>
+
+                <div class="col-sm-8">
+                    <div><label> <input icheck type="checkbox" name="full[]"    ng-model="resultCtrl.criteria.access['After appointment']">  {{ 'AFTER_APPOINTMENT' | translate }}</label></div>
+                    <div><label> <input icheck type="checkbox"  name="full[]"  ng-model="resultCtrl.criteria.access['Full access (own key/lock)']">  {{ 'FULL_ACCESS' | translate }}</label></div>
+                </div>
+            </div>
+
+            <div class="col-xs-12 hr-line-dashed m-t-sm m-b-sm"></div>
+
+            <div class="form-group">
+                <label class="col-sm-4 control-label">{{ 'ACCEESSIBILITY' | translate }}</label>
+
+                <div class="col-sm-8">
+                    <div><label> <input icheck type="checkbox" name="accessibility[]" ng-model="resultCtrl.criteria.accessibility['Elevator']">  {{ 'ELEVATOR' | translate }}</label></div>
+                    <div><label> <input icheck type="checkbox"  name="accessibility[]" ng-model="resultCtrl.criteria.accessibility['Stairs']">  {{ 'STAIRS' | translate }}</label></div>
+                </div>
+            </div>
+
+            <div class="col-xs-12 hr-line-dashed m-t-sm m-b-sm"></div>
+
+            <div class="form-group">
+                <label class="col-sm-4 control-label">{{ 'SHARED' | translate }}</label>
+
+                <div class="col-sm-8">
+                    <div><label> <input icheck type="checkbox" name="own_shared[]" ng-model="resultCtrl.criteria.own_shared['Shared with others']">  {{ 'SHARED_WITH_OTHERS' | translate }}</label></div>
+                    <div><label> <input icheck type="checkbox"  name="own_shared[]" ng-model="resultCtrl.criteria.own_shared['Own/private']">  {{ 'OWN_PRIVATE' | translate }}</label></div>
+                </div>
+            </div>
+
+             <div class="col-xs-12 hr-line-dashed m-t-sm m-b-sm"></div>
+
+             <div class="form-group">
+                <label class="col-sm-4 control-label">{{ "ACCESSORIES" | translate }}</label>
+
+                <div class="col-sm-8">
+                    <div><label> <input icheck type="checkbox" name="accessories[]" ng-model="resultCtrl.criteria.accessories['Own code/lock']">  {{ 'OWN_CODE_LOCK' | translate }}</label></div>
+                    <div><label> <input icheck type="checkbox"  name="accessories[]" ng-model="resultCtrl.criteria.accessories['Alarm']">  {{ 'ALARM' | translate }}</label></div>
+                    <div><label> <input icheck type="checkbox"  name="accessories[]" ng-model="resultCtrl.criteria.accessories['Trolly can be borrowed']">  {{ 'TROLLY_CAN_BE_BORROWED' | translate }}</label></div>
+                </div>
+            </div>
+
+            <div class="m-t-sm"></div>
+        </div>
+
+       
+
+        <!-- Result List  -->
+        <div ng-show="!resultCtrl.isFilterVisible">
+            <div class="col-xs-12 result-counter"><h5>{{"SHOWING" | translate}} <b>{{resultCtrl.activeListings.length}}</b> {{"01_STORAGES_FOR_RENT" | translate}}</h5></div>
+            <div class="col-xs-12 result-list-panel">
+                    <div 
+                        ng-repeat="listing in resultCtrl.activeListings"
+                        class="col-xs-12 no-padding info-result-list m-b-md cursor-pointer" ng-click="resultCtrl.navigateListingView(listing.id, listing.heading, listing.location)">
+
+                        <div class="img-listing col-md-4 no-padding image-box-container">
+                            <img ng-src="{{listing['cover_image']}}" alt="">
+                        </div>
+                        <div class="info-container col-md-8 no-padding">
+                            <div class="info-1 col-xs-12">
+                                <h3 class="m-t-md info-title text-black">{{listing.heading | limitTo : 27}} <span ng-if="listing.heading.length > 27">...</span>
+                                    <span class="m-l-sm">{{(listing.area == 0) ? '' : listing.area+' m2' }} </span>
+                                    <span class="pull-right">{{listing.distance_in_km | number:2}} km</span>
+                                </h3>
+                                <span class="inline-block label label-default m-r-xs" ng-repeat="type in listing.types">{{type | translate}}</span>
+                                <p class="info-desc m-t-xs">{{listing.description | limitTo : 56}} <span ng-if="listing.description.length > 56">...</span></p>
+                                <div>
+                                    <span class="label label-default" ng-if="listing.zip && listing.city"><li class="fa fa-map-marker"></li>&nbsp;{{ listing.zip }} {{ listing.city }}</span>
+                                </div>
+                                <p class="info-name m-t-sm small-stars">{{ listing.user.firstname }} {{ listing.user.lastname }}
+                                        <input-stars class="m-l-xs" 
+                                        max="5" 
+                                        ng-model="listing.owner_average_ratings"
+                                        icon-base="fa fa-fw  "
+                                        icon-empty="fa-star-o  "
+                                        icon-full="fa-star  " 
+                                        icon-hover-full="fa-star  " readonly="true" ng-if="!listing.isSpecial"></input-stars></p> 
+                            </div>
+                            <div class="info-2 no-padding col-xs-12">
+                                <div class="owner col-md-9 col-xs-4 col-sm-6 no-padding">
+                                    <div class="profile-container col-md-3 col-xs-3 col-sm-4 no-padding">
+                                        <img ng-src="{{listing.user.profile_picture}}" alt="">
+                                    </div>
+                                    <div class="info col-md-9 col-xs-8  no-padding">
+                                        <h4 class="text-black small-stars">{{ listing.user.firstname }} {{ listing.user.lastname }} <input-stars class="m-l-xs" 
+                                            max="5" 
+                                            ng-model="listing.owner_average_ratings"
+                                            icon-base="fa fa-fw  fa-1x"
+                                            icon-empty="fa-star-o  fa-1x"
+                                            icon-full="fa-star  fa-1x" 
+                                            icon-hover-full="fa-star  fa-1x" readonly="true" ng-if="!listing.isSpecial"></input-stars></h4>
+                                       
+                                    </div>
+                                </div>
+                                <div class="price col-md-3 col-xs-8 col-sm-6 no-padding">
+                                    <h2 class="text-center m-t-sm text-black">{{listing.price_per_month}}</h2>
+                                    <h5 class="text-center">{{ 'NOK/mnd' | translate }}</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+    </div>
+
+    <div class="col-md-6 col-xs-12 no-padding height-100">
+        <span us-spinner="{radius:30, width:8, length: 16}" spinner-key="map-spinner"></span>
+        <div id="mapInstance" class="height-100">
+
+        </div>
+    </div>
+</div>
