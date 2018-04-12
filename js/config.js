@@ -6,7 +6,7 @@
  * Initial there are written state for all view in theme.
  *
  */
-function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdleProvider, KeepaliveProvider) {
+function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdleProvider, KeepaliveProvider, $locationProvider) {
 
     // Configure Idle settings
     IdleProvider.idle(5); // in seconds
@@ -18,7 +18,8 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
         // Set to true if you want to see what and when is dynamically loaded
         debug: false
     });
-
+    $locationProvider.html5Mode(true);
+    $locationProvider.hashPrefix('!');
     $stateProvider
 
         .state('dashboards', {
