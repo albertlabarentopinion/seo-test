@@ -15,7 +15,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     <!-- Page title set in pageTitle directive -->
-    <title page-title></title>
+    <!-- <title page-title></title> -->
+     <!--SEO-->
+     <meta name="fragment" content="!" />
+     <meta name="description" content="{{metaDescription}}">
+     <!-- <meta name="description" content="This is a sample meta description"> -->
+     <link rel="canonical" href="https://staging.latell.no">
+     <meta name="robots" content="follow,index">
+     <!-- Page title set in pageTitle directive -->
+     <title ng-bind="page-title">Home | Latell.no</title>
 
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -27,13 +35,21 @@
     <link href="css/animate.css" rel="stylesheet">
     <link id="loadBefore" href="css/style.css" rel="stylesheet">
 
-
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-1526134-13"></script>
+    
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-NKW7JDB');</script>
 </head>
 
 <!-- ControllerAs syntax -->
 <!-- Main controller with serveral data used in Inspinia theme on diferent view -->
 <body ng-controller="MainCtrl as main" class="{{$state.current.data.specialClass}}" landing-scrollspy id="page-top">
-
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NKW7JDB"
+        height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- Main view  -->
 <div ui-view></div>
 
