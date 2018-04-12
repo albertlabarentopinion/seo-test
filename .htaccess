@@ -1,0 +1,36 @@
+<IfModule mod_headers.c>
+        RequestHeader set X-Prerender-Token "5PNLaZP46uU6V6bPbgiN"
+        RequestHeader set X-Api-Key "LsVXdgDAJf5wdO9jbArtE48uEA6iTVRh44bUCNUo"
+        RequestHeader set X-settings-req-userAgent "urlrender"
+</IfModule>
+
+
+
+<IfModule mod_rewrite.c>
+    <IfModule mod_negotiation.c>
+        Options -MultiViews -Indexes
+    </IfModule>
+
+    RewriteEngine On
+    Options +FollowSymLinks
+    RewriteCond %{REQUEST_URI}  ^/$
+    RewriteCond %{QUERY_STRING} ^_escaped_fragment_=/?(.*)$
+    RewriteRule ^(.*)$ /snapshots/%1? [NC,L]
+
+    # If an existing asset or directory is requested go to it as it is.
+    RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -f [OR]
+    RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -d
+    RewriteRule ^ - [L]
+
+    RewriteCond %{HTTP_USER_AGENT} !urlrender [NC]
+    RewriteCond %{HTTP_USER_AGENT} googlebot|bingbot|yandexbot|linkedinbot|twitterbot [NC]
+    RewriteRule ^(.*)$ https://open.urlrender.com/%{REQUEST_SCHEME}://%{HTTP_HOST}/$1 [P,END]
+
+    RewriteCond %{REQUEST_URI}  ^/$
+    RewriteCond %{QUERY_STRING} ^_escaped_fragment_=/?(.*)$
+    RewriteRule ^(.*)$ /snapshots/%1? [NC,L]
+
+    # If the requested resource doesn't exist, use index.html
+    RewriteRule ^ /index.html
+
+</IfModule>
