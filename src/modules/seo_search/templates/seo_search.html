@@ -1,0 +1,71 @@
+<div class="col-md-9 col-md-offset-2">
+    <div class="col-md-9">
+        <div>
+            <h1 class="bg-white p-xs">Lager til leie i {{seoSearchCtrl.placeName}}</h1>
+        </div>
+        <div class="ibox float-e-margins m-t-md">
+            <div class="ibox-content p-xs">
+                <div>
+                    <p ng-bind-html="seoSearchCtrl.description"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12">
+            <div class="col-xs-12 no-padding ">
+                <h2>{{"SHOWING" | translate}} <b>{{seoSearchCtrl.listings.length}}</b> {{"01_STORAGES_FOR_RENT" | translate}} <span class="bg-white">{{seoSearchCtrl.placeName}}</span>
+                </h2>
+            </div>
+            <div class="row col-md-9 clear-both">
+                    <div 
+                    ng-repeat="listing in seoSearchCtrl.listings"
+                    class="no-padding info-result-list m-b-md cursor-pointer" ng-click="seoSearchCtrl.navigateListingView(listing.id, listing.heading, listing.location)">
+    
+                <div class="img-listing col-xs-4 no-padding image-box-container">
+                    <img ng-src="{{listing['cover_image']}}" alt="">
+                </div>
+                <div class="info-container col-xs-8 no-padding">
+                    <div class="info-1 col-xs-12">
+                        <h3 class="m-t-md info-title text-black">{{listing.heading | limitTo : 27}} <span ng-if="listing.heading.length > 27">...</span>
+                            <span class="m-l-sm">{{(listing.area == 0) ? '' : listing.area+' m2' }} </span>
+                        </h3>
+                        <span class="inline-block label label-default m-r-xs" ng-repeat="type in listing.types">{{type | translate}}</span>
+                        <p class="info-desc m-t-xs">{{listing.description | limitTo : 56}} <span ng-if="listing.description.length > 56">...</span></p>
+                        <div>
+                            <span class="label label-default" ng-if="listing.zip && listing.city"><li class="fa fa-map-marker"></li>&nbsp;{{ listing.zip }} {{ listing.city }}</span>
+                        </div>
+                        <p class="info-name m-t-sm small-stars">{{ listing.user.firstname }} {{ listing.user.lastname }}
+                                <input-stars class="m-l-xs" 
+                                max="5" 
+                                ng-model="listing.owner_average_ratings"
+                                icon-base="fa fa-fw  "
+                                icon-empty="fa-star-o  "
+                                icon-full="fa-star  " 
+                                icon-hover-full="fa-star  " readonly="true"></input-stars></p> 
+                    </div>
+                    <div class="info-2 no-padding col-xs-12">
+                        <div class="owner col-md-9 col-xs-4 col-sm-6 no-padding">
+                            <div class="profile-container col-md-3 col-xs-3 col-sm-4 no-padding">
+                                <img ng-src="{{listing.user.profile_picture}}" alt="">
+                            </div>
+                            <div class="info col-md-9 col-xs-8  no-padding">
+                                <h4 class="text-black small-stars">{{ listing.user.firstname }} {{ listing.user.lastname }} <input-stars class="m-l-xs" 
+                                    max="5" 
+                                    ng-model="listing.user.user_rating"
+                                    icon-base="fa fa-fw  fa-1x"
+                                    icon-empty="fa-star-o  fa-1x"
+                                    icon-full="fa-star  fa-1x" 
+                                    icon-hover-full="fa-star  fa-1x" readonly="true"></input-stars></h4>
+                               
+                            </div>
+                        </div>
+                        <div class="price col-md-3 col-xs-8 col-sm-6 no-padding">
+                            <h2 class="text-center m-t-sm text-black">{{ listing.price_per_month | number : 0 }}</h2>
+                            <h5 class="text-center">{{ 'NOK/mnd' | translate }}</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+    </div>
+</div>

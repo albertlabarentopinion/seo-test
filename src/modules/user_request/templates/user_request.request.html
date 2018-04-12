@@ -1,0 +1,257 @@
+<div class="row">
+    <div class="col-md-9" ng-if="!userByRequestCtrl.isDeactivated">
+        <div class="ibox">
+            <div class="ibox-content" ng-class="{'sk-loading' : userByRequestCtrl.isLoading}">
+                <div class="sk-spinner sk-spinner-double-bounce">
+                    <div class="sk-double-bounce1"></div>
+                    <div class="sk-double-bounce2"></div>
+                </div>
+               <div class="row">
+                    <div class="col-sm-6">
+                            <a ui-sref="main.account.user_request"><span class="fa fa-arrow-left"></span> {{"BACK_TO_MESSAGE_OVERVIEW" | translate}}</a>
+                            <h4 class="request-status-header">
+                                {{"CURRENT_STATUS" | translate}}: <span class="text-muted">{{userByRequestCtrl.request.request_status | translate }}</span>  
+                                <small ng-if="userByRequestCtrl.request.request_status == 'ACTIVE'"> (Active rental)</small>
+                            </h4>
+                       </div>
+                       <div class="col-sm-6">
+                           <div class="col-md-12 no-padding no-margin " ng-if="!userByRequestCtrl.isLoading && !(userByRequestCtrl.request.owner_id == user.id || !(userByRequestCtrl.request.request_status == 'REQUEST' || userByRequestCtrl.request.request_status == 'SPECIAL_OFFER'))">
+                                <label class="col-md-4 m-t-sm text-right">
+                                        {{"FROM_DATE" | translate}}: 
+                                </label> 
+                                <div class="col-md-8 input-group date pull-right" ng-if="userByRequestCtrl.request.client_id == user.id && (userByRequestCtrl.request.request_status == 'REQUEST' || userByRequestCtrl.request.request_status == 'SPECIAL_OFFER')">
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                    <input placeholder="From Date" type="datetime" auto-close="true" ng-change="userByRequestCtrl.setDateFrom()" 
+                                    date-change="userByRequestCtrl.setDateFrom" ng-disabled="userByRequestCtrl.request.owner_id == user.id || userByRequestCtrl.request.request_status == 'EXPIRED'" format="{{userByRequestCtrl.dateFormat}}" first-day="1" date-time="" view="date"  min-view="date" 
+                                    ng-model="fromDate" class="form-control" >
+                                </div>
+                               
+                                <div class="pull-right m-t-xs" ng-if="userByRequestCtrl.savingFromDate">
+                                    <i class="fa fa-spinner fa-spin fa-fw"></i>
+                                    <span class="text-danger">{{"SAVING_FROM_DATE" | translate}}...</span>
+                                </div>
+                           </div>
+                           <div class="col-md-12 no-padding m-t-sm text-right" ng-if="userByRequestCtrl.request.owner_id == user.id || !(userByRequestCtrl.request.request_status == 'REQUEST' || userByRequestCtrl.request.request_status == 'SPECIAL_OFFER')">
+                               <label class="m-r-md" >{{"FROM_DATE" | translate}}:  </label> <b>{{userByRequestCtrl.request.from_date}}</b>
+                           </div>
+                           <div class="col-md-12 no-padding m-t-sm text-right" ng-if="userByRequestCtrl.request.payment_due_date">
+                               <label class="m-r-md" >{{"PAYMENT_DUE_DATE" | translate}}:  </label> <b>{{userByRequestCtrl.request.payment_due_date}}</b>
+                           </div>
+                           <div class="col-md-12 no-padding m-t-sm text-right" ng-if="userByRequestCtrl.request.request_status == 'TERMINATE_NOTICE' || userByRequestCtrl.request.request_status == 'TERMINATED'">
+                               <label class="m-r-md" >{{"TO_DATE" | translate}}:  </label> <b>{{userByRequestCtrl.request.to_date}}</b>
+                           </div>
+                       </div>
+                       
+               </div>
+               <div class="row">
+                    <form-error error-bags="userByRequestCtrl.changeDateErrorBags"></form-error>
+               </div>
+            </div>
+        </div>
+
+        <div 
+        ng-init="disableControls = (userByRequestCtrl.request.request_status !== 'BILLING' && userByRequestCtrl.request.request_status !== 'CANCELED' && userByRequestCtrl.request.request_status !== 'REJECT')"
+        class="ibox m-t-md" >
+            <div class="ibox-content  m-b-md col-xs-12" ng-class="{'sk-loading' : userByRequestCtrl.isLoading}">
+                <form-error error-bags="userByRequestCtrl.errorBags"></form-error>
+                <div class="sk-spinner sk-spinner-double-bounce" ng-if="userByRequestCtrl.isLoading">
+                    <div class="sk-double-bounce1"></div>
+                    <div class="sk-double-bounce2"></div>
+                </div>
+                <div class="col-lg-12 m-t-md " >
+                    <span ng-repeat="control in userByRequestCtrl.requestControls"
+                          request-control 
+                          control-options="control"  
+                          request="userByRequestCtrl.request">
+                            <button  promise-btn class="btn btn-{{control.bcolor}} control-request-btn  m-r-sm m-b-sm" ng-click="userByRequestCtrl.controlRequest(control.control_name, control.text)">{{control.text | translate}}</button>  
+                    </span>
+                    <!-- <button promise-btn   class="btn btn-primary control-request-btn  m-r-sm m-b-sm" ng-click="userByRequestCtrl.controlRequest('approved', 'ACCEPT_RENTAL_REQUEST')">{{"ACCEPT_RENTAL_REQUEST" | translate}}</button>  
+                    <button class="btn btn-danger control-request-btn m-r-sm m-b-sm" ng-click="userByRequestCtrl.controlRequest('reject', 'REJECT_REQUEST')">{{"REJECT_REQUEST" | translate}}</button>  
+                    <button class="m-r-sm btn btn-default control-request-btn m-b-sm" 
+                            ng-click="userByRequestCtrl.openSpecialOfferModal()">{{"GIVE_SPECIAL_OFFER" | translate}}</button>  -->
+                    <!-- <button class="cursor-help btn btn-default control-request-btn m-b-sm">{{"PRICE" | translate}} {{ "FROM" | translate }}  {{ userByRequestCtrl.request.listing.price_per_month | number:0}}  {{ "TO" | translate }} {{ userByRequestCtrl.request.price_per_month | number:0}} NOK/MND</button>  -->
+                    <!-- <button promise-btn class="control-request-btn btn m-b-sm btn-default m-r-sm" ng-click="userByRequestCtrl.makePayment()">{{"MAKE_PAYMENT" | translate}}</button>   -->
+                    <!-- <button class="control-request-btn btn btn-danger" ng-click="userByRequestCtrl.controlRequest('cancelled', 'CANCEL_REQUEST')">{{"CANCEL_REQUEST" | translate}}</button>   -->
+                </div>
+            </div>
+        </div>
+        <div class="ibox m-t-md">
+            <div class="ibox-title col-md-12">
+                <div class="form-inline col-md-12">
+                    <div class="col-md-12">
+                        <input class="pull-left control-chat-box form-control" type="text" placeholder="{{'YOUR_MESSAGE' | translate}}" 
+                        ng-model="userByRequestCtrl.message"
+                        ng-enter="userByRequestCtrl.sendOnEnter()">
+                        <button 
+                            class="btn  btn-white control-chat-btn" promise-btn 
+                            ng-click="userByRequestCtrl.sendMessage(userByRequestCtrl.message)"
+                            ng-disabled="!userByRequestCtrl.message" id="chatsend">{{"SEND" | translate}}</button>
+                    </div>
+                </div>
+            </div>
+            <div class="ibox-content" ng-class="{'sk-loading' : userByRequestCtrl.isLoading}">
+                <div class="sk-spinner sk-spinner-double-bounce">
+                    <div class="sk-double-bounce1"></div>
+                    <div class="sk-double-bounce2"></div>
+                </div>
+                    <div class="chat-activity-list">
+                        <div  ng-repeat="log in userByRequestCtrl.request.logs" >
+                                <div class="m-t-sm chat-element request-changes-box  status-change" ng-if="log.event_type == 'REQUEST'">
+                                    <div class="well" >
+                                        <span >
+                                         <li class="fa fa-clock-o cursor-pointer" tooltip-placement="top" uib-tooltip="{{log.created_at | date : 'dd MMM yyyy h:mm a'}}"></li> {{log.created_at | date : 'dd MMM yyyy h:mm a' | timeAgo}} 
+                                        </span><br>
+                                         <span>
+                                            {{"STATUS_CHANGED_BY" | translate}}: {{log.from.firstname+' '+log.from.lastname}} 
+                                         </span><br>
+                                         <span>
+                                           {{"NEW_STATUS" | translate}}: {{log.status_to | translate}} 
+                                           <span ng-if="log.display_text == 'SEND_REQUEST_MESSAGE'">{{"FROM" | translate}} {{"DATE" | translate}}: {{ userByRequestCtrl.request.from_date | date : 'dd MMM yyyy h:mm a'}}</span>
+                                           <span ng-if="log.display_text == 'SPECIAL_OFFER_MESSAGE'"><b>{{userByRequestCtrl.request.price_per_month | number:0 }}</b> NOK/MND</span>
+                                         </span>
+                                         <span class="pull-right">
+                                                <span class="label" ng-class="{
+                                                    'label-primary' : log.status_to == 'REQUEST',
+                                                    'label-info' : log.status_to == 'BILLING',
+                                                    'label-danger' : log.status_to == 'TERMINATE_NOTICE' || log.status_to == 'REJECT' || log.status_to == 'CANCELED' || log.status_to == 'PAYMENT_FAILED',
+                                                    'label-warning' : log.status_to == 'OVER',
+                                                    'label-success' : log.status_to == 'SPECIAL_OFFER' || log.status_to == 'ACTIVE'
+                                                }">{{log.status_to | translate}}</span> <br>
+                                         </span>
+                                    </div>
+                                    
+                                </div>
+                                <div class="m-t-sm chat-element request-changes-box  status-change" ng-if="log.event_type == 'GENERAL_LOG'">
+                                    <div class="well" >
+                                        <span >
+                                         <li class="fa fa-clock-o cursor-pointer" tooltip-placement="top" uib-tooltip="{{log.created_at | date : 'dd MMM yyyy h:mm a'}}"></li> {{log.created_at | date : 'dd MMM yyyy h:mm a' | timeAgo}} 
+                                        </span><br>
+                                        <b>{{log.display_text | translate}}</b>
+                                    </div>
+                                    
+                                </div>
+                                <div ng-if="log.event_type == 'CHAT'">
+                                    <div class="chat-element request-changes-box" ng-if="log.from_id !== user.id">
+                                        <a class="pull-left">
+                                            <img alt="image" class="img-circle m-r-md" ng-src="{{log.from.profile_picture}}">
+                                        </a>
+                                        <div class="media-body ">
+                                            <strong>{{log.from.firstname+' '+log.from.lastname}}</strong>
+                                            <span class="m-l-sm"><li class="fa fa-clock-o cursor-pointer" tooltip-placement="top" uib-tooltip="{{log.created_at | date : 'dd MMM yyyy h:mm a'}}"></li> {{log.created_at | date : 'dd MMM yyyy h:mm a' | timeAgo}}</span>
+                                            <p class="m-b-xs">
+                                                {{log.display_text | translate}}
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <div class="chat-element request-changes-box right" ng-if="log.from_id == user.id">
+                                        <a class="pull-right">
+                                            <img alt="image" class="img-circle m-l-md" ng-src="{{log.from.profile_picture}}">
+                                        </a>
+                                        <div class="media-body text-right ">
+                                            <span class="pull-right m-l-sm"><li class="fa fa-clock-o cursor-pointer" tooltip-placement="top" uib-tooltip="{{log.created_at | date : 'dd MMM yyyy h:mm a'}}"></li> {{log.created_at | date : 'dd MMM yyyy h:mm a' | timeAgo}}</span>
+                                            <strong>{{log.from.firstname+' '+log.from.lastname}}</strong>
+                                            <p class="m-b-xs">
+                                               {{log.display_text | translate}}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 no-padding" ng-if="!userByRequestCtrl.isDeactivated">
+            <div class="ibox">
+                <div class="ibox-content col-md-12 no-padding" ng-class="{'sk-loading' : userByRequestCtrl.isLoading}">
+                    <div class="sk-spinner sk-spinner-double-bounce">
+                        <div class="sk-double-bounce1"></div>
+                        <div class="sk-double-bounce2"></div>
+                    </div>
+                    <div class="marker-view-request">
+                        <div class="picture overflow-hidden">
+                                <img ng-src="{{userByRequestCtrl.request.listing.photos[0].path}}" alt="">
+                            </div>
+                            <div class="price">
+                                <h4>{{userByRequestCtrl.request.price_per_month | number:0}}</h4>
+                                <h5>NOK/MND</h5>
+                            </div>
+                            <div class="info m-t-md col-md-12">
+                                <div class="details-2 details">
+                                    <h3 class="m-t-md info-title text-black">{{userByRequestCtrl.request.listing.heading | limitTo : 19}} <span ng-if="userByRequestCtrl.request.listing.heading.length > 19">...</span> 
+                                        <span class="m-l-sm">{{(userByRequestCtrl.request.listing.area == 0) ? '' : serByRequestCtrl.request.listing.area+' m2' }} </span>
+                                    </h3>
+                                    <h5>{{userByRequestCtrl.request.listing.description | limitTo : 32}} <span ng-if="userByRequestCtrl.request.listing.description.length > 32">...</span> </h5> 
+                                    <div class="small m-t-xs">
+                                        <i class="fa fa-map-marker"></i> {{ "LOCATION" | translate }}: <span ng-if="userByRequestCtrl.request.request_status == 'ACTIVE'">{{ userByRequestCtrl.request.listing.zip }} {{ userByRequestCtrl.request.listing.google_address.name }}</span> {{ userByRequestCtrl.request.listing.city }}
+                                        <br>
+                                        <i class="fa fa-map" ng-if="userByRequestCtrl.request.request_status == 'ACTIVE'"></i> <a ng-if="userByRequestCtrl.request.request_status == 'ACTIVE'" ng-href="https://www.google.com/maps/search/?q={{ userByRequestCtrl.request.listing.google_address.name }}&api=1&query={{ userByRequestCtrl.request.listing.latitude}},{{ userByRequestCtrl.request.listing.longitude }}" target="_blank">Show Map</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+            </div>
+            <div class="ibox ">
+                <div class="col-xs-12 m-t-md no-padding" id="bp-profile">
+                    <div class="ibox-content col-xs-12" id="profile-2" ng-class="{'sk-loading' : userByRequestCtrl.isLoading}">
+                        <div class="sk-spinner sk-spinner-double-bounce">
+                            <div class="sk-double-bounce1"></div>
+                            <div class="sk-double-bounce2"></div>
+                        </div>
+                        <div class="col-xs-12 no-padding mini-profile">
+                            <a class="request-bp-profile text-center pull-left col-md-12 col-xs-6 no-padding" ui-sref="main.user_profile({user_id : userByRequestCtrl.request.user.id})">
+                                <!-- <img alt="image" class="col-xs-12 no-padding img-circle m-l-xs img-circle" ng-src="{{userByRequestCtrl.request.owner.profile_picture}}"> -->
+                                <img class="img-circle" ng-src="{{userByRequestCtrl.request.user.profile_picture}}" alt="">
+                                <div class="col-xs-12  m-t-xs">
+                                    <input-stars 
+                                        max="5" 
+                                        ng-model="userByRequestCtrl.request.user.user_rating"
+                                        icon-base="fa fa-fw "
+                                        icon-empty="fa-star-o "
+                                        icon-full="fa-star " 
+                                        icon-hover-full="fa-star " readonly></input-stars>
+                                </div>
+                            </a>
+                            <div class="col-md-12 col-xs-6 no-padding">
+                                <span>{{ userByRequestCtrl.request.user.id == userByRequestCtrl.request.owner_id ? 'LESSOR' : 'LESSEE'  | translate }}: {{parseInt(userByRequestCtrl.request.user.id)}} {{parseInt(userByRequestCtrl.request.owner_id)}}</span>
+                                <h4 class="m-t">{{userByRequestCtrl.request.user.firstname}} {{userByRequestCtrl.request.user.lastname}}</h4>
+                                <div class="m-t" ng-if="mobile_verified == 1">
+                                    <span class="fa fa-check"></span>&nbsp;{{"MOBILE_NUMBER_VERIFIED" | translate}}
+                                </div>
+                                <div class="m-t">
+                                    <b>{{"01_PROFILE" | translate}}</b>
+                                    <div class="text-gray">
+                                        <span>{{"MEMBER_SINCE" | translate}}</span>
+                                        <span class="pull-right">{{userByRequestCtrl.request.user.created_at | date}}</span>
+                                    </div>
+                                    <div class="text-gray">
+                                        <span>{{"RESPONSE_TIME" | translate}}</span>
+                                        <span class="pull-right">45 {{"MINS" | translate}}</span>
+                                    </div>
+                                    <div class="text-gray" ng-if="userByRequestCtrl.request.request_status == 'ACTIVE'">
+                                        <span>{{"01_EMAIL" | translate}}</span>
+                                        <span class="pull-right">{{userByRequestCtrl.request.user.email }}</span>
+                                    </div>
+                                    <div class="text-gray" ng-if="userByRequestCtrl.request.request_status == 'ACTIVE'">
+                                        <span>{{"01_MOBILE" | translate}}</span>
+                                        <span class="pull-right">{{userByRequestCtrl.request.user.mobile }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+            </div>
+        </div>
+        <div class="col-md-12 no-padding" ng-show="userByRequestCtrl.isDeactivated">
+                <div class="ibox">
+                    <div class="ibox-content col-md-12  text-center text-danger">
+                        <h2>{{"DEACTIVATED_BY_ADMIN" | translate}}</h2>
+                        <a ui-sref="main.account.user_request"><span class="fa fa-arrow-left"></span> {{"BACK_TO_MESSAGE_OVERVIEW" | translate}}</a>
+                    </div>
+                </div>
+        </div>
+        
+</div>

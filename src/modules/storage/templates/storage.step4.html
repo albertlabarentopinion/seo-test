@@ -1,0 +1,131 @@
+<form class="form-horizontal" name="add_listing_form">
+    <form-error error-bags="step4Ctrl.errorBags"></form-error>
+    <div class="form-group required">
+        <label for="" class="col-sm-2 control-label">{{"PRICE_OF_STORAGE" | translate}}</label>
+        <div class="col-sm-3">
+            <input focus-name="1" num-thousand="false" next-focus="2" type="text" awnum num-thousand="true" num-int="100" num-fract="4" class="form-control" placeholder="{{'PRICE_PER_MONTH' | translate}}" ng-model="step4Ctrl.listing.price_per_month" >
+        </div>
+        <div class="col-sm-7">
+            <p class="m-t-sm">{{"PRICE_DESCRIPTION" | translate}}</p>
+        </div>
+    </div>
+
+    <div class="hr-line-dashed m-t-lg m-b-lg"></div>
+
+    <!-- <div class="form-group">
+        <label for="" class="col-sm-2 control-label">{{"DISCOUNT" | translate}}</label>
+        <div class="col-sm-10 control-label">
+            <p class="text-left">{{"DISCOUNT_DECRIPTION" | translate}}</p>
+
+            <div class="hr-line-dashed m-t-lg m-b-lg"></div>
+            
+            <div class="ibox-content no-padding text-left">
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <span class="badge badge-primary">Kr {{ step4Ctrl.listing.price_per_month || 0 | percentage:0 }}/ {{"PER_MONTH" | translate}}</span>
+                        {{"PREPAY" | translate}} {{"EVERY_MONTH_TEXT" | translate}}
+                    </li>
+                    <li class="list-group-item ">
+                        <span class="badge badge-info">Kr {{ step4Ctrl.listing.price_per_month || 0   | percentage:5:2 }}/ {{"PER_MONTH" | translate}}</span>
+                        {{"PREPAY" | translate}} {{"3_MONTHS_TEXT" | translate}}
+                    </li>
+                    <li class="list-group-item">
+                        <span class="badge badge-danger">Kr {{ step4Ctrl.listing.price_per_month || 0   | percentage:10:2 }}/ {{"PER_MONTH" | translate}}</span>
+                        {{"PREPAY" | translate}} {{"6_MONTHS_TEXT" | translate}}
+                    </li>
+                    <li class="list-group-item">
+                        <span class="badge badge-success">Kr {{ step4Ctrl.listing.price_per_month  || 0 | percentage:15:2 }}/ {{"PER_MONTH" | translate}}</span>
+                        {{"PREPAY" | translate}} 
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div> -->
+
+    <!-- <div class="hr-line-dashed m-t-lg m-b-lg"></div> -->
+
+    <div class="form-group">
+        <label for="" class="col-sm-2 control-label">{{"RENTAL_PERIOD" | translate}}</label>
+        <div class="col-sm-10 m-t-xs">
+            <div>
+                <label for="">
+                    <input focus-name="2" next-focus="3" icheck type="radio" ng-model="step4Ctrl.listing.no_restrictions_rental_period" name="restriction" ng-value="1"> 
+                   {{"NO_RESTRICTIONS" | translate}}
+                </label>
+            </div>
+        </div>
+    </div>
+    
+    <div class="hr-line-dashed m-t-lg m-b-lg"></div>
+
+    <div class="form-group">
+        <label for="" class="col-sm-2 control-label"></label>
+        <div class="col-sm-10 m-t-xs">
+            <div>
+                <label for="">
+                    <input focus-name="3" next-focus="1" icheck type="checkbox" name="accept_terms" ng-model="step4Ctrl.accepted" ng-true-value="1" 
+                    ng-false-value="0"  ng-checked="step4Ctrl.accepted == 1"> 
+                    {{"I_ACCEPT_CONDITION_RENTAL" | translate}}
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <div class="hr-line-dashed m-t-lg m-b-lg"></div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">&nbsp;</label>
+
+        <div class="col-sm-10">
+            <button class="btn btn-success" ng-click="step4Ctrl.proceed()"><span class="fa fa-sign-in"></span> {{"SEE_ADD" | translate}}</button>
+        </div>
+    </div>
+
+    <div class="hr-line-dashed m-t-lg m-b-xl"></div>
+
+    <div ng-if="step4Ctrl.isDirty && !step4Ctrl.isNewListing">
+        <button 
+            class="btn btn-primary pull-right" 
+            promise-btn 
+            ng-click="step4Ctrl.save( step4Ctrl.listing, null, false,  step4Ctrl.external_account)"
+            ng-disabled="!step4Ctrl.accepted">
+            {{"01_SAVE_BTN" | translate}}
+        </button>
+        <button 
+            class="btn btn-default pull-right m-r-sm" 
+            promise-btn 
+            ng-click="step4Ctrl.disgard()">
+            {{"01_DISCARD_BTN" | translate}}
+        </button>
+    </div>
+    <div ng-if="!step4Ctrl.isDirty && !step4Ctrl.isNewListing">
+        <button 
+            class="btn btn-primary pull-right" 
+            ng-click="step4Ctrl.navigateTo( step4Ctrl.listing, step4Ctrl.listing.isSpecial ? 'main.admin.special_listing' : 'main.account.storage')"
+            ng-disabled="!step4Ctrl.accepted">
+            {{"FINISH" | translate}}
+        </button>
+        <button 
+            class="btn btn-default pull-right m-r-sm" 
+            promise-btn 
+            ng-click="step4Ctrl.navigateTo( step4Ctrl.listing, 'main.account.storage.add_listing.step3')">
+            {{"PREVIOUS" | translate}}
+        </button>
+    </div>
+    <div ng-if="step4Ctrl.isNewListing">
+        <button 
+            class="btn btn-primary pull-right" 
+            promise-btn 
+            ng-click="step4Ctrl.save( step4Ctrl.listing, step4Ctrl.listing.isSpecial ? 'main.admin.special_listing' : 'main.account.storage', false, step4Ctrl.external_account)"
+            ng-disabled="!step4Ctrl.accepted">
+            {{"FINISH" | translate}}
+        </button>
+        <button 
+            class="btn btn-default pull-right m-r-sm" 
+            promise-btn 
+            ng-click="step4Ctrl.save( step4Ctrl.listing, 'main.account.storage.add_listing.step3', false, step4Ctrl.external_account)"
+            ng-disabled="!step4Ctrl.accepted">
+             {{"PREVIOUS" | translate}}
+        </button>
+    </div>
+</form>

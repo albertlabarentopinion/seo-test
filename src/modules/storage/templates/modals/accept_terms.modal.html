@@ -1,0 +1,23 @@
+<div class="inmodal">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="ctrl.cancel()"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+        <!-- <i class="fa fa-warning modal-icon"></i> -->
+        <h4 class="modal-title">{{"ACCEPT_TERMS" | translate }}</h4>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="accept_terms_container">
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
+                </p>
+                <input icheck type="checkbox" name="accept_terms" ng-model="ctrl.accepted" ng-true-value="1" 
+                ng-false-value="0"  ng-checked="ctrl.accepted == 1"> I Agree To The Terms
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-white" ng-click="ctrl.cancel()">{{"01_DISCARD_BTN" | translate}}</button>
+        <button type="button" class="btn btn-primary" ng-click="ctrl.continue(ctrl.accepted)" ng-disabled="!ctrl.accepted">{{"01_SAVE_BTN" | translate}}</button>
+    </div>
+</div>
+

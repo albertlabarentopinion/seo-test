@@ -1,0 +1,26 @@
+<div class="row  col-md-12  m-t-xl m-b-lg" ng-class="{ 'col-lg-10 col-lg-offset-1' : $state.includes('main.account.user_request.request'), 'col-lg-8 col-lg-offset-2' : !$state.includes('main.account.user_request.request') }">
+    <div class="col-md-3 ">
+        <div class="ibox float-e-margins">
+            <div class="ibox-content mailbox-content">
+                <div class="file-manager">
+                    <div class="space-25"></div>
+                    <h5>{{ '01_STORE_RENTALS' | translate }}</h5>
+                    <ul class="folder-list m-b-md">
+                        <li ui-sref-active="active"><a ui-sref="main.account.user_request"> <i class="fa fa-inbox "></i>{{ 'MESSAGES' | translate }}</a></li>
+                    </ul>
+                    <h5>{{ '01_ACCOUNT' | translate }}</h5>
+                    <ul class="folder-list m-b-md">
+                        <li ui-sref-active="active"><a ui-sref="main.account.edit_profile"><i class="fa fa-inbox"></i>{{ '01_PROFILE' | translate }}</a></li>
+                        <li ui-sref-active="active"><a ui-sref="main.account.storage"> <i class="fa fa-envelope-o"></i>{{ '01_STORAGE' | translate }}</a></li>
+                        <li ui-sref-active="active"><a ui-sref="main.account.payment"> <i class="fa fa-certificate"></i>{{ '01_PAYMENTS' | translate }}</a></li>
+                        <li ui-sref-active="active"><a ui-sref="main.account.payout" ui-sref-opts="{reload:true}"> <i class="fa fa-file-text-o"></i>{{ 'PAYOUTS' | translate }}</a></li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-9 ">
+       <div ui-view="account"></div>
+    </div>
+</div>

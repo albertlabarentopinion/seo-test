@@ -1,0 +1,35 @@
+<div class="row">
+    <div class="col-lg-10 col-lg-offset-1 m-t-lg m-b-xl col-md-12">
+        <div class="ibox">
+            <div class="ibox-title">
+                <h5>{{ '01_ADD_LISTING' | translate }}</h5>
+            </div>
+            <div class="ibox-content add-listing-content" >
+                
+               <div class="row ">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <a href="" ng-class="{ 'btn-primary current-step' : addListingCtrl.step_no == 'STEP1' }" class="btn btn-default col-md-2 col-xs-12 col-sm-5 m-sm" ng-click="addListingCtrl.wizardTab( 'main.account.storage.add_listing.step1_edit')"> 1. {{ 'ABOUT_THE_LISTING' | translate }}</a>
+                            <a href="" ng-class="{ 'btn-primary current-step' : addListingCtrl.step_no == 'STEP2' }" class="btn btn-default col-md-3 col-xs-12 col-sm-5 m-sm" ng-click="addListingCtrl.wizardTab( 'main.account.storage.add_listing.step2')"> 2. {{ 'ADDRESS_AND_PLACE' | translate }}</a>
+                            <a href="" ng-class="{ 'btn-primary current-step' : addListingCtrl.step_no == 'STEP3' }" class="btn btn-default col-md-3 col-xs-12 col-sm-5 m-sm" ng-click="addListingCtrl.wizardTab( 'main.account.storage.add_listing.step3')"> 3. {{ 'PROFILE_AD' | translate }}</a>
+                            <a href="" ng-class="{ 'btn-primary current-step' : addListingCtrl.step_no == 'STEP4' }" class="btn btn-default col-md-3 col-xs-12 col-sm-5 m-sm" ng-click="addListingCtrl.wizardTab( 'main.account.storage.add_listing.step4')" >4. {{ 'PRICE_AND_AVAILABILITY' | translate }}</a>
+                        </div>
+
+                        <div class="hr-line-dashed"></div>
+
+                        <div class="ibox-content " ng-class="{ 'sk-loading' : addListingCtrl.isLoading }">
+                            <div class="sk-spinner sk-spinner-wave"  >
+                                <div class="sk-rect1"></div>
+                                <div class="sk-rect2"></div>
+                                <div class="sk-rect3"></div>
+                                <div class="sk-rect4"></div>
+                                <div class="sk-rect5"></div>
+                            </div>
+                             <div ui-view="add_listing"></div>
+                        </div>
+                    </div>
+               </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,288 @@
+ <div class="row">
+    <div class="col-md-10 no-padding col-md-offset-1 m-t-lg" id="storage-view"> 
+
+        <div class="col-md-12 row">
+            <!--Storage Carousel-->
+            <div id="booking-profile" class="col-xs-12 col-lg-8 p-b-md ibox-content m-b-lg" id="storage-details-1" ng-class="{'sk-loading' : storageViewCtrl.isLoading}">
+                <div class="sk-spinner sk-spinner-double-bounce">
+                    <div class="sk-double-bounce1"></div>
+                    <div class="sk-double-bounce2"></div>
+                </div>
+                <div>
+                    <a ng-show="storageViewCtrl.$stateParams.prev" ng-click="storageViewCtrl.goBack()"><span class="fa fa-arrow-left"></span> {{"GO_BACK_SRCH_RESULT" | translate}}</a>
+                </div>
+                <h1 class="text-black storage-heading">
+                    {{storageViewCtrl.listing.heading}}
+                    <span class="m-r-md"></span>
+                    <input-stars 
+                        max="5" 
+                        ng-model="storageViewCtrl.listing.listing_rating"
+                        icon-base="fa fa-fw  "
+                        icon-empty="fa-star-o  "
+                        icon-full="fa-star  " 
+                        icon-hover-full="fa-star  " readonly="true"
+                        ng-if="!storageViewCtrl.listing.isSpecial && !storageViewCtrl.isLoading"></input-stars>
+                        
+                </h1>
+                <div class="col-md-12 no-padding">
+                    <div class="col-md-6 no-padding">
+                        <span>{{"LESSOR" | translate}}</span>
+                        <span>{{storageViewCtrl.listing.user.firstname}} {{storageViewCtrl.listing.user.lastname}}</span>
+                        <a ng-click="storageViewCtrl.goToAnchor('listing-map')">{{storageViewCtrl.listing.zip}}</a>
+                        <a ng-click="storageViewCtrl.goToAnchor('listing-map')">{{storageViewCtrl.listing.city}}</a>
+                    </div>
+                    <div class="col-md-6 no-padding">
+                        <div class="pull-right">
+                            <a ng-click="storageViewCtrl.goToAnchor('listing-map')" class="m-r-xl text-right"><span class="fa fa-map-marker"></span> {{"MAP" | translate}}</a>
+                            <a ng-if="!storageViewCtrl.listing.isSpecial && !storageViewCtrl.isLoading" ng-click="storageViewCtrl.goToAnchor('listing-reviews')" class="text-right"><span class="fa fa-star"></span> {{"RECOMMENTATIONS" | translate}}</a>
+                        </div>
+                    </div>
+                    <div class="m-t-lg">
+                        <div uib-carousel active="0" interval="5000">
+                            <div uib-slide ng-repeat="photo in storageViewCtrl.listing.photos track by photo.id" index="$index">
+                                <img ng-src="{{photo.path}}" style="margin:auto;">
+                                <div class="carousel-caption">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+             <!-- Booking Area and Profile  -->
+            <div id="bp-profile" class="col-lg-4 col-xs-12 row">
+                    <div class="ibox-content col-md-12" id="booking" ng-class="{'sk-loading' : storageViewCtrl.isLoading}">
+                            <div class="sk-spinner sk-spinner-double-bounce">
+                                <div class="sk-double-bounce1"></div>
+                                <div class="sk-double-bounce2"></div>
+                            </div>
+                            <div class="well pull-left col-xs-12">
+                               <div class="col-md-12">
+                                    <div ng-if="!storageViewCtrl.listing.isSpecial && !storageViewCtrl.isLoading" class="form-group">
+                                        <label for="" class="col-md-5 control-label no-padding m-t-sm">{{"FROM_DATE" | translate}}:</label>
+                                        <div class="col-md-7 input-group date no-padding">
+                                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                            <input  min-date="storageViewCtrl.minDate" placeholder="{{'FROM_DATE' | translate}}" type="datetime" class="form-control" date-change="storageViewCtrl.setDateFrom" first-day="1" date-time="" ng-model="dateFrom" view="date" auto-close="true" min-view="date" format="{{storageViewCtrl.AppConstants.dateFormat}}" >
+                                        </div>
+                                    </div>
+                                    <div ng-if="!storageViewCtrl.listing.isSpecial && !storageViewCtrl.isLoading" class="hr-line-solid m-t-md m-b-sm col-md-12 hr-thin"></div>
+                                    <span class="text-gray">{{"RENTAL_PRICE" | translate}}:</span>
+                                    <div >
+                                        <span>{{"MONTHLY_PAYMENT" | translate}}</span>
+                                        <span class="pull-right">NOK <b class="text-black price">{{storageViewCtrl.listing.price_per_month}},-</b>/{{"MONTH" | translate}}</span>
+                                    </div>
+                                    <!-- <div class="m-t-sm">
+                                        <span class="text-gray">{{"DISCOUNTS" | translate}}:</span>
+                                        <div class="col-xs-12 no-padding">
+                                            <small class="pull-left">3 {{"MONTH_PAYMENT_PERIOD" | translate}} <br> (5% {{"02_DISCOUNT" | translate}})</small>
+                                            <small class="pull-right">NOK {{ storageViewCtrl.listing.price_per_month || 0 | percentage:5}},-/{{"MONTH" | translate}}</small>
+                                        </div>
+                                        <div class="col-xs-12 no-padding">
+                                            <small class="pull-left">6 {{"MONTH_PAYMENT_PERIOD" | translate}} <br> (10% {{"02_DISCOUNT" | translate}})</small>
+                                            <small class="pull-right">NOK {{ storageViewCtrl.listing.price_per_month || 0 | percentage:10 }},-/{{"MONTH" | translate}}</small>
+                                        </div>
+                                        <div class="col-xs-12 no-padding">
+                                            <small class="pull-left">12 {{"MONTH_PAYMENT_PERIOD" | translate}} <br> (15% {{"02_DISCOUNT" | translate}})</small>
+                                            <small class="pull-right">NOK {{ storageViewCtrl.listing.price_per_month || 0 | percentage:15}},-/{{"MONTH" | translate}}</small>
+                                        </div>
+                                    </div> -->
+                                    <div class="m-t-md pull-left" id="send-request" ng-if="!storageViewCtrl.listing.isSpecial && !storageViewCtrl.isLoading"> 
+                                        <button type="button" class="btn btn-primary btn-lg" ng-click="storageViewCtrl.sendRequest()">{{"SEND_REQUEST" | translate}}</button>
+                                        <div class="col-xs-12 m-t-sm text-center">
+                                            <small>{{"SEND_REQUEST_DESCRIPTION" | translate}}</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 m-b-md" id="bp-profile">
+                                <div class="ibox-content col-xs-12" id="profile" ng-class="{'sk-loading' : storageViewCtrl.isLoading}">
+                                    <div class="sk-spinner sk-spinner-double-bounce">
+                                        <div class="sk-double-bounce1"></div>
+                                        <div class="sk-double-bounce2"></div>
+                                    </div>
+                                    <div class="col-xs-12 no-padding mini-profile">
+                                        <a class="pull-left col-md-5 col-xs-6 no-padding" ui-sref="main.user_profile({user_id : storageViewCtrl.listing.user.id})">
+                                            <img alt="image" class="col-xs-12 no-padding img-circle " ng-src="{{storageViewCtrl.listing.user.profile_picture}}">
+                                            <div class="col-xs-12  no-padding">
+                                                <input-stars 
+                                                max="5" 
+                                                ng-model="storageViewCtrl.listing.listing_rating"
+                                                icon-base="fa fa-fw "
+                                                icon-empty="fa-star-o "
+                                                icon-full="fa-star " 
+                                                icon-hover-full="fa-star " readonly="true" 
+                                                ng-if="!storageViewCtrl.listing.isSpecial && !storageViewCtrl.isLoading"></input-stars>
+                                            </div>
+                                        </a>
+                                        <div class="col-md-7 col-xs-6 no-padding">
+                                            <span>{{"LESSOR" | translate}}:</span>
+                                            <h2 class="m-t">{{storageViewCtrl.listing.user.firstname}} {{storageViewCtrl.listing.user.lastname}}</h2>
+                                            <div class="m-t" ng-if="mobile_verified == 1">
+                                                <span class="fa fa-check"></span>&nbsp;{{"MOBILE_NUMBER_VERIFIED" | translate}}
+                                            </div>
+                                            <div class="m-t" ng-if="!storageViewCtrl.listing.isSpecial && !storageViewCtrl.isLoading">
+                                                <b>{{"01_PROFILE" | translate}}</b>
+                                                <div class="text-gray">
+                                                    <span>{{"MEMBER_SINCE" | translate}}</span>
+                                                    <span class="pull-right">{{storageViewCtrl.listing.user.created_at | date}}</span>
+                                                </div>
+                                                <div class="text-gray">
+                                                    <span>{{"RESPONSE_TIME" | translate}}</span>
+                                                    <span class="pull-right">45 {{"MINS" | translate}}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div ng-if="storageViewCtrl.listing.isSpecial && !storageViewCtrl.isLoading" class="ibox-content col-xs-12" id="company-profile" ng-class="{'sk-loading' : storageViewCtrl.isLoading}">
+                                    <div class="sk-spinner sk-spinner-double-bounce">
+                                        <div class="sk-double-bounce1"></div>
+                                        <div class="sk-double-bounce2"></div>
+                                    </div>
+                                    <div class="text-gray">
+                                        <span><h4>{{"CONTACT_US" | translate}}</h4></span>
+                                    </div>
+                                    <div class="m-t-sm" > 
+                                        <div class="text-gray">
+                                            <b>{{"TELEPHONE" | translate }}</b>
+                                            <span>{{storageViewCtrl.listing.user.mobile}}</span>
+                                        </div>
+                                        <div class="text-gray">
+                                            <b>{{"01_EMAIL" | translate }}</b>
+                                            <a href="mailto:{{storageViewCtrl.listing.user.email}}">{{storageViewCtrl.listing.user.email}}</a>
+                                        </div>
+                                        <div class="text-gray" ng-if="storageViewCtrl.listing.user.company_website_url">
+                                            <b>{{"WEB" | translate }}</b>
+                                            <a href="{{storageViewCtrl.listing.user.company_website_url}}">{{storageViewCtrl.listing.user.company_website_url}}</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> 
+            
+            
+                    </div>
+        </div>
+       
+         <div class="col-lg-8 col-xs-12" id="storage-view-container">
+            <!--Listing Info-->
+            <div class="col-md-12 ibox-content m-b-lg" id="listing-info" ng-class="{'sk-loading' : storageViewCtrl.isLoading}">
+                <div class="sk-spinner sk-spinner-double-bounce">
+                    <div class="sk-double-bounce1"></div>
+                    <div class="sk-double-bounce2"></div>
+                </div>
+                <h2 class="text-black storage-heading">{{"INFO_ABOUT_ITEM" | translate}}</h2>
+                <div class="col-md-12 no-padding">
+                    <span>{{storageViewCtrl.listing.user.firstname}} {{storageViewCtrl.listing.user.lastname}}</span>
+                    <span class="fa fa-clock-o m-l-sm"></span>
+                    <span>{{storageViewCtrl.listing.created_at | date}}</span>
+                    <p class="line-break" ng-bind-html="storageViewCtrl.listing.description"></p class="line-break">
+                </div>
+            </div>
+
+            <!--Listing Info 2-->
+             <div class="col-md-12 ibox-content m-b-lg" id="listing-info-2" ng-class="{'sk-loading' : storageViewCtrl.isLoading}">
+                    <div class="sk-spinner sk-spinner-double-bounce">
+                        <div class="sk-double-bounce1"></div>
+                        <div class="sk-double-bounce2"></div>
+                    </div>
+                    <ul class="list-group clear-list m-t">
+                        <li class="list-group-item fist-item">
+                                            <span class="pull-right">
+                                            <b>h:</b> {{storageViewCtrl.listing.size_height}} 
+                                            <b>w:</b> {{storageViewCtrl.listing.size_width}} 
+                                            <b>l:</b> {{storageViewCtrl.listing.size_length}} 
+                                            <!-- ({{storageViewCtrl.listing.area}} m2) -->
+                                            ({{step1Ctrl.listing.size_length * step1Ctrl.listing.size_width | number:0}} m<sup>2</sup>)
+                                            </span>
+                            <span class="label label-success">1</span> {{"SIZE" | translate}}:
+                        </li>
+                        <li class="list-group-item">
+                                            <span class="pull-right">
+                                                {{storageViewCtrl.listing.access | translate}} {{ storageViewCtrl.listing.access_text }}
+                                            </span>
+                            <span class="label label-info">2</span> {{"ACCESS" | translate}}:
+                        </li>
+                        <li class="list-group-item">
+                                            <span class="pull-right" ng-repeat="(key, value) in storageViewCtrl.listing.types">
+                                                    {{value | translate}}<span ng-if="$index > 0">,&nbsp;</span>
+                                            </span>
+                            <span class="label label-primary">3</span> {{"TYPE" | translate}}:
+                        </li>
+                        <!-- <li class="list-group-item" ng-if="!storageViewCtrl.listing.isSpecial && !storageViewCtrl.isLoading">
+                                            <span class="pull-right">
+                                                {{storageViewCtrl.listing.own_shared | translate}} {{ storageViewCtrl.listing.own_shared_text ?  +'/'+storageViewCtrl.listing.own_shared_text : ''}}
+                                            </span>
+                            <span class="label label-default">4</span> {{"OWN_SHARED" | translate}}:
+                        </li> -->
+                        <li class="list-group-item" ng-if="!storageViewCtrl.listing.isSpecial && !storageViewCtrl.isLoading">
+                                            <!-- <span class="pull-right">
+                                                {{storageViewCtrl.listing.accessibilty_string}} 
+                                                
+                                            </span> -->
+                                            <span class="pull-right" ng-repeat="(key, value) in storageViewCtrl.listing.accessibility">
+                                                    {{value | translate}}<span ng-if="$index > 0">,&nbsp;</span>
+                                            </span>
+                                            <span class="pull-right">
+                                                    {{ storageViewCtrl.listing.accessibility_text }}
+                                            </span>
+                            <span class="label label-primary">5</span> {{"ACCEESSIBILITY" | translate}}:
+                        </li>
+                    </ul>
+            </div>
+            
+           <div class="col-md-12 ibox-content m-b-lg" id="listing-map" ng-class="{'sk-loading' : storageViewCtrl.isLoading}">
+                <div class="sk-spinner sk-spinner-double-bounce">
+                    <div class="sk-double-bounce1"></div>
+                    <div class="sk-double-bounce2"></div>
+                </div>
+                <h2 class="text-black storage-heading">{{"MAP" | translate}}</h2>
+                <p class="m-b-md">{{"MAP_DESCRIPTION" | translate}}</p>
+                <div class="col-md-12">
+                    <gm-map ng-show="storageViewCtrl.listing.google_address.geometry" 
+                    center="storageViewCtrl.map.center"
+                    options="{center: [59.9127831,10.761101], zoom: 14, clickableIcons : false, mapTypeId: google.maps.MapTypeId.ROADMAP, streetViewControl: false}">
+                        <gm-circle
+                            center="storageViewCtrl.map.center"
+                            options="{radius: 300, fillColor: '#008BB2', strokeColor : '#008BB2'}"
+                            ></gm-circle>
+                    </gm-map>
+                </div>
+                <span ng-show="storageViewCtrl.listing.google_address.geometry"></span>
+            </div>
+
+            <div class="col-md-12 ibox m-b-lg" id="listing-reviews" ng-if="!storageViewCtrl.listing.isSpecial && !storageViewCtrl.isLoading">
+                <div class="ibox-title">
+                    <h2 class="text-black">{{"REVIEWS" | translate}}</h2>
+                </div>
+                <div class="ibox-content" ng-class="{'sk-loading' : storageViewCtrl.isLoading}">
+                    <div class="sk-spinner sk-spinner-double-bounce">
+                        <div class="sk-double-bounce1"></div>
+                        <div class="sk-double-bounce2"></div>
+                    </div>
+                    <div class="feed-activity-list">
+                        <div class="feed-element"  ng-repeat="rating in storageViewCtrl.listing.user.ratings">
+                            <a ui-sref="profile" class="pull-left">
+                                <img alt="image" class="img-circle" ng-src="{{rating.reviewer.profile_picture}}">
+                            </a>
+
+                            <div class="media-body review-star">
+                                <span class="pull-right">
+                                    <input-stars 
+                                    max="5" 
+                                    ng-model="rating.rating"
+                                    icon-base="fa fa-fw "
+                                    icon-empty="fa-star-o "
+                                    icon-full="fa-star " 
+                                    icon-hover-full="fa-star " readonly></input-stars>
+                                </span>
+                                <strong>{{rating.reviewer.firstname}} {{rating.reviewer.lastname}}</strong>  &nbsp; {{rating.updated_at | date:'dd MMM yyyy h:mm a' | timeAgo}} <br>
+                                <span class="text-muted">{{rating.comment}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 

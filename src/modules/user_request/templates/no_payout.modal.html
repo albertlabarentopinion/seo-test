@@ -1,0 +1,21 @@
+<div class="inmodal">
+        <div class="modal-header">
+            <button type="button" class="close" ng-click="ctrl.cancel()"><span aria-hidden="true">×</span><span class="sr-only">{{"01_CLOSE_BTN" | translate}}</span></button>
+            <i class="fa fa-bank modal-icon" ng-if="ctrl.verification_type == 'bank_account'"></i>
+            <i class="fa fa-address-card modal-icon" ng-if="ctrl.verification_type == 'unverified'"></i>
+            <h4 class="modal-title" ng-if="ctrl.verification_type == 'bank_account'">{{"NO_BANK_ACCOUNT" | translate }}</h4>
+            <h4 class="modal-title" ng-if="ctrl.verification_type == 'unverified'">{{"ACCOUNT_IS_UNVERIFIED" | translate }}</h4>
+        </div>
+        <div class="modal-body">
+                <div class="row">
+                    <h3 class="text-center" ng-if="ctrl.verification_type == 'bank_account'">{{"NO_BANK_ACCOUNT_MESSAGE" | translate}}</h3>
+                    <h3 class="text-center" ng-if="ctrl.verification_type == 'unverified'">{{"ACCOUNT_IS_UNVERIFIED_MESSAGE" | translate}}</h3>
+                </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-white" ng-click="ctrl.cancel()">{{"01_CLOSE_BTN" | translate}}</button>
+            <a type="button" class="btn btn-primary" ng-click="ctrl.gotoPayout()">{{"GO_TO_PAYOUTS_PAGE" | translate}}</a>
+        </div>
+    </div>
+        
+        

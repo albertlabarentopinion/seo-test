@@ -1,0 +1,125 @@
+<div class="row " >
+    <nav class="navbar navbar-default navbar-static-top col-lg-12" role="navigation"  ng-class="{ 'transparent-header' : $state.includes('main.home') }">
+        <div class="container container col-lg-10 col-lg-offset-1 col-md-12 col-sm-12">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" ui-sref="main.home">
+                    <img ng-src="../../../../img/latell_logo.png" alt="Latell Logo">
+                </a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse bod-header small-screen">
+                <ul class="nav navbar-nav navbar-right m-r-none">
+                    <li ng-class="{active: $state.includes('main.admin')}"
+                    permission permission-only="'admin'"><div class="nav-indicator"></div><a  data-toggle="collapse" data-target="#navbar" class="page-scroll" class="page-scroll" ui-sref="main.admin.admin_user">{{ '01_ADMIN' | translate }}</a></li>
+                    <li uib-dropdown="" class="dropdown">
+                        <a class="count-info dropdown-toggle" href="" uib-dropdown-toggle="" aria-haspopup="true" aria-expanded="false">
+                            {{ '01_LANGUAGE' | translate }}
+                        </a>
+                        <ul uib-dropdown-menu="" class="animated fadeInRight m-t-xs ng-scope dropdown-menu">
+                            <li><a ng-click="mainCtrl.changeLanguage('en')">English</a></li>
+                            <li><a ng-click="mainCtrl.changeLanguage('no')">{{"NORWEGIAN" | translate}}</a></li>
+                        </ul>
+                    </li>
+                    <li ui-sref-active="active"><div class="nav-indicator"></div><a data-toggle="collapse" data-target="#navbar" class="page-scroll" page-scroll="" ui-sref="main.home">{{ '01_HOME' | translate }}</a></li>
+                    
+                    <li ng-class="{'active' : mainCtrl.$state.params.name == page.name}" ng-repeat="page in mainCtrl.pages"><div class="nav-indicator" ></div><a data-toggle="collapse" data-target="#navbar" class="page-scroll" page-scroll="" ui-sref="main.cms_page({name : page.name})">{{ page.name | translate }}</a></li>
+                    
+                    <li ui-sref-active="active"><div class="nav-indicator"></div><a class="page-scroll" page-scroll="" ui-sref="main.contact_us">{{ 'CONTACT_US' | translate  }}</a></li>
+
+                    <li ><div class="nav-indicator"></div><a data-toggle="collapse" data-target="#navbar" class="page-scroll" page-scroll="" href="#features">{{ '01_RENT_STORAGE' | translate  }}</a></li>
+                    <li ui-sref-active="active"><div class="nav-indicator"></div><a data-toggle="collapse" data-target="#navbar" class="page-scroll" page-scroll="" ui-sref="main.account.storage">{{ '01_MY_STORAGE' | translate  }}</a></li>
+                    <li><div class="nav-indicator"></div><a ui-sref="main.account.user_request" ui-sref-opts="{reload:true}" data-toggle="collapse" data-target="#navbar" class="count-info"aria-expanded="false"><i class="fa fa-envelope"></i>  <span class="label label-warning" ng-if="mainCtrl.notifications.length > 0">{{ mainCtrl.notifications.length }}</span></a></li>
+                    <li>
+                        <div class="profile-element dropdown profile-dropdown-left " uib-dropdown="">
+                            <a uib-dropdown-toggle="" href="" class=" profile-dropdown-left dropdown-toggle" aria-haspopup="true" aria-expanded="false">
+                                <div id="profile_image">
+                                    <img alt="profile_image" class="img-circle" ng-src="{{ user.profile_picture }}" alt="Profile Picture">
+                                </div>
+                                <span class="clear" id="profile-element-clear">
+                                    <span class="text-muted text-xs block">
+                                        <strong class="font-bold">{{ user.firstname }} {{ user.lastname }}<b class="caret"></b></strong>
+                                    </span>
+                                    <!--<span class="text-muted text-xs block"><b class="caret"></b></span>-->
+                                </span>
+                                <span class="profile-dropdown-left text-muted pull-right text-xs block" id="user-dropdown-caret"><b class="caret"></b></span>
+                            </a>
+                            <ul uib-dropdown-menu="" class="profile-dropdown-left animated fadeInRight m-t-xs dropdown-menu"  id="user-dropdown">
+                                <li class="dropdown-header disabled" id="user-dropdown-name">{{ user.firstname }} {{ user.lastname }}</li>
+                                <li><a data-toggle="collapse" data-target="#navbar" ui-sref="main.account.edit_profile">{{ '01_SHOW_PROFILE' | translate }}</a></li>
+                                <li class="divider"></li>
+                                <li><a data-toggle="collapse" data-target="#navbar" ui-sref="main.account.user_request" ui-sref-opts="{reload:true}" href="#/mailbox/inbox">{{ 'MESSAGES' | translate }}</a></li>
+                                <li class="divider"></li>
+                                <li><a data-toggle="collapse" data-target="#navbar" ui-sref="main.account.storage">{{ '01_MY_STORAGE' | translate }}</a></li>
+                                <li><a data-toggle="collapse" data-target="#navbar" ui-sref="main.account.edit_profile">{{ '01_EDIT_PROFILE' | translate }}</a></li>
+                                <li><a ui-sref="login">{{ '01_SETTINGS' | translate }}</a></li>
+                                <li class="divider"></li>
+                                <li><a data-toggle="collapse" data-target="#navbar" ng-click="mainCtrl.logout()">{{ '01_LOGOUT' | translate }}</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse bod-header large-header">
+                <ul class="nav navbar-nav navbar-right m-r-none">
+                    <li ng-class="{active: $state.includes('main.admin')}" permission permission-only="'admin'"><div class="nav-indicator"></div><a  class="page-scroll"  ui-sref="main.admin.admin_user">{{ '01_ADMIN' | translate }}</a></li>
+                    <li uib-dropdown="" class="dropdown">
+                        <a class="count-info dropdown-toggle" href="" uib-dropdown-toggle="" aria-haspopup="true" aria-expanded="false">
+                            {{ '01_LANGUAGE' | translate }}
+                        </a>
+                        <ul uib-dropdown-menu="" class="animated fadeInRight m-t-xs ng-scope dropdown-menu">
+                            <li><a ng-click="mainCtrl.changeLanguage('en')">English</a></li>
+                            <li><a ng-click="mainCtrl.changeLanguage('no')">{{"NORWEGIAN" | translate}}</a></li>
+                        </ul>
+                    </li>
+                    <li ui-sref-active="active"><div class="nav-indicator"></div><a class="page-scroll" page-scroll="" ui-sref="main.home">{{ '01_HOME' | translate }}</a></li>
+                    
+                    <li ng-class="{'active' : mainCtrl.$state.params.name == page.name}" ng-repeat="page in mainCtrl.pages"><div class="nav-indicator" ></div><a data-toggle="collapse" data-target="#navbar" class="page-scroll" page-scroll="" ui-sref="main.cms_page({name : page.name})">{{ page.name | translate }}</a></li>
+
+                    <li ui-sref-active="active"><div class="nav-indicator"></div><a class="page-scroll" page-scroll="" ui-sref="main.contact_us">{{ 'CONTACT_US' | translate  }}</a></li>
+
+                    <!-- <li ><div class="nav-indicator"></div><a class="page-scroll" page-scroll="" href="#team">{{ '01_HELP' | translate }}</a></li> -->
+                    <li ><div class="nav-indicator"></div><a class="page-scroll" page-scroll="" href="#features">{{ '01_RENT_STORAGE' | translate  }}</a></li>
+                    <li ui-sref-active="active"><div class="nav-indicator"></div><a class="page-scroll" page-scroll="" ui-sref="main.account.storage">{{ '01_MY_STORAGE' | translate  }}</a></li>
+                    <li ui-sref-active="active" class="count-info-li">
+                        <div class="nav-indicator"></div>
+                        <a ui-sref="main.account.user_request" ui-sref-opts="{reload:true}" class="count-info" aria-expanded="false">
+                            <i class="fa fa-envelope"></i>  <span class="label label-warning" ng-if="mainCtrl.notifications.length > 0">{{ mainCtrl.notifications.length }}</span></a></li>
+                    <li>
+                        <div class="profile-element dropdown profile-dropdown-left " uib-dropdown="">
+                            <a uib-dropdown-toggle="" href="" class=" profile-dropdown-left dropdown-toggle" aria-haspopup="true" aria-expanded="false">
+                                <div id="profile_image">
+                                    <img alt="profile_image" class="img-circle" ng-src="{{ user.profile_picture }}" alt="Profile Picture">
+                                </div>
+                                <span class="clear" id="profile-element-clear">
+                                    <span class="text-muted text-xs block">
+                                        <strong class="font-bold">{{ user.firstname }} {{ user.lastname }}<b class="caret"></b></strong>
+                                    </span>
+                                    <!--<span class="text-muted text-xs block"><b class="caret"></b></span>-->
+                                </span>
+                                <span class="profile-dropdown-left text-muted pull-right text-xs block" id="user-dropdown-caret"><b class="caret"></b></span>
+                            </a>
+                            <ul uib-dropdown-menu="" class="profile-dropdown-left animated fadeInRight m-t-xs dropdown-menu"  id="user-dropdown">
+                                <li class="dropdown-header disabled" id="user-dropdown-name">{{ user.firstname }} {{ user.lastname }}</li>
+                                <li><a ui-sref="main.account.edit_profile">{{ '01_SHOW_PROFILE' | translate }}</a></li>
+                                <li class="divider"></li>
+                                <li><a ui-sref="main.account.user_request" ui-sref-opts="{reload:true}" href="#/mailbox/inbox">{{ 'MESSAGES' | translate }}</a></li>
+                                <li class="divider"></li>
+                                <li><a ui-sref="main.account.storage">{{ '01_MY_STORAGE' | translate }}</a></li>
+                                <li><a ui-sref="main.account.edit_profile">{{ '01_EDIT_PROFILE' | translate }}</a></li>
+                                <li><a ui-sref="login">{{ '01_SETTINGS' | translate }}</a></li>
+                                <li class="divider"></li>
+                                <li><a ng-click="mainCtrl.logout()">{{ '01_LOGOUT' | translate }}</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</div>
+

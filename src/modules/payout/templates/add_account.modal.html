@@ -1,0 +1,43 @@
+<div class="inmodal">
+        <div class="modal-header">
+            <button type="button" class="close" ng-click="ctrl.cancel()"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+            <i class="fa fa-bank modal-icon"></i>
+            <h4 class="modal-title">{{"ADD_EDIT_ACCOUNT_NUMBER" | translate }}</h4>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <form-error error-bags="ctrl.errorBags"></form-error>
+                    <div class="row">
+                        <ng-include src="ctrl.templateUrl+'/bank_account.html'"/>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-5 required">
+                            <label>{{"ACCOUNT_TYPE" | translate}}: </label> 
+                            <div class="col-xs-12 input-group date">
+                                <select ng-disabled="ctrl.isPayoutEnabled" ng-model="ctrl.account.legal_entity.type" class="form-control" ng-init="( !ctrl.account.legal_entity.type ) ? ctrl.account.legal_entity.type = 'individual' : ctrl.account.legal_entity.type = ctrl.account.legal_entity.type">
+                                    <option value="individual">{{"INDIVIDUAL" | translate}}</option>
+                                    <option value="company">{{"BUSINESS" | translate}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <ng-include src="ctrl.templateUrl+'/individual_account.html'" ng-if="ctrl.account.legal_entity.type == 'individual'"/>
+                        <ng-include src="ctrl.templateUrl+'/business_account.html'" ng-if="ctrl.account.legal_entity.type == 'company'"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-white" ng-click="ctrl.cancel()">{{"01_CLOSE_BTN" | translate}}</button>
+            <button type="button" class="btn btn-primary" promise-btn ng-click="ctrl.createAccount(ctrl.external_account)">
+                <span ng-if="user.bank_account">
+                    {{"UPDATE_ACCOUNT" | translate}}
+                </span>
+                <span ng-if="!user.bank_account">
+                    {{"ADD_ACCOUNT" | translate}}
+                </span>
+            </button>
+        </div>
+    </div>
+    
+    

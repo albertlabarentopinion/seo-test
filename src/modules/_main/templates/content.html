@@ -1,0 +1,72 @@
+<!-- Wrapper-->
+<div id="wrapper">
+
+    <!-- Page wraper -->
+    <!-- ng-class with current state name give you the ability to extended customization your view -->
+    <div id="page-wrapper" class="gray-bg {{$state.current.name}}" ng-class="{'cover-photo' : $state.current.name == 'main.home'}">
+        
+        <toaster-container></toaster-container>
+        <!-- Page wrapper -->
+        <div ng-if="!user" ng-include="'src/modules/_main/templates/guest_topnavbar.html'"></div>
+        <div ng-if="user" ng-include="'src/modules/_main/templates/member_topnavbar.html'"></div>
+        
+        <!--<div ui-view="topnavbar"></div>-->
+
+        <!-- Main view  -->
+        <div ui-view="main" class="row main-view" id="main-container" ng-class="{'vh-height' :  $state.current.name == 'main.result_page'}"></div>
+
+        <!-- <div  class="row for-landing-page" ng-class="{ 'is-landing-page' : $state.includes('main.home') }">
+            <img class="for-landing-page" ng-src="{{baseClientUrl+'/img/landing/pexels-photo.jpg'}}" alt="Cover Photo">
+        </div> -->
+    </div>
+    <!-- End page wrapper-->
+    <div class="row" ng-if="$state.current.name == 'main.home'">
+        <section id="features" class="container services">
+            <div class="row">
+                <div class="col-sm-3">
+                    <h2>Latell = Lagerhotell</h2>
+                    <p>Latell er lagerleie på nett! Finn lagerplasser som passer dine behov i nærheten av der du bor. Har du en ledig bod, garasje eller et rom kan du også tjene penger på at andre leier din lagringsplass</p>
+                    <p><a class="navy-link" href="#" role="button">Details »</a></p>
+                </div>
+                <div class="col-sm-3">
+                    <h2>Flere ting, mindre plass</h2>
+                    <p>Mange har ting de ønsker å lagre; skiutstyr i sommersesongen, møbler eller et pappesker i forbindelse med flytting. På Latell finner du et stort utvalg av lagringsplasser som passer til ditt behov. Enkelt, trygt og rimelig!</p>
+                    <p><a class="navy-link" href="#" role="button">Details »</a></p>
+                </div>
+                <div class="col-sm-3">
+                    <h2>Tjen penger på din bod</h2>
+                    <p>Lagringsplass har blitt mangelvare. Mange nye boliger bygges med lite eller ingen langringsplass. Har du feks et rom, bod eller garasje så kan du enkelt leie den ut til noen som har behov for lagring</p>
+                    <p><a class="navy-link" href="#" role="button">Details »</a></p>
+                </div>
+                <div class="col-sm-3">
+                    <h2>Slik leier du ut</h2>
+                    <p>Å leie ut loftet, boden, garasjen eller kjelleren til lager er enkelt. Opprett en konto på latell og legg ut lagrinsplassen din til leie i løpet av få minutter. Prøv da vel!</p>
+                    <p><a class="navy-link" href="#" role="button">Details »</a></p>
+                </div>
+            </div>
+        </section>
+        <div class="container">
+            <div class="col-lg-12 text-center">
+                <div class="navy-line"></div>
+                <h1>"- som Airbnb for lagerutleie..."</h1>
+                <p>På Latell.no kan du enkelt leie noens lager, eller du kan leie ut din egen bod, grarasje eller kjeller! Trygt, rakt og enkelt!</p>
+            </div>
+        </div>
+        <div class="container features-block m-b-lg">
+            <div class="col-lg-6 features-text wow fadeInLeft animated" style="visibility: visible; animation-name: fadeInLeft;">
+                <small>Latell = "lagerhotell", lagerleie på nett</small>
+                <h2>Tjen penger på utleie av din bod!</h2>
+                <p>Lagringsplass er mangelvare! For mange ting og små leiligheter gjør din ubrukte bod, garasje, loft eller kjeller attraktiv som lagringsplass. Mange har behov for å lagre sommerdekk om vinteren, pappesker i forbindelse med flytting, møbler som er arvet, båtopplag, pulk, sykler eller inventar. På Latell.no kan du enkelt leie ut og administrere bodplassen din. Hvorfor ikke la den tomme kjelleren din generere inntekter?</p>
+                <a href="" class="btn btn-primary">Opprett en konto og lei ut boden din</a>
+            </div>
+            <div class="col-lg-6 text-right wow fadeInRight animated" style="visibility: visible; animation-name: fadeInRight;">
+                <img ng-src="{{baseClientUrl+'/img/landing/storages.png'}}" alt="storages" class="img-responsive pull-right">
+            </div>
+        </div>
+    </div>
+    <!-- Footer -->
+    <div class="row">
+        <div ng-include="footerTpl"></div>
+    </div>
+</div>
+<!-- End wrapper-->

@@ -1,0 +1,32 @@
+<div class="inmodal">
+    <ng-include src="requestCtrl.headerTplUrl"></ng-include>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-12">
+                <form-error error-bags="requestCtrl.errorBags"></form-error>
+                <div class="form-group col-md-5">
+                    <label>{{"FROM_DATE" | translate}}:</label> 
+                    <div class="col-xs-12 input-group date">
+                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                        <input placeholder="From Date" min-date="requestCtrl.minDate" type="datetime" auto-close="true" ng-change="requestCtrl.setDateFrom()" 
+                        date-change="requestCtrl.setDateFrom" format="{{requestCtrl.dateFormat}}" first-day="1" date-time="" focus-name="1" next-focus="2" view="date"  min-view="date" 
+                        ng-model="fromDate" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group col-md-7">
+                    <label class="col-md-12 no-padding">&nbsp;</label> 
+                    <div class="col-md-12 m-t-xs">
+                        <span>{{"START_DATE_NOTE" | translate}}</span>
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 m-t-md"><label>{{"MESSAGE_TO_LESSOR" | translate}}:</label><textarea placeholder="{{'MESSAGE_TO_LESSOR' | translate}}" focus-name="3" next-focus="1" name="" id="" class="form-control" cols="30" rows="10" ng-model="requestCtrl.request.message_to_owner" 
+                        ></textarea></div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-white" ng-click="requestCtrl.cancel()">{{"01_CLOSE_BTN" | translate}}</button>
+        <button type="button" class="btn btn-primary" promise-btn ng-click="requestCtrl.sendRequest(requestCtrl.request)" ng-disabled="!requestCtrl.request.message_to_owner  || !fromDate">Send Request</button>
+    </div>
+</div>
+

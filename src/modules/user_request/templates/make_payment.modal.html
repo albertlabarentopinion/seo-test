@@ -1,0 +1,77 @@
+<div class="inmodal">
+        <div class="modal-header">
+            <button type="button" class="close" ng-click="ctrl.cancel()"><span aria-hidden="true">×</span><span class="sr-only">{{"01_CLOSE_BTN" | translate}}</span></button>
+            <i class="fa fa-bank modal-icon" ng-if="ctrl.verification_type == 'bank_account'"></i>
+            <i class="fa fa-credit-card modal-icon"></i>
+            <h4 class="modal-title">{{"MAKE_PAYMENT" | translate }}</h4>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-md-12 modal-container">
+                    <form-error error-bags="ctrl.errorBags"></form-error>
+                    <div class="payment-details">
+                        <dl class="dl-horizontal">
+                            <dt>{{"ITEM" | translate}}</dt>
+                            <dd>{{ctrl.request.listing.heading}}</dd>
+                            <dt>{{"PERIOD" | translate}}</dt>
+                            <dd>{{ctrl.request.from_date}}</dd>
+                            <dt>{{"RENEWAL" | translate}}</dt>
+                            <dd>{{"MONTHLY" | translate}}</dd>
+                        </dl>
+                    </div>
+                    <form role="form" id="payment-form" class="ng-pristine ng-valid">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div class="form-group">
+                                        <label>CARD NUMBER</label>
+                                        <div class="input-group" ng-show="!ctrl.hasCard">
+                                            <input ng-ng-disabled="ctrl.hasCard" ng-model="ctrl.card.card_number" type="text" class="form-control" name="Number" placeholder="{{'VALID' | translate}} {{'CARD_NUMBER' | translate}}" required="">
+                                            <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+                                        </div>
+                                        <div class="input-group" ng-show="ctrl.hasCard">
+                                            <input ng-disabled="ctrl.hasCard" ng-model="ctrl.card.last4" type="text" class="form-control" name="Number" placeholder="{{'VALID' | translate}} {{'CARD_NUMBER' | translate}}" required="">
+                                            <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-3 col-md-3">
+                                    <div class="form-group">
+                                        <label>EXP Month</label>
+                                        <input ng-disabled="ctrl.hasCard" ng-model="ctrl.card.exp_month" type="text" class="form-control" name="exp_month" placeholder="Exp Month" required="">
+                                    </div>
+                                </div>
+                                <div class="col-xs-3 col-md-3">
+                                    <div class="form-group">
+                                        <label>EXP Year</label>
+                                        <input ng-disabled="ctrl.hasCard" ng-model="ctrl.card.exp_year" type="text" class="form-control" name="exp_year" placeholder="Exp Year" required="">
+                                    </div>
+                                </div>
+                                <div ng-show="!ctrl.hasCard" class="col-xs-3 col-md-3 pull-right">
+                                    <div class="form-group">
+                                        <label>CV CODE</label>
+                                        <input ng-model="ctrl.card.cvc" type="text" class="form-control" name="CVC" placeholder="CVC" required="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div class="form-group">
+                                        <label>NAME OF CARD</label>
+                                        <input ng-disabled="ctrl.hasCard" ng-model="ctrl.card.name" type="text" class="form-control" name="nameCard" placeholder="{{'NAME_AND_SURNAME' | translate}}">
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-white" ng-click="ctrl.cancel()">{{"01_CLOSE_BTN" | translate}}</button>
+            <a type="button" promise-btn class="btn btn-primary" ng-click="ctrl.makePayment()" ng-if="ctrl.card.id">{{"MAKE_PAYMENT" | translate}}</a>
+            <a type="button" promise-btn class="btn btn-primary" ng-click="ctrl.addCard(ctrl.card)" ng-if="!ctrl.card.id">{{"ADD_CARD" | translate}}</a>
+        </div>
+    </div>
+        
+        

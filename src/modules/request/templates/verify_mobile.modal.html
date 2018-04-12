@@ -1,0 +1,29 @@
+<div class="inmodal">
+    <ng-include src="requestCtrl.headerTplUrl"></ng-include>
+    <div class="modal-body">
+        <div class="row">
+                <div class="col-md-12">
+                    <form-error error-bags="requestCtrl.errorBags"></form-error>
+                    <div class="form-group">
+                        <label for="" class="col-sm-2 col-xs-12 m-t-xs">{{'01_MOBILE' | translate }}</label>
+                        <div class="col-sm-5  col-xs-10 col-lg-4 col-md-4">
+                            <input ng-change="requestCtrl.mobileOnChange( requestCtrl.mobile )" type="text" class="form-control"  ng-model="requestCtrl.mobile">
+                        </div>
+                        <li class="col-sm-1  col-xs-2 col-lg-1 check-icon-input" ng-class="{ 'fa fa-check text-info fa-2x' : user.mobile_verified, 'fa fa-times text-danger fa-2x' : user.mobile && !user.mobile_verified }"></li>
+                        <div class="col-xs-10 col-sm-4 col-md-5 verification-input" ng-if="requestCtrl.showVerificationCode">
+                            <input type="text" class="form-control"  ng-model="requestCtrl.mobile_verification_code" placeholder="Code">
+                        </div>
+                        <div class="col-xs-12 verify-btn-input m-t-sm">
+                            <button ng-if="!requestCtrl.showVerificationCode && !user.mobile_verified" promise-btn ng-click="requestCtrl.sendVerification( requestCtrl.mobile )" class="btn-primary btn verify-btn-input" ng-disabled="!requestCtrl.mobile">{{ '01_SEND_VERIFY_BTN' | translate }}</button>
+                            <button ng-if="requestCtrl.showVerificationCode" promise-btn ng-click="requestCtrl.reset( requestCtrl.mobile, requestCtrl.mobile_verification_code )" class="no-margin btn-danger btn verify-btn-input m-l-md">{{ '01_RESET' | translate }}</button>
+                            <button ng-if="requestCtrl.showVerificationCode" promise-btn ng-click="requestCtrl.verify( requestCtrl.mobile, requestCtrl.mobile_verification_code )" class="m-r-sm btn-primary btn verify-btn-input" ng-disabled="!requestCtrl.mobile_verification_code">{{ '01_VERIFY_BTN' | translate }}</button>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-white" ng-click="requestCtrl.cancel()">Close</button>
+    </div>
+</div>
+
