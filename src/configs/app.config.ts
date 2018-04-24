@@ -33,17 +33,17 @@ module App.Config {
                 // 'datePicker',
 
 
-                'angularSpinner',
-                'ui-rangeSlider',
-                'datatables',
-                'datatables.columnfilter',
-                'yaru22.angular-timeago',
-                'ng-file-model',
-                'angular-input-stars',
-                'ngLocale',
-                'summernote',
-                'ngSanitize',
-                'ngMap',
+                // 'angularSpinner',
+                // 'ui-rangeSlider',
+                // 'datatables',
+                // 'datatables.columnfilter',
+                // 'yaru22.angular-timeago',
+                // 'ng-file-model',
+                // 'angular-input-stars',
+                // 'ngLocale',
+                // 'summernote',
+                // 'ngSanitize',
+                // 'ngMap',
 
                 /**
                  * Modules
