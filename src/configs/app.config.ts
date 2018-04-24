@@ -10,7 +10,7 @@ module App.Config {
             dependencies : [
                 'ui.router',
                 // 'oc.lazyLoad',   
-                // 'ui.bootstrap',
+                'ui.bootstrap',
                 // 'restangular',
                 // 'angularPromiseButtons',
                 // 'cgNotify',

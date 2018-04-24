@@ -39,6 +39,7 @@ var App;
                 name: 'bod4rent',
                 dependencies: [
                     'ui.router',
+                    'ui.bootstrap',
                 ]
             },
             templates: {
