@@ -8,9 +8,9 @@ module App.Config {
         module : {
             name : 'bod4rent',
             dependencies : [
-                // 'ui.router',
+                'ui.router',
                 // 'oc.lazyLoad',   
-                'ui.bootstrap',
+                // 'ui.bootstrap',
                 'restangular',
                 'angularPromiseButtons',
                 // 'cgNotify',

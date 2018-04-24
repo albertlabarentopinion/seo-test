@@ -38,7 +38,7 @@ var App;
             module: {
                 name: 'bod4rent',
                 dependencies: [
-                    'ui.bootstrap',
+                    'ui.router',
                     'restangular',
                     'angularPromiseButtons',
                     'base64',
