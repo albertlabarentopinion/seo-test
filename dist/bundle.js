@@ -164,7 +164,7 @@ var App;
             ];
             return cons;
         })();
-        function Config($urlRouterProvider, $stateProvider, AppConstants) {
+        function Config($urlRouterProvider, $stateProvider, AppConstants, $locationProvider) {
             var templatePath = AppConstants.modulesTemplateUrl + '_main/templates/';
             $stateProvider.state('main.home', {
                 url: "/",
@@ -174,11 +174,15 @@ var App;
                     controllerAs: 'mainCtrl'
                 }
             });
+            $locationProvider.html5Mode(true);
+            $locationProvider.hashPrefix('!');
+            $locationProvider.html5Mode(true);
         }
         Config.$inject = [
             '$urlRouterProvider',
             '$stateProvider',
-            'AppConstants'
+            'AppConstants',
+            '$locationProvider',
         ];
         function Init($state, $rootScope) {
             var templatePath = AppConstants.modulesTemplateUrl + '_main/templates/';

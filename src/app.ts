@@ -141,7 +141,7 @@ module App.Main {
         // angularPromiseButtonsProvider : any,
         // RestangularProvider : restangular.IProvider,
         // $translateProvider : any,
-        // $locationProvider : any,
+        $locationProvider : any,
         // $provide : any,
         // $httpProvider : any
         ){
@@ -191,9 +191,9 @@ module App.Main {
         //     prefix: `${AppConstants.languagePath}`,
         //     suffix: '.json'
         // });
-        // $locationProvider.html5Mode(true);
-        // $locationProvider.hashPrefix('!');
-        // $locationProvider.html5Mode(true);
+        $locationProvider.html5Mode(true);
+        $locationProvider.hashPrefix('!');
+        $locationProvider.html5Mode(true);
     }
 
 
@@ -205,7 +205,7 @@ module App.Main {
         // 'angularPromiseButtonsProvider', 
         // 'RestangularProvider', 
         // '$translateProvider',
-        // '$locationProvider',
+        '$locationProvider',
         // '$provide',
         // '$httpProvider'
     ];
