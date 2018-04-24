@@ -40,6 +40,7 @@ var App;
                 dependencies: [
                     'ui.router',
                     'ui.bootstrap',
+                    'restangular'
                 ]
             },
             templates: {
