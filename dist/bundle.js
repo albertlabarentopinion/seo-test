@@ -41,10 +41,6 @@ var App;
                     'ui.router',
                     'ui.bootstrap',
                     'restangular',
-                    'pascalprecht.translate',
-                    'notifications',
-                    'ngLocale',
-                    'ngSanitize',
                 ]
             },
             templates: {
