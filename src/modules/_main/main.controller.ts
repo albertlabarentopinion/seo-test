@@ -75,7 +75,7 @@ module App.Modules.Main {
         init = () => {
             this.TranslationService.setSavedLocale();
             this.getNotifications();
-            this.getPages();
+            // this.getPages();
         }
 
         changeLanguage = ( locale : string ) => {
