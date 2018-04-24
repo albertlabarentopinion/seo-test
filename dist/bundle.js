@@ -68,32 +68,6 @@ var App;
                     'ngLocale',
                     'summernote',
                     'ngSanitize',
-                    'bod4rent.login',
-                    'bod4rent.register',
-                    'bod4rent.home',
-                    'bod4rent.forgot_password',
-                    'bod4rent.account',
-                    'bod4rent.edit_profile',
-                    'bod4rent.storage',
-                    'bod4rent.result_page',
-                    'bod4rent.storage_view',
-                    'bod4rent.admin',
-                    'bod4rent.admin_user',
-                    'bod4rent.admin_listing',
-                    'bod4rent.admin_request',
-                    'bod4rent.admin_cms',
-                    'bod4rent.request',
-                    'bod4rent.user_request',
-                    'bod4rent.payout',
-                    'bod4rent.payment',
-                    'bod4rent.rating',
-                    'bod4rent.admin_rating',
-                    'bod4rent.seo_search',
-                    'bod4rent.cms_page',
-                    'bod4rent.user_profile',
-                    'bod4rent.contact_us',
-                    'bod4rent.special_account',
-                    'bod4rent.special_listing'
                 ]
             },
             templates: {
@@ -257,6 +231,7 @@ var App;
             '$httpProvider'
         ];
         function Init(Restangular, $q, $http, AppConstants, $state, $rootScope, AuthService, $translate, $templateCache, AclAuth, Notifications, $location, $filter, $timeout) {
+            Restangular.setBaseUrl(AppConstants.apiUrl);
             var templatePath = AppConstants.modulesTemplateUrl + '_main/templates/';
             $rootScope.mainTemplateUrl = templatePath;
             $rootScope.modulesTemplateUrl = AppConstants.modulesTemplateUrl;
@@ -280,11 +255,37 @@ var App;
                     if (response.data.message == 'TOKEN_EXPIRED')
                         Notifications.notify('ERROR.TOKEN_EXPIRED');
             });
+            Restangular.addFullRequestInterceptor(function (element, operation, what, url, headers, params, httpConfig) {
+                if (AuthService.isAuthenticated())
+                    headers['Authorization'] = 'Bearer ' + AuthService.getToken();
+                if (AuthService.isAdmin())
+                    headers['AutorizationUserID'] = $rootScope['user'].id;
+                return {
+                    headers: headers,
+                    params: params,
+                    element: element,
+                    httpConfig: httpConfig
+                };
+            });
+            Restangular.addResponseInterceptor(function (data, operation, what, url, response, deferred) {
+                if (data.hasOwnProperty("data"))
+                    return Restangular.stripRestangular(data.data);
+                return data;
+            });
+            $translate.use(AppConstants.defaultLocale);
             var views = ['main', 'account'];
             $rootScope.$on('$stateChangeStart', function (event, toState, current) {
                 $timeout(function () {
                     $rootScope['pageTitle'] = $filter('translate')(toState.data.pageTitle) + ' | Latell.no';
                 }, 500);
+            });
+            $rootScope.$on('$stateChangeSuccess', function (event, toState) {
+                window['dataLayer'].push({
+                    event: 'pageView',
+                    action: $location.url()
+                });
+                window['ga']('set', 'page', $location.url());
+                window['ga']('send', 'pageview', { page: $location.url() });
             });
         }
         Init.$inject = ['Restangular', '$q', '$http', 'AppConstants', '$state', '$rootScope', 'AuthService', '$translate', '$templateCache', 'AclAuth', 'Notifications', '$location', '$filter', '$timeout'];
