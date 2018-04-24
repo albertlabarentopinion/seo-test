@@ -68,6 +68,7 @@ var App;
                     'ngLocale',
                     'summernote',
                     'ngSanitize',
+                    'bod4rent.login',
                 ]
             },
             templates: {
