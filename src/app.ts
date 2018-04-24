@@ -227,7 +227,7 @@ module App.Main {
         ) 
         {
             
-        Restangular.setBaseUrl(AppConstants.apiUrl);
+        // Restangular.setBaseUrl(AppConstants.apiUrl);
 
         let templatePath = AppConstants.modulesTemplateUrl+'_main/templates/';
         
@@ -261,32 +261,32 @@ module App.Main {
                     Notifications.notify('ERROR.TOKEN_EXPIRED');
         });
         
-        Restangular.addFullRequestInterceptor((element : any, operation : string, what : string, url : string, headers : any, params : any, httpConfig : ng.IRequestShortcutConfig) => {
-            // Bearer token for authenticated user for every request
-            if( AuthService.isAuthenticated() )
-                headers['Authorization'] = 'Bearer '+AuthService.getToken();
-            if( AuthService.isAdmin() )
-                headers['AutorizationUserID'] = $rootScope['user'].id;
+        // Restangular.addFullRequestInterceptor((element : any, operation : string, what : string, url : string, headers : any, params : any, httpConfig : ng.IRequestShortcutConfig) => {
+        //     // Bearer token for authenticated user for every request
+        //     if( AuthService.isAuthenticated() )
+        //         headers['Authorization'] = 'Bearer '+AuthService.getToken();
+        //     if( AuthService.isAdmin() )
+        //         headers['AutorizationUserID'] = $rootScope['user'].id;
 
-            return {
-                headers : headers,
-                params : params,
-                element : element,
-                httpConfig : httpConfig
-            }
+        //     return {
+        //         headers : headers,
+        //         params : params,
+        //         element : element,
+        //         httpConfig : httpConfig
+        //     }
 
-        });
+        // });
 
-        Restangular.addResponseInterceptor(function(data, operation, what, url, response, deferred) {
-            if (data.hasOwnProperty("data"))
-               return Restangular.stripRestangular(data.data);
-           return data;
-       });
+    //     Restangular.addResponseInterceptor(function(data, operation, what, url, response, deferred) {
+    //         if (data.hasOwnProperty("data"))
+    //            return Restangular.stripRestangular(data.data);
+    //        return data;
+    //    });
         // $rootScope.$on('$viewContentLoaded', function() {
         //     $templateCache.removeAll();
         // });
 
-        $translate.use(AppConstants.defaultLocale);
+        // $translate.use(AppConstants.defaultLocale);
 
         let views = [ 'main', 'account' ];
         $rootScope.$on('$stateChangeStart', function (event : any, toState : any, current : any) {
@@ -302,15 +302,15 @@ module App.Main {
             // }
         });
 
-        $rootScope.$on('$stateChangeSuccess', function (event : any, toState : any) {
-            window['dataLayer'].push({
-                event: 'pageView',
-                action: $location.url(),
-            });
+        // $rootScope.$on('$stateChangeSuccess', function (event : any, toState : any) {
+        //     window['dataLayer'].push({
+        //         event: 'pageView',
+        //         action: $location.url(),
+        //     });
 
-            window['ga']('set', 'page', $location.url());
-            window['ga']('send', 'pageview', { page : $location.url() });
-        });
+        //     window['ga']('set', 'page', $location.url());
+        //     window['ga']('send', 'pageview', { page : $location.url() });
+        // });
 
     }
 
