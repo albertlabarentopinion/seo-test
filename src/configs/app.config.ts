@@ -46,7 +46,7 @@ module App.Config {
                  */
                 'bod4rent.login',
                 // 'bod4rent.register',
-                // 'bod4rent.home',
+                'bod4rent.home',
                 // 'bod4rent.forgot_password',
                 // 'bod4rent.account',
                 // 'bod4rent.edit_profile',

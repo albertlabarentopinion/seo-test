@@ -69,6 +69,7 @@ var App;
                     'summernote',
                     'ngSanitize',
                     'bod4rent.login',
+                    'bod4rent.home',
                 ]
             },
             templates: {
