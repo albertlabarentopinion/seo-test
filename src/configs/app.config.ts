@@ -23,14 +23,14 @@ module App.Config {
                 // 'notifications',
 
 
-                'ngFileUpload',
-                'google.places',
-                'GoogleMapsNative',
-                'dynamicNumber',
-                'thatisuday.dropzone',
-                'ui.blueimp.gallery',
-                'seo',
-                'datePicker',
+                // 'ngFileUpload',
+                // 'google.places',
+                // 'GoogleMapsNative',
+                // 'dynamicNumber',
+                // 'thatisuday.dropzone',
+                // 'ui.blueimp.gallery',
+                // 'seo',
+                // 'datePicker',
 
 
                 'angularSpinner',
