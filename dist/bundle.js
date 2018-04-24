@@ -257,7 +257,6 @@ var App;
             '$httpProvider'
         ];
         function Init(Restangular, $q, $http, AppConstants, $state, $rootScope, AuthService, $translate, $templateCache, AclAuth, Notifications, $location, $filter, $timeout) {
-            Restangular.setBaseUrl(AppConstants.apiUrl);
             var templatePath = AppConstants.modulesTemplateUrl + '_main/templates/';
             $rootScope.mainTemplateUrl = templatePath;
             $rootScope.modulesTemplateUrl = AppConstants.modulesTemplateUrl;
@@ -281,37 +280,11 @@ var App;
                     if (response.data.message == 'TOKEN_EXPIRED')
                         Notifications.notify('ERROR.TOKEN_EXPIRED');
             });
-            Restangular.addFullRequestInterceptor(function (element, operation, what, url, headers, params, httpConfig) {
-                if (AuthService.isAuthenticated())
-                    headers['Authorization'] = 'Bearer ' + AuthService.getToken();
-                if (AuthService.isAdmin())
-                    headers['AutorizationUserID'] = $rootScope['user'].id;
-                return {
-                    headers: headers,
-                    params: params,
-                    element: element,
-                    httpConfig: httpConfig
-                };
-            });
-            Restangular.addResponseInterceptor(function (data, operation, what, url, response, deferred) {
-                if (data.hasOwnProperty("data"))
-                    return Restangular.stripRestangular(data.data);
-                return data;
-            });
-            $translate.use(AppConstants.defaultLocale);
             var views = ['main', 'account'];
             $rootScope.$on('$stateChangeStart', function (event, toState, current) {
                 $timeout(function () {
                     $rootScope['pageTitle'] = $filter('translate')(toState.data.pageTitle) + ' | Latell.no';
                 }, 500);
-            });
-            $rootScope.$on('$stateChangeSuccess', function (event, toState) {
-                window['dataLayer'].push({
-                    event: 'pageView',
-                    action: $location.url()
-                });
-                window['ga']('set', 'page', $location.url());
-                window['ga']('send', 'pageview', { page: $location.url() });
             });
         }
         Init.$inject = ['Restangular', '$q', '$http', 'AppConstants', '$state', '$rootScope', 'AuthService', '$translate', '$templateCache', 'AclAuth', 'Notifications', '$location', '$filter', '$timeout'];
@@ -682,7 +655,6 @@ var App;
                     this.init = function () {
                         _this.TranslationService.setSavedLocale();
                         _this.getNotifications();
-                        _this.getPages();
                     };
                     this.changeLanguage = function (locale) {
                         _this.$translate.use(locale);
