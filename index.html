@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html ng-app="inspinia">
+<html ng-app="bod4rent">
 
 <head>
 
-    <meta charset="utf-8">
+    <meta charset="utf-8" >
     <base href="/">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -17,7 +17,8 @@
      <link rel="canonical" href="https://staging.latell.no">
      <meta name="robots" content="follow,index">
      <!-- Page title set in pageTitle directive -->
-     <title ng-bind="pageTitle">Home | Latell.no</title>
+     <meta ng-init="pageTitle = 'Hallo'"/>
+     <title ng-bind="pageTitle">Not {{pageTitle}}</title>
 
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -98,7 +99,6 @@
  https://developers.google.com/maps/documentation/javascript/tutorial#api_key
  After your sign up replace the key in the URL below..
 -->
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDQTpXj82d8UpCi97wzo_nKXL7nYrd4G70"></script>
 
 <!-- Anglar App Script -->
 <script  src="./dist/bundle.js" ></script>

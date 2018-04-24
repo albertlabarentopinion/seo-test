@@ -39,61 +39,6 @@ var App;
                 name: 'bod4rent',
                 dependencies: [
                     'ui.router',
-                    'ui.bootstrap',
-                    'restangular',
-                    'angularPromiseButtons',
-                    'cgNotify',
-                    'ngSessionStorage',
-                    'base64',
-                    'pascalprecht.translate',
-                    'toaster',
-                    'permission',
-                    'permission.ui',
-                    'notifications',
-                    'ngFileUpload',
-                    'google.places',
-                    'GoogleMapsNative',
-                    'dynamicNumber',
-                    'thatisuday.dropzone',
-                    'ui.blueimp.gallery',
-                    'seo',
-                    'datePicker',
-                    'angularSpinner',
-                    'ui-rangeSlider',
-                    'datatables',
-                    'datatables.columnfilter',
-                    'yaru22.angular-timeago',
-                    'ng-file-model',
-                    'angular-input-stars',
-                    'ngLocale',
-                    'summernote',
-                    'ngSanitize',
-                    'bod4rent.login',
-                    'bod4rent.register',
-                    'bod4rent.home',
-                    'bod4rent.forgot_password',
-                    'bod4rent.account',
-                    'bod4rent.edit_profile',
-                    'bod4rent.storage',
-                    'bod4rent.result_page',
-                    'bod4rent.storage_view',
-                    'bod4rent.admin',
-                    'bod4rent.admin_user',
-                    'bod4rent.admin_listing',
-                    'bod4rent.admin_request',
-                    'bod4rent.admin_cms',
-                    'bod4rent.request',
-                    'bod4rent.user_request',
-                    'bod4rent.payout',
-                    'bod4rent.payment',
-                    'bod4rent.rating',
-                    'bod4rent.admin_rating',
-                    'bod4rent.seo_search',
-                    'bod4rent.cms_page',
-                    'bod4rent.user_profile',
-                    'bod4rent.contact_us',
-                    'bod4rent.special_account',
-                    'bod4rent.special_listing'
                 ]
             },
             templates: {
@@ -219,45 +164,23 @@ var App;
             ];
             return cons;
         })();
-        function Config($urlRouterProvider, $stateProvider, AppConstants, angularPromiseButtonsProvider, RestangularProvider, $translateProvider, $locationProvider, $provide, $httpProvider) {
+        function Config($urlRouterProvider, $stateProvider, AppConstants) {
             var templatePath = AppConstants.modulesTemplateUrl + '_main/templates/';
-            $urlRouterProvider.otherwise(function ($injector) {
-                var $state = $injector.get("$state");
-                $state.go(App.Config.Acl.redirects.guest);
+            $stateProvider.state('main.home', {
+                url: "/",
+                views: {
+                    templateUrl: templatePath + "content.html",
+                    controller: 'MainController',
+                    controllerAs: 'mainCtrl'
+                }
             });
-            $stateProvider.state('main', {
-                abstract: true,
-                templateUrl: templatePath + "content.html",
-                controller: 'MainController',
-                controllerAs: 'mainCtrl'
-            });
-            angularPromiseButtonsProvider.extendConfig({
-                spinnerTpl: '<i class="fa pull-left fa-spinner fa-spin fa-1x fa-fw"></i>',
-                disableBtn: true,
-                btnLoadingClass: 'is-loading',
-                addClassToCurrentBtnOnly: false,
-                disableCurrentBtnOnly: false
-            });
-            $translateProvider.useStaticFilesLoader({
-                prefix: "" + AppConstants.languagePath,
-                suffix: '.json'
-            });
-            $locationProvider.html5Mode(true);
-            $locationProvider.hashPrefix('!');
         }
         Config.$inject = [
             '$urlRouterProvider',
             '$stateProvider',
-            'AppConstants',
-            'angularPromiseButtonsProvider',
-            'RestangularProvider',
-            '$translateProvider',
-            '$locationProvider',
-            '$provide',
-            '$httpProvider'
+            'AppConstants'
         ];
-        function Init(Restangular, $q, $http, AppConstants, $state, $rootScope, AuthService, $translate, $templateCache, AclAuth, Notifications, $location, $filter, $timeout) {
-            Restangular.setBaseUrl(AppConstants.apiUrl);
+        function Init($state, $rootScope) {
             var templatePath = AppConstants.modulesTemplateUrl + '_main/templates/';
             $rootScope.mainTemplateUrl = templatePath;
             $rootScope.modulesTemplateUrl = AppConstants.modulesTemplateUrl;
@@ -272,87 +195,17 @@ var App;
             };
             var begin = moment().isoWeekday(1);
             begin.startOf('week');
-            AclAuth.setRoles();
-            if (AuthService.isAuthenticated()) {
-                AuthService.setUser();
-            }
-            Restangular.setErrorInterceptor(function (response) {
-                if (response.hasOwnProperty("data"))
-                    if (response.data.message == 'TOKEN_EXPIRED')
-                        Notifications.notify('ERROR.TOKEN_EXPIRED');
-            });
-            Restangular.addFullRequestInterceptor(function (element, operation, what, url, headers, params, httpConfig) {
-                if (AuthService.isAuthenticated())
-                    headers['Authorization'] = 'Bearer ' + AuthService.getToken();
-                if (AuthService.isAdmin())
-                    headers['AutorizationUserID'] = $rootScope['user'].id;
-                return {
-                    headers: headers,
-                    params: params,
-                    element: element,
-                    httpConfig: httpConfig
-                };
-            });
-            Restangular.addResponseInterceptor(function (data, operation, what, url, response, deferred) {
-                if (data.hasOwnProperty("data"))
-                    return Restangular.stripRestangular(data.data);
-                return data;
-            });
-            $translate.use(AppConstants.defaultLocale);
+            $rootScope['pageTitle'] = 'MyPage' + ' | Latell.no';
+            $rootScope['metaDescription'] = 'Description Meta';
             var views = ['main', 'account'];
             $rootScope.$on('$stateChangeStart', function (event, toState, current) {
-                $timeout(function () {
-                    $rootScope['pageTitle'] = $filter('translate')(toState.data.pageTitle) + ' | Latell.no';
-                }, 500);
-            });
-            $rootScope.$on('$stateChangeSuccess', function (event, toState) {
-                window['dataLayer'].push({
-                    event: 'pageView',
-                    action: $location.url()
-                });
-                window['ga']('set', 'page', $location.url());
-                window['ga']('send', 'pageview', { page: $location.url() });
             });
         }
-        Init.$inject = ['Restangular', '$q', '$http', 'AppConstants', '$state', '$rootScope', 'AuthService', '$translate', '$templateCache', 'AclAuth', 'Notifications', '$location', '$filter', '$timeout'];
+        Init.$inject = ['$state', '$rootScope'];
         angularModule
             .config(Config)
             .run(Init)
             .constant('AppConstants', AppConstants);
-        angularModule.filter('utc', [function () {
-                return function (date) {
-                    if (angular.isNumber(date)) {
-                        date = new Date(date);
-                    }
-                    return new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(), date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds());
-                };
-            }]);
-        angularModule.factory('preventTemplateCache', function () {
-            return {
-                'request': function (config) {
-                    if (config.url.indexOf('modules') !== -1) {
-                        config.url = config.url + '?t=' + (new Date).getTime();
-                    }
-                    return config;
-                }
-            };
-        }).directive('googleplace', function () {
-            return {
-                require: 'ngModel',
-                link: function (scope, element, attrs, model) {
-                    var options = {
-                        types: [],
-                        componentRestrictions: { country: 'no' }
-                    };
-                    scope.gPlace = new google.maps.places.Autocomplete(element[0], options);
-                    google.maps.event.addListener(scope.gPlace, 'place_changed', function () {
-                        scope.$apply(function () {
-                            model.$setViewValue(scope.gPlace.getPlace());
-                        });
-                    });
-                }
-            };
-        });
     })(Main = App.Main || (App.Main = {}));
 })(App || (App = {}));
 namespace('NOTIFY').REGISTERED = 'NOTIFY.REGISTERED';
@@ -652,22 +505,9 @@ var App;
             var BaseController = App.Base.BaseController;
             var MainController = (function (_super) {
                 __extends(MainController, _super);
-                function MainController($scope, $rootScope, $state, AppConstants, $translate, TranslationService, Notifications, toaster, AuthService, MainService, $uibModal, LoginService, Cms, $stateParams, $filter) {
+                function MainController($scope, $rootScope) {
                     var _this = this;
                     _super.call(this, $scope, $rootScope);
-                    this.$state = $state;
-                    this.AppConstants = AppConstants;
-                    this.$translate = $translate;
-                    this.TranslationService = TranslationService;
-                    this.Notifications = Notifications;
-                    this.toaster = toaster;
-                    this.AuthService = AuthService;
-                    this.MainService = MainService;
-                    this.$uibModal = $uibModal;
-                    this.LoginService = LoginService;
-                    this.Cms = Cms;
-                    this.$stateParams = $stateParams;
-                    this.$filter = $filter;
                     this.user = {};
                     this.notifications = [];
                     this.notification_messages = {
@@ -680,8 +520,6 @@ var App;
                     this.footerItems = [];
                     this.mainSeoPlaces = [];
                     this.init = function () {
-                        _this.TranslationService.setSavedLocale();
-                        _this.getNotifications();
                     };
                     this.changeLanguage = function (locale) {
                         _this.$translate.use(locale);
@@ -693,7 +531,6 @@ var App;
                     this.navigateToCmsPage = function (name) {
                         _this.$state.go('main.cms_page', { name: name });
                         _this.cmsPage = name;
-                        console.log(_this.$state);
                     };
                     this.defineListeners = function () {
                         _this.$scope.$on('$destroy', _this.destroy.bind(_this));
@@ -798,27 +635,13 @@ var App;
                         _this.Notifications.removeEventListener(ERROR.TOKEN_EXPIRED, _this.tokenExpiredNotification.bind(_this));
                         _this.Notifications.removeEventListener(NOTIFY.UPLOAD_PROFILE, _this.uploadProfileImage.bind(_this));
                     };
-                    this.mainSeoPlaces = _.chunk(this.AppConstants.mainSeoPlaces, 10);
-                    this.init();
-                    this.defineListeners();
-                    this.defineScope();
+                    console.log('Main Controller');
+                    $rootScope['pageTitle'] = 'MyPage' + ' | Latell.no';
+                    $rootScope['metaDescription'] = 'Description Meta';
                 }
                 MainController.$inject = [
                     '$scope',
                     '$rootScope',
-                    '$state',
-                    'AppConstants',
-                    '$translate',
-                    'TranslationService',
-                    'Notifications',
-                    'toaster',
-                    'AuthService',
-                    'MainService',
-                    '$uibModal',
-                    'LoginService',
-                    'Cms',
-                    '$stateParams',
-                    '$filter'
                 ];
                 return MainController;
             }(BaseController));

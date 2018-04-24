@@ -3,7 +3,7 @@
 
     <!-- Page wraper -->
     <!-- ng-class with current state name give you the ability to extended customization your view -->
-    <div id="page-wrapper" class="gray-bg {{$state.current.name}}" ng-class="{'cover-photo' : $state.current.name == 'main.home'}">
+    <div id="page-wrapper" class="gray-bg {{$state.current.name}}" ng-class="{'cover-photo' : true}">
         
         <toaster-container></toaster-container>
         <!-- Page wrapper -->
@@ -13,14 +13,14 @@
         <!--<div ui-view="topnavbar"></div>-->
 
         <!-- Main view  -->
-        <div ui-view="main" class="row main-view" id="main-container" ng-class="{'vh-height' :  $state.current.name == 'main.result_page'}"></div>
+        <div ui-view="main" class="row main-view" id="main-container" ng-class="{'vh-height' :  true}"></div>
 
         <!-- <div  class="row for-landing-page" ng-class="{ 'is-landing-page' : $state.includes('main.home') }">
             <img class="for-landing-page" ng-src="{{baseClientUrl+'/img/landing/pexels-photo.jpg'}}" alt="Cover Photo">
         </div> -->
     </div>
     <!-- End page wrapper-->
-    <div class="row" ng-if="$state.current.name == 'main.home'">
+    <div class="row" >
         <section id="features" class="container services">
             <div class="row">
                 <div class="col-sm-3">

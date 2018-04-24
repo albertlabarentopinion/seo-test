@@ -1494,4 +1494,5 @@ angular
     .config(config)
     .run(function($rootScope, $state) {
         $rootScope.$state = $state;
+        $rootScope['pageTitle'] = 'Edi meow';
     });
