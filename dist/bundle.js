@@ -41,7 +41,6 @@ var App;
                     'ui.router',
                     'ui.bootstrap',
                     'restangular',
-                    'base64',
                     'pascalprecht.translate',
                     'notifications',
                     'ngLocale',
