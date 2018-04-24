@@ -136,7 +136,7 @@ module App.Main {
     function Config(
         $urlRouterProvider : ng.ui.IUrlRouterProvider , 
         $stateProvider : ng.ui.IStateProvider, 
-        AppConstants : App.Main.MainConstants
+        AppConstants : App.Main.MainConstants,
         // $ocLazyLoadProvider : any,
         // angularPromiseButtonsProvider : any,
         // RestangularProvider : restangular.IProvider,
@@ -200,7 +200,7 @@ module App.Main {
     Config.$inject = [
         '$urlRouterProvider', 
         '$stateProvider', 
-        'AppConstants'
+        'AppConstants',
         // '$ocLazyLoadProvider', 
         // 'angularPromiseButtonsProvider', 
         // 'RestangularProvider', 
