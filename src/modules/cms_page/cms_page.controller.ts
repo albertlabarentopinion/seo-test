@@ -23,7 +23,7 @@ module App.Modules.CmsPage {
 
         init = () => {
             this.$window.scrollTo(0, 0);
-            this.CmsPageService.getPage( this.$stateParams.name ).then(this.setPage.bind(this));
+            // this.CmsPageService.getPage( this.$stateParams.name ).then(this.setPage.bind(this));
         }
 
         setPage = ( page : App.Repositories.Cms.CmsResponse ) => {
