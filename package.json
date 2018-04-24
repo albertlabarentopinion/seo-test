@@ -62,6 +62,7 @@
     "angular-summernote": "^0.8.1",
     "angular-translate": "^2.15.1",
     "angular-translate-loader-url": "^2.15.1",
+    "angular-ui-router": "^0.3.2",
     "angularjs-datepicker": "^2.1.6",
     "bootstrap-daterangepicker": "^2.1.25",
     "gulp": "^3.9.1",
@@ -76,7 +77,6 @@
     "moment-timezone": "^0.5.5",
     "ng-blueimp-gallery": "^1.0.1",
     "ngdropzone": "^2.0.2",
-    "restangular": "^1.6.1",
     "summernote": "^0.8.8",
     "ts-loader": "^0.8.2",
     "webpack": "^1.12.14"
