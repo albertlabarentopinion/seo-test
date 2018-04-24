@@ -39,6 +39,14 @@ var App;
                 name: 'bod4rent',
                 dependencies: [
                     'ui.router',
+                    'ui.bootstrap',
+                    'restangular',
+                    'angularPromiseButtons',
+                    'base64',
+                    'pascalprecht.translate',
+                    'notifications',
+                    'ngLocale',
+                    'ngSanitize',
                 ]
             },
             templates: {
