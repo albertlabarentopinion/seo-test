@@ -45,10 +45,10 @@ module App.Config {
                  * Modules
                  */
                 'bod4rent.login',
-                // 'bod4rent.register',
+                'bod4rent.register',
                 'bod4rent.home',
-                // 'bod4rent.forgot_password',
-                // 'bod4rent.account',
+                'bod4rent.forgot_password',
+                'bod4rent.account',
                 // 'bod4rent.edit_profile',
                 // 'bod4rent.storage',
                 // 'bod4rent.result_page',
