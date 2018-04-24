@@ -37,16 +37,7 @@ var App;
         Config.Ng = {
             module: {
                 name: 'bod4rent',
-                dependencies: [
-                    'ui.router',
-                    'restangular',
-                    'angularPromiseButtons',
-                    'base64',
-                    'pascalprecht.translate',
-                    'notifications',
-                    'ngLocale',
-                    'ngSanitize',
-                ]
+                dependencies: []
             },
             templates: {
                 guest_header: App.Config.Variables.modulesTemplateUrl + "_main/templates/guest_topnavbar.html",
