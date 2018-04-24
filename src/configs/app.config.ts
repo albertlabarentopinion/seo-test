@@ -10,8 +10,8 @@ module App.Config {
             dependencies : [
                 'ui.router',
                 // 'oc.lazyLoad',   
-                'ui.bootstrap',
-                'restangular',
+                // 'ui.bootstrap',
+                // 'restangular',
                 // 'angularPromiseButtons',
                 // 'cgNotify',
                 // 'ngSessionStorage',
