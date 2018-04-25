@@ -46,6 +46,7 @@ var App;
                     'ngSessionStorage',
                     'base64',
                     'pascalprecht.translate',
+                    'toaster',
                 ]
             },
             templates: {

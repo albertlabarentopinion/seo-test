@@ -17,7 +17,7 @@ module App.Config {
                 'ngSessionStorage',
                 'base64',
                 'pascalprecht.translate',
-                // 'toaster',
+                'toaster',
                 // 'permission',
                 // 'permission.ui',
                 // 'notifications',
