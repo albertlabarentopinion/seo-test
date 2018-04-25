@@ -13,7 +13,7 @@ module App.Config {
                 'ui.bootstrap',
                 'restangular',
                 'angularPromiseButtons',
-                'cgNotify',
+                // 'cgNotify',
                 // 'ngSessionStorage',
                 // 'base64',
                 // 'pascalprecht.translate',
