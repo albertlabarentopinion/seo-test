@@ -52,6 +52,7 @@ var App;
                     'notifications',
                     'ngFileUpload',
                     'google.places',
+                    'GoogleMapsNative',
                 ]
             },
             templates: {

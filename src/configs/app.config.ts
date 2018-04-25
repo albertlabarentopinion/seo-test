@@ -27,7 +27,7 @@ module App.Config {
 
                 'ngFileUpload',
                 'google.places',
-                // 'GoogleMapsNative',
+                'GoogleMapsNative',
                 // 'dynamicNumber',
                 // 'thatisuday.dropzone',
                 // 'ui.blueimp.gallery',
