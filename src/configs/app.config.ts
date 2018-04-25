@@ -30,7 +30,7 @@ module App.Config {
                 'GoogleMapsNative',
                 'dynamicNumber',
                 // 'thatisuday.dropzone',
-                // 'ui.blueimp.gallery',
+                'ui.blueimp.gallery',
                 // 'seo',
                 // 'datePicker',
 

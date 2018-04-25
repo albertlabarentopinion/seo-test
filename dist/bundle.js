@@ -54,6 +54,7 @@ var App;
                     'google.places',
                     'GoogleMapsNative',
                     'dynamicNumber',
+                    'ui.blueimp.gallery',
                     'angularSpinner',
                     'ui-rangeSlider',
                 ]

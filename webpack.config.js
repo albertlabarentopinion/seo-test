@@ -15,7 +15,7 @@ module.exports = {
     //    "./node_modules/angular-google-maps-native/dist/angular-google-maps-native.min.js",
     //    "./node_modules/angular-google-places-autocomplete/dist/autocomplete.min.js",
     //    "./node_modules/angular-dynamic-number/release/dynamic-number.min.js",
-       "./js/plugins/blueimp-gallery/ng-blueimp-gallery.js",
+    //    "./js/plugins/blueimp-gallery/ng-blueimp-gallery.js",
     //    "./node_modules/angular-spinner/dist/angular-spinner.min.js",
     //    "./node_modules/angular-rangeslider/angular.rangeSlider.js"
     ],
