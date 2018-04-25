@@ -54,6 +54,8 @@ var App;
                     'google.places',
                     'GoogleMapsNative',
                     'dynamicNumber',
+                    'angularSpinner',
+                    'ui-rangeSlider',
                 ]
             },
             templates: {

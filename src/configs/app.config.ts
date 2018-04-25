@@ -35,8 +35,8 @@ module App.Config {
                 // 'datePicker',
 
 
-                // 'angularSpinner',
-                // 'ui-rangeSlider',
+                'angularSpinner',
+                'ui-rangeSlider',
                 // 'datatables',
                 // 'datatables.columnfilter',
                 // 'yaru22.angular-timeago',
