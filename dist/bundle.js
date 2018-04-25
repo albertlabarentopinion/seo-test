@@ -51,6 +51,7 @@ var App;
                     'permission.ui',
                     'notifications',
                     'ngFileUpload',
+                    'google.places',
                 ]
             },
             templates: {
