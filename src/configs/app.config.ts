@@ -16,7 +16,7 @@ module App.Config {
                 'cgNotify',
                 'ngSessionStorage',
                 'base64',
-                // 'pascalprecht.translate',
+                'pascalprecht.translate',
                 // 'toaster',
                 // 'permission',
                 // 'permission.ui',

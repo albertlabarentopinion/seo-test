@@ -45,6 +45,7 @@ var App;
                     'cgNotify',
                     'ngSessionStorage',
                     'base64',
+                    'pascalprecht.translate',
                 ]
             },
             templates: {
