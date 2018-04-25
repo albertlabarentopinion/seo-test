@@ -53,6 +53,7 @@ var App;
                     'ngFileUpload',
                     'google.places',
                     'GoogleMapsNative',
+                    'dynamicNumber',
                 ]
             },
             templates: {
