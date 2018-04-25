@@ -14,7 +14,7 @@ module App.Config {
                 'restangular',
                 'angularPromiseButtons',
                 'cgNotify',
-                // 'ngSessionStorage',
+                'ngSessionStorage',
                 // 'base64',
                 // 'pascalprecht.translate',
                 // 'toaster',
