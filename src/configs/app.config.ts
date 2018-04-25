@@ -20,8 +20,8 @@ module App.Config {
 
                 'pascalprecht.translate',
                 'toaster',
-                // 'permission',
-                // 'permission.ui',
+                'permission',
+                'permission.ui',
                 // 'notifications',
 
 

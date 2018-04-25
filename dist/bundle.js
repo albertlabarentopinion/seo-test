@@ -47,6 +47,8 @@ var App;
                     'base64',
                     'pascalprecht.translate',
                     'toaster',
+                    'permission',
+                    'permission.ui',
                 ]
             },
             templates: {
