@@ -18,9 +18,9 @@ module App.Config {
                 'base64',
                 'pascalprecht.translate',
                 'toaster',
-                // 'permission',
-                // 'permission.ui',
-                // 'notifications',
+                'permission',
+                'permission.ui',
+                'notifications',
 
 
                 // 'ngFileUpload',
