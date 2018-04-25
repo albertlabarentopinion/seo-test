@@ -43,8 +43,6 @@ var App;
                     'restangular',
                     'angularPromiseButtons',
                     'cgNotify',
-                    'ngSessionStorage',
-                    'base64',
                 ]
             },
             templates: {
