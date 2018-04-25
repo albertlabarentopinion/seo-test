@@ -15,7 +15,8 @@ gulp.task('js', function(){
         'js/plugins/angular-sessionstorage/angular-sessionstorage.js',
         'js/plugins/jstz/moment-timezone.js',
         'node_modules/summernote/dist/summernote.min.js',
-        'node_modules/restangular/dist/restangular.min.js'
+        'node_modules/restangular/dist/restangular.min.js',
+        'node_modules/angular-promise-buttons/dist/angular-promise-buttons.min.js'
    ])
    .pipe(concat('dist.min.js'))
    .pipe(uglify())
@@ -37,7 +38,7 @@ gulp.task('css', function(){
 });
 
 gulp.task('bod4rentcss', function(){
-   gulp.src('css/bod4rent.css')
+   gulp.src('css/bod4rent.css') 
    .pipe(minify())
    .pipe(gulp.dest('dist/'));
 });
