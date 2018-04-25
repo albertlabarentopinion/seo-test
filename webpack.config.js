@@ -12,7 +12,7 @@ module.exports = {
     //    "./node_modules/angular-permission/dist/angular-permission-ui.min.js",
     //    "./node_modules/ng-file-upload/dist/ng-file-upload-shim.min.js",
     //    "./node_modules/ng-file-upload/dist/ng-file-upload.min.js",
-       "./node_modules/angular-google-maps-native/dist/angular-google-maps-native.min.js",
+    //    "./node_modules/angular-google-maps-native/dist/angular-google-maps-native.min.js",
     //    "./node_modules/angular-google-places-autocomplete/dist/autocomplete.min.js",
        "./node_modules/angular-dynamic-number/release/dynamic-number.min.js",
        "./js/plugins/blueimp-gallery/ng-blueimp-gallery.js",
