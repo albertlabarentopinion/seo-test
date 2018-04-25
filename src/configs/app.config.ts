@@ -15,7 +15,7 @@ module App.Config {
                 'angularPromiseButtons',
                 'cgNotify',
                 'ngSessionStorage',
-                // 'base64',
+                'base64',
                 // 'pascalprecht.translate',
                 // 'toaster',
                 // 'permission',

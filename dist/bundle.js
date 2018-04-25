@@ -44,6 +44,7 @@ var App;
                     'angularPromiseButtons',
                     'cgNotify',
                     'ngSessionStorage',
+                    'base64',
                 ]
             },
             templates: {
