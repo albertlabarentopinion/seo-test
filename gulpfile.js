@@ -14,7 +14,8 @@ gulp.task('js', function(){
         'js/plugins/metisMenu/jquery.metisMenu.js',
         'js/plugins/angular-sessionstorage/angular-sessionstorage.js',
         'js/plugins/jstz/moment-timezone.js',
-        'node_modules/summernote/dist/summernote.min.js'
+        'node_modules/summernote/dist/summernote.min.js',
+        'node_modules/restangular/dist/restangular.min.js'
    ])
    .pipe(concat('dist.min.js'))
    .pipe(uglify())
