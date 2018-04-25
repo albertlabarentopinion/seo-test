@@ -48,7 +48,8 @@
 	__webpack_require__(3);
 	__webpack_require__(7);
 	__webpack_require__(8);
-	module.exports = __webpack_require__(9);
+	__webpack_require__(9);
+	module.exports = __webpack_require__(10);
 
 
 /***/ },
@@ -52245,6 +52246,89 @@
 	 * Copyright (c) 2018 The angular-translate team, Pascal Precht; Licensed MIT
 	 */
 	!function(e,i){ true?!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function(){return i()}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__)):"object"==typeof module&&module.exports?module.exports=i():i()}(0,function(){function e(e,i){"use strict";return function(r){if(!(r&&(angular.isArray(r.files)||angular.isString(r.prefix)&&angular.isString(r.suffix))))throw new Error("Couldn't load static files, no files and prefix or suffix specified!");r.files||(r.files=[{prefix:r.prefix,suffix:r.suffix}]);for(var t=[],f=r.files.length,n=0;n<f;n++)t.push(function(t){if(!t||!angular.isString(t.prefix)||!angular.isString(t.suffix))throw new Error("Couldn't load static file, no prefix or suffix specified!");var f=[t.prefix,r.key,t.suffix].join("");return angular.isObject(r.fileMap)&&r.fileMap[f]&&(f=r.fileMap[f]),i(angular.extend({url:f,method:"GET"},r.$http)).then(function(e){return e.data},function(){return e.reject(r.key)})}({prefix:r.files[n].prefix,key:r.key,suffix:r.files[n].suffix}));return e.all(t).then(function(e){for(var i=e.length,r={},t=0;t<i;t++)for(var f in e[t])r[f]=e[t][f];return r})}}return e.$inject=["$q","$http"],angular.module("pascalprecht.translate").factory("$translateStaticFilesLoader",e),e.displayName="$translateStaticFilesLoader","pascalprecht.translate"});
+
+/***/ },
+/* 10 */
+/***/ function(module, exports) {
+
+	(function () {
+	    'use strict';
+	    angular
+	        .module('ui.blueimp.gallery', ['ui.blueimp.gallery.templates'])
+	        .directive('uiGallery', uiGallery);
+
+	    uiGallery.$inject = ['$window'];
+
+	    function uiGallery($window){
+
+	        var directive = {
+	            template: `
+	            <div id=\"blueimp-gallery\" class=\"blueimp-gallery blueimp-gallery-controls\">\n 
+	            <div class=\"slides\"></div>\n 
+	            <h3 class=\"title\"></h3>\n 
+	            <a class=\"prev\">‹</a>\n 
+	            <a class=\"next\">›</a>\n 
+	            <a class=\"close\">×</a>\n 
+	            <a class=\"play-pause\"></a>\n 
+	            <ol class=\"indicator\">\n 
+	            <li ng-repeat=\"slide in slides\" title=\"{{slide.title}}\" data-index=\"{{$index}}\" style=\"background-image: url({{slide.thumb}})\">
+	            </li>\n 
+	            </ol>\n 
+	            </div>\n\n 
+	            <div id=\"links\" class=\"links blueimp-gallery-inner\">\n  
+	            <a ng-repeat=\"slide in slides\" href=\"{{slide.href}}\" title=\"{{slide.title}}\" data-index=\"{{$index}}\">\n    
+	            <img ng-src=\"{{slide.thumb}}\" alt=\"{{slide.title}}\">\n 
+	            </a>\n
+	            </div>\n`,
+	            scope: {
+	                options: '=',
+	                list: '='
+	            },
+	            link: link
+	        };
+	        return directive;
+
+
+	        function link(scope, element, attr) {
+	            scope.slides = scope.list;
+
+	            // Dynamically update list value.
+	            scope.$watch('list', function(newVal, oldVal){
+	                scope.slides = newVal;
+	            });
+
+	            angular.element("#links").on('click', function(event){
+	                event = event || $window.event;
+	                var target = event.target || event.srcElement,
+	                    link = target.src ? target.parentNode : target,
+	                    options = {index: link, event: event},
+	                    links = this.getElementsByTagName('a');
+
+	                angular.extend(options, scope.options);
+
+	                if(blueimp){
+	                    blueimp.Gallery(links, options);
+	                }else{
+	                    console.log('Make sure you added blueimp-gallery.js file');
+	                }
+
+	            });
+	        }
+	    }
+
+	    angular
+	        .module("ui.blueimp.gallery.templates", [])
+	        .run(uiGalleryTemplate);
+
+
+	    uiGalleryTemplate.$inject = ['$templateCache'];
+
+	    function uiGalleryTemplate($templateCache){
+	        // $templateCache.put("gallery.html","<div id=\"blueimp-gallery\" class=\"blueimp-gallery blueimp-gallery-controls\">\n <div class=\"slides\"></div>\n <h3 class=\"title\"></h3>\n <a class=\"prev\">‹</a>\n <a class=\"next\">›</a>\n <a class=\"close\">×</a>\n <a class=\"play-pause\"></a>\n <ol class=\"indicator\">\n <li ng-repeat=\"slide in slides\" title=\"{{slide.title}}\" data-index=\"{{$index}}\" style=\"background-image: url({{slide.thumb}})\"></li>\n </ol>\n </div>\n\n <div id=\"links\" class=\"links blueimp-gallery-inner\">\n  <a ng-repeat=\"slide in slides\" href=\"{{slide.href}}\" title=\"{{slide.title}}\" data-index=\"{{$index}}\">\n    <img ng-src=\"{{slide.thumb}}\" alt=\"{{slide.title}}\">\n  </a>\n</div>\n");
+	    }
+
+	})();
+
 
 /***/ }
 /******/ ]);
