@@ -20,9 +20,9 @@ module App.Config {
 
                 'pascalprecht.translate',
                 'toaster',
-                'permission',
-                'permission.ui',
-                // 'notifications',
+                // 'permission',
+                // 'permission.ui',
+                'notifications',
 
 
                 // 'ngFileUpload',
