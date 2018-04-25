@@ -15,12 +15,14 @@ module App.Config {
                 'angularPromiseButtons',
                 'cgNotify',
                 'ngSessionStorage',
+
                 'base64',
+
                 'pascalprecht.translate',
                 'toaster',
                 'permission',
                 'permission.ui',
-                'notifications',
+                // 'notifications',
 
 
                 // 'ngFileUpload',
