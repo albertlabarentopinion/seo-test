@@ -17,7 +17,10 @@ gulp.task('js', function(){
         'node_modules/summernote/dist/summernote.min.js', 
         "node_modules/restangular/dist/restangular.min.js",
         "node_modules/angular-promise-buttons/dist/angular-promise-buttons.min.js",
-        "node_modules/angular-base64/angular-base64.min.js"
+
+        "node_modules/angular-base64/angular-base64.min.js",
+        "node_modules/angular-permission/dist/angular-permission.min.js",
+        "node_modules/angular-permission/dist/angular-permission-ui.min.js"
     //     "node_modules/angular-base64/angular-base64.min.js",
     //     "node_modules/angular-translate/dist/angular-translate.min.js",
     //     "node_modules/angular-translate/dist/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js",
