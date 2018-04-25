@@ -40,7 +40,8 @@ var App;
                 dependencies: [
                     'ui.router',
                     'ui.bootstrap',
-                    'restangular'
+                    'restangular',
+                    'angularPromiseButtons',
                 ]
             },
             templates: {

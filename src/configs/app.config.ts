@@ -11,8 +11,8 @@ module App.Config {
                 'ui.router',
                 // 'oc.lazyLoad',   
                 'ui.bootstrap',
-                'restangular'
-                // 'angularPromiseButtons',
+                'restangular',
+                'angularPromiseButtons',
                 // 'cgNotify',
                 // 'ngSessionStorage',
                 // 'base64',
