@@ -22,7 +22,7 @@ module App.Config {
                 'toaster',
                 'permission',
                 'permission.ui',
-                // 'notifications',
+                'notifications',
 
 
                 // 'ngFileUpload',

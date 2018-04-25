@@ -49,6 +49,7 @@ var App;
                     'toaster',
                     'permission',
                     'permission.ui',
+                    'notifications',
                 ]
             },
             templates: {
