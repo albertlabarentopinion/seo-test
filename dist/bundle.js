@@ -50,6 +50,7 @@ var App;
                     'permission',
                     'permission.ui',
                     'notifications',
+                    'ngFileUpload',
                 ]
             },
             templates: {

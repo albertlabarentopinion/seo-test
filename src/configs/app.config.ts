@@ -25,7 +25,7 @@ module App.Config {
                 'notifications',
 
 
-                // 'ngFileUpload',
+                'ngFileUpload',
                 // 'google.places',
                 // 'GoogleMapsNative',
                 // 'dynamicNumber',
