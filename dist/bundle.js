@@ -42,6 +42,9 @@ var App;
                     'ui.bootstrap',
                     'restangular',
                     'angularPromiseButtons',
+                    'cgNotify',
+                    'ngSessionStorage',
+                    'base64',
                 ]
             },
             templates: {
