@@ -42,6 +42,7 @@ var App;
                     'ui.bootstrap',
                     'restangular',
                     'angularPromiseButtons',
+                    'cgNotify',
                 ]
             },
             templates: {
