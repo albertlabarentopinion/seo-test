@@ -578,6 +578,7 @@ var App;
                     this.footerItems = [];
                     this.mainSeoPlaces = [];
                     this.init = function () {
+                        _this.getPages();
                     };
                     this.changeLanguage = function (locale) {
                         _this.$translate.use(locale);
