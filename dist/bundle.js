@@ -218,27 +218,46 @@ var App;
             ];
             return cons;
         })();
-        function Config($urlRouterProvider, $stateProvider, AppConstants, $locationProvider) {
+        function Config($urlRouterProvider, $stateProvider, AppConstants, angularPromiseButtonsProvider, RestangularProvider, $translateProvider, $locationProvider, $provide, $httpProvider) {
             var templatePath = AppConstants.modulesTemplateUrl + '_main/templates/';
-            $stateProvider.state('main.home', {
-                url: "/",
-                views: {
-                    templateUrl: templatePath + "content.html",
-                    controller: 'MainController',
-                    controllerAs: 'mainCtrl'
-                }
+            $httpProvider.interceptors.push('preventTemplateCache');
+            $urlRouterProvider.otherwise(function ($injector) {
+                var $state = $injector.get("$state");
+                $state.go(App.Config.Acl.redirects.guest);
+            });
+            $stateProvider.state('main', {
+                abstract: true,
+                templateUrl: templatePath + "content.html",
+                controller: 'MainController',
+                controllerAs: 'mainCtrl'
+            });
+            angularPromiseButtonsProvider.extendConfig({
+                spinnerTpl: '<i class="fa pull-left fa-spinner fa-spin fa-1x fa-fw"></i>',
+                disableBtn: true,
+                btnLoadingClass: 'is-loading',
+                addClassToCurrentBtnOnly: false,
+                disableCurrentBtnOnly: false
+            });
+            $translateProvider.useStaticFilesLoader({
+                prefix: "" + AppConstants.languagePath,
+                suffix: '.json'
             });
             $locationProvider.html5Mode(true);
             $locationProvider.hashPrefix('!');
-            $locationProvider.html5Mode(true);
         }
         Config.$inject = [
             '$urlRouterProvider',
             '$stateProvider',
             'AppConstants',
+            'angularPromiseButtonsProvider',
+            'RestangularProvider',
+            '$translateProvider',
             '$locationProvider',
+            '$provide',
+            '$httpProvider'
         ];
-        function Init($state, $rootScope) {
+        function Init(Restangular, $q, $http, AppConstants, $state, $rootScope, AuthService, $translate, $templateCache, AclAuth, Notifications, $location, $filter, $timeout) {
+            Restangular.setBaseUrl(AppConstants.apiUrl);
             var templatePath = AppConstants.modulesTemplateUrl + '_main/templates/';
             $rootScope.mainTemplateUrl = templatePath;
             $rootScope.modulesTemplateUrl = AppConstants.modulesTemplateUrl;
@@ -253,17 +272,87 @@ var App;
             };
             var begin = moment().isoWeekday(1);
             begin.startOf('week');
-            $rootScope['pageTitle'] = 'MyPage' + ' | Latell.no';
-            $rootScope['metaDescription'] = 'Description Meta';
+            AclAuth.setRoles();
+            if (AuthService.isAuthenticated()) {
+                AuthService.setUser();
+            }
+            Restangular.setErrorInterceptor(function (response) {
+                if (response.hasOwnProperty("data"))
+                    if (response.data.message == 'TOKEN_EXPIRED')
+                        Notifications.notify('ERROR.TOKEN_EXPIRED');
+            });
+            Restangular.addFullRequestInterceptor(function (element, operation, what, url, headers, params, httpConfig) {
+                if (AuthService.isAuthenticated())
+                    headers['Authorization'] = 'Bearer ' + AuthService.getToken();
+                if (AuthService.isAdmin())
+                    headers['AutorizationUserID'] = $rootScope['user'].id;
+                return {
+                    headers: headers,
+                    params: params,
+                    element: element,
+                    httpConfig: httpConfig
+                };
+            });
+            Restangular.addResponseInterceptor(function (data, operation, what, url, response, deferred) {
+                if (data.hasOwnProperty("data"))
+                    return Restangular.stripRestangular(data.data);
+                return data;
+            });
+            $translate.use(AppConstants.defaultLocale);
             var views = ['main', 'account'];
             $rootScope.$on('$stateChangeStart', function (event, toState, current) {
+                $timeout(function () {
+                    $rootScope['pageTitle'] = $filter('translate')(toState.data.pageTitle) + ' | Latell.no';
+                }, 500);
+            });
+            $rootScope.$on('$stateChangeSuccess', function (event, toState) {
+                window['dataLayer'].push({
+                    event: 'pageView',
+                    action: $location.url()
+                });
+                window['ga']('set', 'page', $location.url());
+                window['ga']('send', 'pageview', { page: $location.url() });
             });
         }
-        Init.$inject = ['$state', '$rootScope'];
+        Init.$inject = ['Restangular', '$q', '$http', 'AppConstants', '$state', '$rootScope', 'AuthService', '$translate', '$templateCache', 'AclAuth', 'Notifications', '$location', '$filter', '$timeout'];
         angularModule
             .config(Config)
             .run(Init)
             .constant('AppConstants', AppConstants);
+        angularModule.filter('utc', [function () {
+                return function (date) {
+                    if (angular.isNumber(date)) {
+                        date = new Date(date);
+                    }
+                    return new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(), date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds());
+                };
+            }]);
+        angularModule.factory('preventTemplateCache', function () {
+            return {
+                'request': function (config) {
+                    if (config.url.indexOf('modules') !== -1) {
+                        config.url = config.url + '?t=' + (new Date).getTime();
+                    }
+                    return config;
+                }
+            };
+        }).directive('googleplace', function () {
+            return {
+                require: 'ngModel',
+                link: function (scope, element, attrs, model) {
+                    var options = {
+                        types: [],
+                        componentRestrictions: { country: 'no' }
+                    };
+                    scope.gPlace = new google.maps.places.Autocomplete(element[0], options);
+                    google.maps.event.addListener(scope.gPlace, 'place_changed', function () {
+                        scope.$apply(function () {
+                            model.$setViewValue(scope.gPlace.getPlace());
+                        });
+                    });
+                }
+            };
+        });
     })(Main = App.Main || (App.Main = {}));
 })(App || (App = {}));
 namespace('NOTIFY').REGISTERED = 'NOTIFY.REGISTERED';

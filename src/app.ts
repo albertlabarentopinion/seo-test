@@ -5,7 +5,7 @@ let angularModule = angular.module(App.Config.Ng.module.name, App.Config.Ng.modu
 
 declare let jstz : any;
 declare let unescape : any;
-// declare let escape : any;
+declare let escape : any;
 declare let namespace : any;
 declare let toaster : any;
 declare let swal : any;
@@ -136,14 +136,14 @@ module App.Main {
     function Config(
         $urlRouterProvider : ng.ui.IUrlRouterProvider , 
         $stateProvider : ng.ui.IStateProvider, 
-        AppConstants : App.Main.MainConstants,
+        AppConstants : App.Main.MainConstants, 
         // $ocLazyLoadProvider : any,
-        // angularPromiseButtonsProvider : any,
-        // RestangularProvider : restangular.IProvider,
-        // $translateProvider : any,
+        angularPromiseButtonsProvider : any,
+        RestangularProvider : restangular.IProvider,
+        $translateProvider : any,
         $locationProvider : any,
-        // $provide : any,
-        // $httpProvider : any
+        $provide : any,
+        $httpProvider : any
         ){
 
         let templatePath = AppConstants.modulesTemplateUrl+'_main/templates/';
@@ -153,7 +153,7 @@ module App.Main {
             // debug: false
         // });
 
-        // $httpProvider.interceptors.push('preventTemplateCache');
+        $httpProvider.interceptors.push('preventTemplateCache');
 
         // RestangularProvider.addResponseInterceptor(function(data, operation, what, url, response, deferred) {
         //      if (data.hasOwnProperty("data"))
@@ -164,68 +164,70 @@ module App.Main {
         //     $delegate.history = false;
         //     return $delegate;
         //   });
-        // $urlRouterProvider.otherwise( function( $injector : any) {
-        //     var $state = $injector.get("$state");
-        //     // $state.go( App.Config.Acl.redirects.guest );
-        // });
-
-
-        $stateProvider.state('main.home', {
-            url: `/`,
-            views : {
-                templateUrl: `${templatePath}content.html`,
-                controller : 'MainController',
-                controllerAs : 'mainCtrl'
-            }
+        $urlRouterProvider.otherwise( function( $injector : any) {
+            var $state = $injector.get("$state");
+            $state.go( App.Config.Acl.redirects.guest );
         });
 
-        // angularPromiseButtonsProvider.extendConfig({
-        //     spinnerTpl: '<i class="fa pull-left fa-spinner fa-spin fa-1x fa-fw"></i>',
-        //     disableBtn: true,
-        //     btnLoadingClass: 'is-loading',
-        //     addClassToCurrentBtnOnly: false,
-        //     disableCurrentBtnOnly: false
-        // });
 
-        // $translateProvider.useStaticFilesLoader({
-        //     prefix: `${AppConstants.languagePath}`,
-        //     suffix: '.json'
-        // });
+        $stateProvider.state('main', {
+            abstract: true,
+            // url: `/${AppConstants.appAlias}`,
+            templateUrl: `${templatePath}content.html`,
+            controller : 'MainController',
+            controllerAs : 'mainCtrl'
+        });
+
+        angularPromiseButtonsProvider.extendConfig({
+            spinnerTpl: '<i class="fa pull-left fa-spinner fa-spin fa-1x fa-fw"></i>',
+            disableBtn: true,
+            btnLoadingClass: 'is-loading',
+            addClassToCurrentBtnOnly: false,
+            disableCurrentBtnOnly: false
+        });
+
+        $translateProvider.useStaticFilesLoader({
+            prefix: `${AppConstants.languagePath}`,
+            suffix: '.json'
+        });
         $locationProvider.html5Mode(true);
         $locationProvider.hashPrefix('!');
-        $locationProvider.html5Mode(true);
+        // $locationProvider.html5Mode(true);
     }
 
 
     Config.$inject = [
         '$urlRouterProvider', 
         '$stateProvider', 
-        'AppConstants',
+        'AppConstants', 
         // '$ocLazyLoadProvider', 
-        // 'angularPromiseButtonsProvider', 
-        // 'RestangularProvider', 
-        // '$translateProvider',
+        'angularPromiseButtonsProvider', 
+        'RestangularProvider', 
+        '$translateProvider',
         '$locationProvider',
-        // '$provide',
-        // '$httpProvider'
+        '$provide',
+        '$httpProvider'
     ];
 
     function Init(
-        // Restangular:restangular.IService, 
-        // $q : any, 
-        // $http : any, 
-        // AppConstants : App.Main.MainConstants,
+        Restangular:restangular.IService, 
+        $q : any, 
+        $http : any, 
+        AppConstants : App.Main.MainConstants,
         $state : any,
         $rootScope : any,
-        // $translate : any,
-        // $templateCache : ng.ITemplateCacheService,
-        // Notifications : App.Base.EventDispatcher,
-        // $location : any,
-        // $filter : any,
-        // $timeout : any
+        AuthService : App.Services.AuthService,
+        $translate : any,
+        $templateCache : ng.ITemplateCacheService,
+        AclAuth : App.Services.AclAuth,
+        Notifications : App.Base.EventDispatcher,
+        $location : any,
+        $filter : any,
+        $timeout : any
         ) 
         {
-        // Restangular.setBaseUrl(AppConstants.apiUrl);
+            
+        Restangular.setBaseUrl(AppConstants.apiUrl);
 
         let templatePath = AppConstants.modulesTemplateUrl+'_main/templates/';
         
@@ -244,44 +246,53 @@ module App.Main {
         let begin = moment().isoWeekday(1);
         begin.startOf('week');
         // set roles and permissions
+        AclAuth.setRoles();
 
         // set user if authenticated
-       
+        if( AuthService.isAuthenticated() ){
+            AuthService.setUser();
+            // if user has no profile
+            
+        } 
 
-        // Restangular.setErrorInterceptor((response) => {
-    //         if (response.hasOwnProperty("data"))
-    //              if(response.data.message == 'TOKEN_EXPIRED')
-    //                 Notifications.notify('ERROR.TOKEN_EXPIRED');
-    //     });
+        Restangular.setErrorInterceptor((response) => {
+            if (response.hasOwnProperty("data"))
+                 if(response.data.message == 'TOKEN_EXPIRED')
+                    Notifications.notify('ERROR.TOKEN_EXPIRED');
+        });
         
-    //     Restangular.addFullRequestInterceptor((element : any, operation : string, what : string, url : string, headers : any, params : any, httpConfig : ng.IRequestShortcutConfig) => {
-    //         return {
-    //             headers : headers,
-    //             params : params,
-    //             element : element,
-    //             httpConfig : httpConfig
-    //         }
+        Restangular.addFullRequestInterceptor((element : any, operation : string, what : string, url : string, headers : any, params : any, httpConfig : ng.IRequestShortcutConfig) => {
+            // Bearer token for authenticated user for every request
+            if( AuthService.isAuthenticated() )
+                headers['Authorization'] = 'Bearer '+AuthService.getToken();
+            if( AuthService.isAdmin() )
+                headers['AutorizationUserID'] = $rootScope['user'].id;
 
-    //     });
+            return {
+                headers : headers,
+                params : params,
+                element : element,
+                httpConfig : httpConfig
+            }
 
-    //     Restangular.addResponseInterceptor(function(data, operation, what, url, response, deferred) {
-    //         if (data.hasOwnProperty("data"))
-    //            return Restangular.stripRestangular(data.data);
-    //        return data;
-    //    });
+        });
+
+        Restangular.addResponseInterceptor(function(data, operation, what, url, response, deferred) {
+            if (data.hasOwnProperty("data"))
+               return Restangular.stripRestangular(data.data);
+           return data;
+       });
         // $rootScope.$on('$viewContentLoaded', function() {
         //     $templateCache.removeAll();
         // });
 
-        // $translate.use(AppConstants.defaultLocale);
-        $rootScope['pageTitle'] = 'MyPage' + ' | Latell.no';
-        $rootScope['metaDescription'] = 'Description Meta';
-        
+        $translate.use(AppConstants.defaultLocale);
+
         let views = [ 'main', 'account' ];
         $rootScope.$on('$stateChangeStart', function (event : any, toState : any, current : any) {
-            // $timeout(() => {
-            //     $rootScope['pageTitle'] = $filter('translate')(toState.data.pageTitle) + ' | Latell.no';
-            // }, 500)
+            $timeout(() => {
+                $rootScope['pageTitle'] = $filter('translate')(toState.data.pageTitle) + ' | Latell.no';
+            }, 500)
             // if (typeof (current) !== 'undefined') {
             //     _.each( views, ( view : string ) => {
             //         if( _.has( toState.views, view ) ){
@@ -291,24 +302,62 @@ module App.Main {
             // }
         });
 
-        // $rootScope.$on('$stateChangeSuccess', function (event : any, toState : any) {
-        //     window['dataLayer'].push({
-        //         event: 'pageView',
-        //         action: $location.url(),
-        //     });
-
-        //     window['ga']('set', 'page', $location.url());
-        //     window['ga']('send', 'pageview', { page : $location.url() });
-        // });
+        $rootScope.$on('$stateChangeSuccess', function (event : any, toState : any) {
+            window['dataLayer'].push({
+                event: 'pageView',
+                action: $location.url(),
+            });
+            window['ga']('set', 'page', $location.url());
+            window['ga']('send', 'pageview', { page : $location.url() });
+        });
 
     }
 
-     Init.$inject = [ '$state', '$rootScope' ];
+     Init.$inject = ['Restangular', '$q', '$http', 'AppConstants', '$state', '$rootScope', 'AuthService', '$translate', '$templateCache', 'AclAuth', 'Notifications', '$location', '$filter', '$timeout' ];
 
     
     angularModule
         .config(Config)
         .run(Init)
         .constant('AppConstants', AppConstants);
-}
 
+    // filters temp 
+     angularModule.filter('utc', [function() {
+        return function(date : any) {
+        if(angular.isNumber(date)) {
+            date = new Date(date);
+        }
+        return new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(),  date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds());
+        }   
+    } ]);
+
+
+    angularModule.factory('preventTemplateCache', function() {
+        return {
+            'request': function(config) {
+
+                if (config.url.indexOf('modules') !== -1) {
+                    config.url = config.url + '?t=' + (new Date).getTime();
+                }
+                return config;
+            }
+        }
+    }).directive('googleplace', function() {
+        return {
+            require: 'ngModel',
+            link: function(scope, element, attrs, model : any) {
+                var options = {
+                    types: [],
+                    componentRestrictions: { country : 'no' }
+                };
+                scope.gPlace = new google.maps.places.Autocomplete(element[0], options);
+    
+                google.maps.event.addListener(scope.gPlace, 'place_changed', function() {
+                    scope.$apply(function() {
+                        model.$setViewValue(scope.gPlace.getPlace());   
+                    });
+                });
+            }
+        };
+    });
+}
