@@ -75,7 +75,7 @@ module App.Config {
                 'bod4rent.user_profile',
                 'bod4rent.contact_us',
                 'bod4rent.special_account',
-                'bod4rent.special_listing' // testing out git push hook
+                'bod4rent.special_listing' // testing out git push hook, test2
             ]
         },
         templates : {
