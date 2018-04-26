@@ -54,7 +54,7 @@ var App;
                     'google.places',
                     'GoogleMapsNative',
                     'dynamicNumber',
-                    'ui.blueimp.gallery',
+                    'thatisuday.dropzone',
                     'angularSpinner',
                     'ui-rangeSlider',
                 ]

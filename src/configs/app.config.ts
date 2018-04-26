@@ -29,8 +29,8 @@ module App.Config {
                 'google.places',
                 'GoogleMapsNative',
                 'dynamicNumber',
-                // 'thatisuday.dropzone',
-                'ui.blueimp.gallery',
+                'thatisuday.dropzone',
+                // 'ui.blueimp.gallery',
                 // 'seo',
                 // 'datePicker',
 
