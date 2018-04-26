@@ -10,19 +10,21 @@ module App.Modules.Main {
         static $inject = [ 
             '$scope', 
             '$rootScope', 
-            // '$state', 
-            // 'AppConstants', 
-            // '$translate', 
-            // 'TranslationService', 
-            // 'Notifications', 
-            // 'toaster', 
-            // 'AuthService', 
-            // 'MainService', 
-            // '$uibModal', 
-            // 'LoginService',
-            // 'Cms',
-            // '$stateParams',
-            // '$filter'
+            '$state', 
+            'AppConstants', 
+            '$translate', 
+            'TranslationService', 
+            'Notifications', 
+            'toaster', 
+            'AuthService', 
+            'MainService', 
+            '$uibModal', 
+            'LoginService',
+            'Cms',
+            '$stateParams',
+            '$filter',
+            '$location',
+            '$timeout'
         ];
 
         user : UserResponse = {};
@@ -51,33 +53,32 @@ module App.Modules.Main {
         constructor(
             $scope : ng.IScope,
             $rootScope : ng.IRootScopeService,
-            // private $state : any,
-            // private AppConstants : App.Main.MainConstants,
-            // private $translate : any,
-            // private TranslationService : App.Services.TranslationService,
-            // private Notifications : App.Base.EventDispatcher,
-            // private toaster : any,
-            // private AuthService : App.Services.AuthService,
-            // private MainService : MainService,
-            // private $uibModal : any,
-            // private LoginService : App.Modules.Login.Service,
-            // private Cms : App.Repositories.Cms.CmsRepository,
-            // private $stateParams : any,
-            // private $filter : any
+            private $state : any,
+            private AppConstants : App.Main.MainConstants,
+            private $translate : any,
+            private TranslationService : App.Services.TranslationService,
+            private Notifications : App.Base.EventDispatcher,
+            private toaster : any,
+            private AuthService : App.Services.AuthService,
+            private MainService : MainService,
+            private $uibModal : any,
+            private LoginService : App.Modules.Login.Service,
+            private Cms : App.Repositories.Cms.CmsRepository,
+            private $stateParams : any,
+            private $filter : any,
+            private $location,
+            private $timeout
         ){
             super( $scope, $rootScope );    
-            console.log('Main Controller');
-            $rootScope['pageTitle'] = 'MyPage' + ' | Latell.no';
-            $rootScope['metaDescription'] = 'Description Meta';
-            // this.mainSeoPlaces = _.chunk(this.AppConstants.mainSeoPlaces, 10);
-            // this.init();
-            // this.defineListeners();
-            // this.defineScope();
+            this.mainSeoPlaces = _.chunk(this.AppConstants.mainSeoPlaces, 10);
+            this.init();
+            this.defineListeners();
+            this.defineScope();
         }
 
         init = () => {
-            // this.TranslationService.setSavedLocale();
-            // this.getNotifications();
+            this.TranslationService.setSavedLocale();
+            this.getNotifications();
             this.getPages();
         }
 
@@ -94,6 +95,7 @@ module App.Modules.Main {
         navigateToCmsPage = ( name : string ) => {
             this.$state.go('main.cms_page', { name : name });
             this.cmsPage = name;
+            console.log(this.$state);
         }
 
         defineListeners = () => {
@@ -214,6 +216,13 @@ module App.Modules.Main {
             this.Notifications.removeEventListener( NOTIFICATIONS.REQUEST_NOTIFICATION_UNSEEN, this.refreshNotifications.bind( this ) );
             this.Notifications.removeEventListener( ERROR.TOKEN_EXPIRED, this.tokenExpiredNotification.bind( this ) );
             this.Notifications.removeEventListener( NOTIFY.UPLOAD_PROFILE, this.uploadProfileImage.bind( this ) );
+        }
+
+        gotoFeatures = () => {
+            this.$state.go('main.home');
+            // this.$timeout(() => {
+            //     this.$location.hash('features');
+            // }, 500);
         }
     }
 

@@ -652,9 +652,24 @@ var App;
             var BaseController = App.Base.BaseController;
             var MainController = (function (_super) {
                 __extends(MainController, _super);
-                function MainController($scope, $rootScope) {
+                function MainController($scope, $rootScope, $state, AppConstants, $translate, TranslationService, Notifications, toaster, AuthService, MainService, $uibModal, LoginService, Cms, $stateParams, $filter, $location, $timeout) {
                     var _this = this;
                     _super.call(this, $scope, $rootScope);
+                    this.$state = $state;
+                    this.AppConstants = AppConstants;
+                    this.$translate = $translate;
+                    this.TranslationService = TranslationService;
+                    this.Notifications = Notifications;
+                    this.toaster = toaster;
+                    this.AuthService = AuthService;
+                    this.MainService = MainService;
+                    this.$uibModal = $uibModal;
+                    this.LoginService = LoginService;
+                    this.Cms = Cms;
+                    this.$stateParams = $stateParams;
+                    this.$filter = $filter;
+                    this.$location = $location;
+                    this.$timeout = $timeout;
                     this.user = {};
                     this.notifications = [];
                     this.notification_messages = {
@@ -667,6 +682,8 @@ var App;
                     this.footerItems = [];
                     this.mainSeoPlaces = [];
                     this.init = function () {
+                        _this.TranslationService.setSavedLocale();
+                        _this.getNotifications();
                         _this.getPages();
                     };
                     this.changeLanguage = function (locale) {
@@ -679,6 +696,7 @@ var App;
                     this.navigateToCmsPage = function (name) {
                         _this.$state.go('main.cms_page', { name: name });
                         _this.cmsPage = name;
+                        console.log(_this.$state);
                     };
                     this.defineListeners = function () {
                         _this.$scope.$on('$destroy', _this.destroy.bind(_this));
@@ -783,13 +801,32 @@ var App;
                         _this.Notifications.removeEventListener(ERROR.TOKEN_EXPIRED, _this.tokenExpiredNotification.bind(_this));
                         _this.Notifications.removeEventListener(NOTIFY.UPLOAD_PROFILE, _this.uploadProfileImage.bind(_this));
                     };
-                    console.log('Main Controller');
-                    $rootScope['pageTitle'] = 'MyPage' + ' | Latell.no';
-                    $rootScope['metaDescription'] = 'Description Meta';
+                    this.gotoFeatures = function () {
+                        _this.$state.go('main.home');
+                    };
+                    this.mainSeoPlaces = _.chunk(this.AppConstants.mainSeoPlaces, 10);
+                    this.init();
+                    this.defineListeners();
+                    this.defineScope();
                 }
                 MainController.$inject = [
                     '$scope',
                     '$rootScope',
+                    '$state',
+                    'AppConstants',
+                    '$translate',
+                    'TranslationService',
+                    'Notifications',
+                    'toaster',
+                    'AuthService',
+                    'MainService',
+                    '$uibModal',
+                    'LoginService',
+                    'Cms',
+                    '$stateParams',
+                    '$filter',
+                    '$location',
+                    '$timeout'
                 ];
                 return MainController;
             }(BaseController));
