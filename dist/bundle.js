@@ -59,6 +59,14 @@ var App;
                     'datePicker',
                     'angularSpinner',
                     'ui-rangeSlider',
+                    'datatables',
+                    'datatables.columnfilter',
+                    'yaru22.angular-timeago',
+                    'ng-file-model',
+                    'angular-input-stars',
+                    'ngLocale',
+                    'summernote',
+                    'ngSanitize',
                 ]
             },
             templates: {
