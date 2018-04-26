@@ -11,22 +11,22 @@ var App;
             appName: 'bod4rent',
             appAlias: 'Latell',
             environment: 'development',
-            protocol: 'http://',
-            baseUrl: 'bod4rent-api.test',
-            baseClientUrl: 'bod4rent.test',
+            protocol: 'https://',
+            baseUrl: 'api-staging.latell.no',
+            baseClientUrl: 'staging.latell.no',
             api: {
                 development: {
-                    url: 'bod4rent-api.test/api',
+                    url: 'api-staging.latell.no/api',
                     version: 'v1'
                 },
                 production: {
-                    url: 'bod4rent-api.test',
+                    url: 'bod4Rent-api.dev',
                     version: 'v1'
                 }
             },
             basePath: './src/',
             modulesTemplateUrl: './src/modules/',
-            languagePath: './languages/'
+            languagePath: '/Staging/ClientBod4Rent/languages/'
         };
     })(Config = App.Config || (App.Config = {}));
 })(App || (App = {}));
