@@ -55,6 +55,8 @@ var App;
                     'GoogleMapsNative',
                     'dynamicNumber',
                     'thatisuday.dropzone',
+                    'seo',
+                    'datePicker',
                     'angularSpinner',
                     'ui-rangeSlider',
                 ]

@@ -31,8 +31,8 @@ module App.Config {
                 'dynamicNumber',
                 'thatisuday.dropzone',
                 // 'ui.blueimp.gallery',
-                // 'seo',
-                // 'datePicker',
+                'seo',
+                'datePicker',
 
 
                 'angularSpinner',
